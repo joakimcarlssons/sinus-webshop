@@ -7,7 +7,10 @@
 
       <input type="password" placeholder="password">
 
-      <button>Login</button>
+      <div class="bottom">
+        <router-link :to="'/'"><p>Don't have an account?</p></router-link>
+        <button>Login</button>
+      </div>
   </div>
 </div>
 </template>
@@ -31,7 +34,7 @@ export default {
     .content {
         background-color: var(--White);
         margin-top: .8rem;
-        padding: 2.65rem;
+        padding: 2.9rem;
 
         display: flex;
         flex-direction: column;
@@ -41,13 +44,26 @@ export default {
             padding: 1rem;
         }
 
-        button {
-            align-self: flex-end;
-            margin: .5rem;
-            padding-left: 3rem;
-            padding-right: 3rem;
-            border-radius: 2.5rem;
+        .bottom {
+            margin-top: .5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            button {
+                align-self: flex-end;
+                margin: .5rem;
+                padding-left: 3rem;
+                padding-right: 3rem;
+                border-radius: 2.5rem;
+            }
+
+            p {
+                font-weight: 700;
+                text-decoration: underline;
+            }
         }
+
     }
 }
 

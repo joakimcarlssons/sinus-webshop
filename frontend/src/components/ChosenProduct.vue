@@ -15,6 +15,19 @@
             </div>
 
             <div class="right">
+                <div class="info">
+                    <h1>{{product.title}}</h1>
+                    <h3>{{product.shortDesc}}</h3>
+
+                    <p>{{product.longDesc}}</p>
+
+                    <h2>{{product.price}} sek</h2>
+                </div>
+
+                <button class="purchase" @click="$store.commit('addCartItem', product)">
+                    <img src="@/assets/icon-bag-white.svg" alt="" class="btnImage" />
+                    <p>Take my money!</p>
+                </button>
 
             </div>
 
@@ -65,6 +78,21 @@ export default {
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
+        }
+
+        .right {
+            margin: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            p {
+                margin: 2rem 0;
+            }
+
+            button {
+                align-self: center;
+            }
         }
 
     }

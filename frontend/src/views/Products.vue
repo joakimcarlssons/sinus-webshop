@@ -4,6 +4,7 @@
     <li
     v-for="(product, index) in $store.state.products.allProducts"
     :key="index"
+    class="product"
     >
     <Product 
     :product="product"
@@ -36,8 +37,12 @@ export default {
 
     li {
       margin: 1rem;
+
+      &.product:hover {
+        opacity: .8;
+        cursor: pointer;
+      }
     }
   }
 }
-
 </style>

@@ -5,21 +5,38 @@
     <header>
       <img src="@/assets/sinus-logo.svg" alt="sinus-logo" class="logo">
 
-      <Nav @showProfile="openLoginDialog" />
+      <Nav @showProfile="openLoginDialog" @showCart="openCartDialog" />
     </header>
 
     <!-- Login overlay -->
-    <div class="logIn" v-if="showLogin">
-      <LogIn />
-    </div>
+    <transition
+    enter-active-class="animated fadeIn"
+    leave-active-class="animated fadeOut">
+      <div class="logIn" v-if="showLogin">
+        <LogIn />
+      </div>
+    </transition>
+
+    <!-- Cart overlay -->
+    <transition
+    enter-active-class="animated fadeIn"
+    leave-active-class="animated fadeOut">
+      <div class="cart" v-if="showCart">
+        <Cart />
+      </div>
+    </transition>
 
     <!-- Router view -->
     <router-view/>
 
     <!-- Major overlay -->
-    <div class="overlay" v-if="chosenProduct">
-      <ChosenProduct :product="chosenProduct" />
-    </div>
+    <transition
+    enter-active-class="animated zoomIn"
+    leave-active-class="animated zoomOut">
+      <div class="overlay" v-if="chosenProduct">
+        <ChosenProduct :product="chosenProduct" />
+      </div>
+    </transition>
 
   </div>
 </template>
@@ -28,12 +45,14 @@
 import Nav from '@/components/Nav'
 import LogIn from '@/components/LogIn'
 import ChosenProduct from '@/components/ChosenProduct'
+import Cart from '@/components/Cart'
 
 export default { 
-  components : { Nav, LogIn, ChosenProduct },
+  components : { Nav, LogIn, ChosenProduct, Cart },
 
   data(){ return {
     showLogin : false,
+    showCart : false
   }},
 
   computed: {
@@ -45,7 +64,25 @@ export default {
   methods : {
     openLoginDialog(value) {
       this.showLogin = value
+    },
+    openCartDialog(value) {
+      this.showCart = value
     }
+  },
+
+  created() {
+
+    // If no cart is created, create one
+    if(!sessionStorage.getItem('cart')) {
+      this.$store.commit('resetCart')
+    }
+    
+    // And if the page is refreshed, 
+    // we want to load the session storage cart to the state cart
+    else if (this.$store.state.user.cart == null) {
+      this.$store.commit('getCartFromStorage')
+    }
+
   }
 }
 </script>
@@ -75,6 +112,20 @@ export default {
     }
   }
 
+
+  /* Transitions */
+  .zoomIn {
+    animation: zoomIn .7s;
+  }
+
+  .fadeIn {
+    animation: fadeIn .4s;
+  }
+
+  .fadeOut {
+    animation: fadeOut .4s;
+  }
 }
+
 
 </style>

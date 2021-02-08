@@ -18,7 +18,11 @@
             />
           </li>
           <li>
-            <img src="@/assets/icon-bag-white.svg" alt="" class="bag" />
+            <img src="@/assets/icon-bag-white.svg" 
+            alt="" 
+            class="bag"
+            @click="openCartDialog"
+            />
           </li>
       </ul>
   </nav>
@@ -37,13 +41,29 @@ export default {
     },
 
     data() { return {
-        showProfileDialog : false
+        showProfileDialog : false,
+        showCartDialog : false
     }},
 
     methods: {
         openLoginDialog() {
-            this.showProfileDialog = !this.showProfileDialog
+            this.showCartDialog = false
+            this.$emit('showCart', this.showCartDialog)
+
+            setTimeout(() => {
+                this.showProfileDialog = !this.showProfileDialog
+                this.$emit('showProfile', this.showProfileDialog)
+            }, 0)
+        },
+        openCartDialog() {
+
+            this.showProfileDialog = false
             this.$emit('showProfile', this.showProfileDialog)
+
+            setTimeout(() => {
+                this.showCartDialog = !this.showCartDialog
+                this.$emit('showCart', this.showCartDialog)
+            }, 0)
         }
     }
 }
@@ -65,6 +85,7 @@ nav {
                 width: 1.5rem;
                 padding: 1rem;
                 border-radius: 100%;
+                cursor: pointer;
 
                 &.user {
                     background-color: var(--MediumGrey);
