@@ -1,0 +1,37 @@
+/* Imports */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+:root {
+
+    /* Colors*/
+    --Black : #000000;
+    --White : #FFFFFF;
+    --LightGrey : #E5E5E5;
+    --MediumGrey : #C7C7C7;
+    --DarkGrey : #404040;
+    --Grapefruit : #F56969;
+
+
+    /* Fonts */
+    --Main : 'Open Sans', sans-serif;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    font-family: var(--Main);
+    font-size: 10px;
+    background-color: var(--LightGrey);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}

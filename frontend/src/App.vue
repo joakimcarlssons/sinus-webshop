@@ -1,32 +1,80 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+
+    <!-- Header -->
+    <header>
+      <img src="@/assets/sinus-logo.svg" alt="sinus-logo" class="logo">
+
+      <Nav @showProfile="openLoginDialog" />
+    </header>
+
+    <!-- Login overlay -->
+    <div class="logIn" v-if="showLogin">
+      <LogIn />
     </div>
+
+    <!-- Router view -->
     <router-view/>
+
+    <!-- Major overlay -->
+    <div class="overlay" v-if="chosenProduct">
+      <ChosenProduct :product="chosenProduct" />
+    </div>
+
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import Nav from '@/components/Nav'
+import LogIn from '@/components/LogIn'
+import ChosenProduct from '@/components/ChosenProduct'
 
-#nav {
-  padding: 30px;
+export default { 
+  components : { Nav, LogIn, ChosenProduct },
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+  data(){ return {
+    showLogin : false,
+  }},
 
-    &.router-link-exact-active {
-      color: #42b983;
+  computed: {
+    chosenProduct() {
+      return this.$store.state.currentProductToBeDisplayed
+    }
+  },
+
+  methods : {
+    openLoginDialog(value) {
+      this.showLogin = value
     }
   }
 }
+</script>
+
+<style lang="scss">
+
+/* Style imports */
+@import url('~@/styles/globals.scss');
+@import url('~@/styles/texts.scss');
+@import url('~@/styles/forms.scss');
+@import url('~@/styles/buttons.scss');
+@import url('~@/styles/overlays.scss');
+
+#app {
+  position: relative;
+
+  margin:  0 2rem;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo {
+      width: 10rem;
+      height: 10rem;
+    }
+  }
+
+}
+
 </style>

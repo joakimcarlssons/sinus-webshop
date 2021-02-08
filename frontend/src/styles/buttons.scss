@@ -1,0 +1,11 @@
+button {
+    background-color: var(--Black);
+    color: var(--White);
+    outline: none;
+    border: none;
+    padding: 1rem;
+}
+
+button:hover {
+    background-color: var(--DarkGrey);
+}
