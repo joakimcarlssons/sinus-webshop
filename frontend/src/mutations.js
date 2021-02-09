@@ -1,1 +1,1 @@
-export const GET_ALL = 'getAllProducts'
+export const GET_ALL = 'getProducts'

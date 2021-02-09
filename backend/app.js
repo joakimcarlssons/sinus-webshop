@@ -3,7 +3,8 @@ const routes = require('./routes');
 const cors = require('cors')
 const Logger = require('./middleware/Logger')
 let app = express();
-app.use(cors())
+
+app.use(cors());
 
 // Middleware
 app.use( Logger )
