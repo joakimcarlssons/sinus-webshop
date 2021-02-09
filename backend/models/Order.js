@@ -26,8 +26,8 @@ module.exports = {
                 timeStamp: Date.now(),
                 status: 'inProcess',
                 orderValue: products.reduce( (acc,product) => acc+product.price*product.amount, 0)
-            })
-            
+            })       
+
             await User.addOrderToUser(order, user)
             
 

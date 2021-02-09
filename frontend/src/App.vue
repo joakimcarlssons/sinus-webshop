@@ -71,7 +71,6 @@ export default {
   },
 
   created() {
-
     // If no cart is created, create one
     if(!sessionStorage.getItem('cart')) {
       this.$store.commit('resetCart')

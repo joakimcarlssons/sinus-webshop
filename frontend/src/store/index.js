@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { GET_ALL } from '@/mutations.js'
 //import axios from 'axios'
-import * as API from '@/api/mock.js'
+import * as API from '@/api/index.js'
 
 Vue.use(Vuex)
 
@@ -22,9 +22,58 @@ const Products = {
 
   actions : {
     async [GET_ALL](context) {
-      const response = await API.getAllProducts()
+      const response = await API.getProducts()
       context.commit(GET_ALL, response)
     }
+  }
+}
+
+// Admin module
+const Admin = {
+  state: () => ({
+
+  }),
+
+  actions: {
+    // Creates a new product and adds it to the database
+    async createProduct(product) {
+      // Make the API request
+      let res = await API.createProduct(product, localStorage.getItem("sinus-token"));
+
+      // On request error
+      if(res.error) return res.error;
+
+      // If request was successful, return the message
+      else return res.message;
+    },
+  
+    // Updates a product in the database
+    async updateProduct(product) {
+      // Make the API request
+      let res = await API.updateProduct(product._id, product, localStorage.getItem("sinus-token"));
+
+      // On request error
+      if(res.error) return res.error;
+
+      // If request was successful, return the message
+      else return res.message;
+    },
+    
+    // Delets a product from the database
+    async deleteProduct(id){
+      // Make the API request
+      let res = await API.deleteProduct(id, localStorage.getItem("sinus-token"));
+
+      // On request error
+      if(res.error) return res.error;
+
+      // If request was successful, return the message
+      else return res.message;
+    },
+
+  },
+  mutations: {
+
   }
 }
 
@@ -73,7 +122,80 @@ const User = {
       // Update backup in session storage
       updateCartInSessionStorage(state.cart)
 
+    },
+
+    //#region API mutations
+
+    // Saves the current user and token in local storage
+    saveCurrentUser(user, token) {
+    
+      // Save JWT in local storage
+      localStorage.setItem("sinus-token", token);
+
+      // Save the current user
+      localStorage.setItem("current-user", user);
+
     }
+
+    //#endregion
+  },
+
+  actions: {
+    //#region API calls
+
+      //#region  Login/Register
+      
+      // Attemps a login
+      async login(context, email, password) {
+        // Try to login with the provided credentials
+        let res = await API.userPost(email, password);
+
+        // If login failed...
+        if(res.error) return res.error; // Return error message
+
+        // Login successful
+        else {     
+          // Save the user and token
+          context.commit('saveCurrentUser', { user: res.user, token: res.token });
+        }
+
+      },
+      // Register a new user
+      async register(context, email, password, password2) {
+        // Try to login with the provided credentials
+        let res = await API.register(email, password, password2);
+        
+        // If login failed...
+        if(res.errors) return res.errors; // Return all error messages
+
+        // Login successful
+        else {
+          // Automatic login the user has been created
+          await this.login(email, password);
+        }
+      },
+      //#endregion
+
+    //#region Orders
+
+    // Create order, this order will be added to the logged in user if a user is logged in
+    async createCurrentOrder(context) {
+      // Create the order
+      let res = await API.addOrder(context.state.cart,
+        // If a user is logged in, get the token
+        localStorage.getItem('sinus-token')
+        );
+
+      // On request error
+      if(!res) return null;
+
+      // If order was succssfuly created, return the message
+      else return res.message;
+    }
+
+    //#endregion
+
+    //#endregion
   },
 
   getters : {
@@ -105,7 +227,8 @@ export default new Vuex.Store({
   },
   modules: {
     products : Products,
-    user : User
+    user : User,
+    admin: Admin
   }
 })
 
