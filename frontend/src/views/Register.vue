@@ -29,18 +29,18 @@
 
         <!-- Name -->
         <label for="name">Name</label>
-        <input type="text" id="name">
+        <input type="text" id="name" v-model="userData.name">
 
         <!-- Email -->
         <label for="email">Email</label>
-        <input type="text" id="email">
+        <input type="text" id="email" v-model="userData.email">
 
         <!-- Password -->
         <label for="password">Password</label>
-        <input type="password" id="password">
+        <input type="password" id="password" v-model="userData.Password">
 
         <!-- Register button -->
-        <button>Register!</button>
+        <button @click="register">Register!</button>
 
       </div>
 
@@ -51,6 +51,31 @@
 
 <script>
 export default {
+
+  // Local variables
+  data(){ return {
+    // User data in text fields
+    userData: {
+      name: "",
+      email: "",
+      password: ""
+    }
+  }},
+
+  // Local methods
+  methods: {
+    // Register the new user
+    register: async function() {
+      // Register
+      let res = await this.$store.dispatch('register', this.userData);
+
+      if(res.error) res.response.forEach(err => {
+        alert(err)
+      });
+      else alert("Account created")
+
+    }
+  }
 
 }
 </script>

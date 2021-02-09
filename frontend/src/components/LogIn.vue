@@ -12,7 +12,7 @@
             <p>Don't have an account?</p>
         </router-link>
 
-        <button @click="$store.dispatch('login', credentials)">
+        <button @click="LogIn">
             Login
         </button>
       </div>
@@ -31,6 +31,18 @@ export default {
             password : ""
         }
     }},
+
+    // Local methods
+    methods: {
+        // Attempt logIn
+        LogIn: async function() {
+            // Try to log in with the provided credentials
+            let res = await this.$store.dispatch('login', this.credentials);
+
+            if(res.error) alert(res.response)
+            else alert("Wellcome back")
+        }
+    }
 }
 </script>
 

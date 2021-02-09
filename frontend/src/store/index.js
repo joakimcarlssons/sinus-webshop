@@ -22,8 +22,13 @@ const Products = {
 
   actions : {
     async [GET_ALL](context) {
-      const response = await API.getProducts()
-      context.commit(GET_ALL, response.data)
+      const res = await API.getProducts()
+
+      // If products could be loaded
+      if(!res.error)
+        // Return all products
+        context.commit(GET_ALL, res.response)
+      // If products could bot be loaded
     }
   }
 }
@@ -36,19 +41,16 @@ const Admin = {
 
   actions: {
     // Creates a new product and adds it to the database
-    async createProduct(product) {
+    async createProduct(context, product) {
       // Make the API request
       let res = await API.createProduct(product, localStorage.getItem("sinus-token"));
 
-      // On request error
-      if(res.error) return res.error;
-
       // If request was successful, return the message
-      else return res.message;
+      if(!res.error) return res.response;
     },
   
     // Updates a product in the database
-    async updateProduct(product) {
+    async updateProduct(context, product) {
       // Make the API request
       let res = await API.updateProduct(product._id, product, localStorage.getItem("sinus-token"));
 
@@ -60,7 +62,7 @@ const Admin = {
     },
     
     // Delets a product from the database
-    async deleteProduct(id){
+    async deleteProduct(context, id){
       // Make the API request
       let res = await API.deleteProduct(id, localStorage.getItem("sinus-token"));
 
@@ -127,14 +129,11 @@ const User = {
     //#region API mutations
 
     // Saves the current user and token in local storage
-    saveCurrentUser(user, token) {
-    
+    saveCurrentUser(state, data) {
       // Save JWT in local storage
-      localStorage.setItem("sinus-token", token);
-
+      localStorage.setItem("sinus-token", JSON.stringify(data.token));
       // Save the current user
-      localStorage.setItem("current-user", user);
-
+      localStorage.setItem("current-user", JSON.stringify(data.user));
     }
 
     //#endregion
@@ -145,34 +144,22 @@ const User = {
 
       //#region  Login/Register
       
-      // Attemps a login
+      // Attempts to login
       async login(context, credentials) {
         // Try to login with the provided credentials
         let res = await API.login(credentials.email, credentials.password);
-
-        // If login failed...
-        if(res.error) return res.error; // Return error message
-
-        // Login successful
-        else {     
-          // Save the user and token
-          context.commit('saveCurrentUser', { user: res.user, token: res.token });
-        }
-
+        // If login was successful
+        if(!res.error) 
+          // Save token and user data
+          context.commit('saveCurrentUser', { user: res.response.user, token: res.response.token});
+        // Return response
+        return res;
       },
       // Register a new user
-      async register(context, email, password, password2) {
+      // This function can return an array of errors
+      async register(context, userData) {
         // Try to login with the provided credentials
-        let res = await API.register(email, password, password2);
-        
-        // If login failed...
-        if(res.errors) return res.errors; // Return all error messages
-
-        // Login successful
-        else {
-          // Automatic login the user has been created
-          await this.login(email, password);
-        }
+        return await API.register(userData.email, userData.password, userData.password)
       },
       //#endregion
 
@@ -187,10 +174,10 @@ const User = {
         );
 
       // On request error
-      if(!res) return null;
+      if(!res) return res.data.error;
 
       // If order was succssfuly created, return the message
-      else return res.message;
+      else return res.data.message;
     }
 
     //#endregion

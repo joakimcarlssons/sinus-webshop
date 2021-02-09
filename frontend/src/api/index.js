@@ -6,46 +6,56 @@ const baseURL = 'http://localhost:5000/api/';
 
 //#region Authentication functions
 
+//#region Parse functions
+function parseSuccess(response) {
+    // Parse message
+    return { error: false, response: response.data }
+}
+function parseCatch(e) {
+    // Parse message
+    return { error: true, response: e.response.data.error }
+}
+//#endregion
+
 // Login a user
 export async function login(userEmail, userPassword) {
-    try{
-        // Return response
-        return await axios({
-            method: 'post',
-            url: `${baseURL}auth`,
-
-            // Request body
-            data : {
-                email : userEmail,
-                password : userPassword,
-
-            }
-        });
-
-    // If the request failed
-    } catch {
-        // return error response
-        return { error: "Bad request"};
-    }
+    // Return response
+    let res = await axios({
+        method: 'post',
+        url: `${baseURL}auth`,
+        // Request body
+        data : {
+            email : userEmail,
+            password : userPassword,
+        }
+        // Catch the error code
+    })
+    // Handle successful request
+    .then(response => parseSuccess(response))
+    // If error occurred
+    .catch(e => parseCatch(e));
+    // return response
+    return res;
 }
 // Register a new user
-export async function register(userEmail, userPassword, userRepeatPassword) {
-    try{
-        // Return response
-        return await axios({
-            method: 'post',
-            url: `${baseURL}register`,
-            // Request body
-            data: {
-                email:          userEmail,
-                password:       userPassword,
-                repeatPassword: userRepeatPassword
-            }
-        });
-    } catch {
-        // Return error response
-        return { errors: ["Bad request"] };
-    }
+export async function register(userEmail, userPassword, userRepeatPassword) {   
+    // Return response
+    let res =  await axios({
+        method: 'post',
+        url: `${baseURL}register`,
+        // Request body
+        data: {
+            email:          userEmail,
+            password:       userPassword,
+            repeatPassword: userRepeatPassword
+        }
+    })
+    // Handle successful request
+    .then(response => response => parseSuccess(response))
+    // If error occurred - needs to be parsed differently
+    .catch(e => { return { error: true, response: e.response.data.errors }});
+    // Return response
+    return res
 }
 
 //#endregion
@@ -54,125 +64,124 @@ export async function register(userEmail, userPassword, userRepeatPassword) {
 
 // Gets all products from the database
 export async function getProducts() {
-    try {
-        // Return all products from the database
-        return await axios.get(`${baseURL}products`);
-    } 
-    catch{
-        // Return error message
-        return {error: "Bad request" }
-    }
+    let res = axios.get(`${baseURL}products`)
+    // Handle successful response
+    .then(response => parseSuccess(response))    
+    .catch(e => parseCatch(e));
+    // Return response
+    return res
 }
 // Gets a single product from the database
 export async function getProductById(id) {
-    try {
-        // Return all products from the database
-        return await axios.get(`${baseURL}products/${id}`);
-    }
-    catch{
-        // Return error message
-        return {error: "Bad request" }
-    }
+    // Return all products from the database
+    let res = await axios.get(`${baseURL}products/${id}`)
+    // Handle successful response
+    .then(response => parseSuccess(response))   
+    // Handle error response 
+    .catch(e => parseCatch(e));
+    // Return response
+    return res
 }
 
 // Creates a new product and adds it to the database
 export async function createProduct(product, token) {
-    try{
-        // Return response
-        return await axios({
-            method: 'post',
-            url: `${baseURL}products`,
-            header: {
-                // Put the JWT token in the header
-                Authorization: token
-            },
-            // product to be created
-            product
-        });
-    }
-    catch{
-        // Return error message
-        return {error: "Bad request" }
-    }
+    // Return response
+    let res = await axios({
+        method: 'post',
+        url: `${baseURL}products`,
+        header: {
+            // Put the JWT token in the header
+            Authorization: token
+        },
+        // product to be created
+        product
+    })
+    // Handle successful response
+    .then(response => parseSuccess(response))   
+    // Handle error response 
+    .catch(e => parseCatch(e));
+    // Return response
+    return res;
 }
 
 // Updates a product in the database
 export async function updateProduct(id, product, token) {
-    try{
-        // Return response
-        return await axios({
-            method: 'patch',
-            url: `${baseURL}products/${id}`,
-            header: {
-                // Put the JWT token in the header
-                Authorization: token
-            },
-            // New product data
-            product
-        })
-    }
-    catch{
-        // Return error response
-        return {error: "Bad request" }
-    }
+    // Return response
+    let res = await axios({
+        method: 'patch',
+        url: `${baseURL}products/${id}`,
+        header: {
+            // Put the JWT token in the header
+            Authorization: token
+        },
+        // New product data
+        product
+    })
+    // Handle successful response
+    .then(response => parseSuccess(response))  
+    // Handle error response  
+    .catch(e => parseCatch(e));
+    // Return response
+    return res
 }
 
 // Delets a product from the database
 export async function deleteProduct(id, token){
-    try{
-        // Return response
-        return await axios({
-            method: 'delete',
-            url: `${baseURL}products/${id}`,
-            header: {
-                // Put the JWT token in the header
-                Authorization: token
-            },
-        });
-    }
-    catch{
-        // Return error message
-        return {error: "Bad request" }
-    }
+    // Return response
+    let res = await axios({
+        method: 'delete',
+        url: `${baseURL}products/${id}`,
+        header: {
+            // Put the JWT token in the header
+            Authorization: token
+        },
+    })
+    // Handle successful response
+    .then(response => parseSuccess(response))    
+    // Handle error response
+    .catch(e => parseCatch(e));
+    // Return response
+    return res;
 }
 
 //#region Order functions
 
 // Returns all orders from a specific user
 export async function getOrders(token) {
-    try {
-        // Return all fetched orders
-        return await axios({
-            method: 'get',
-            url: `${baseURL}orders`,
-            header: {
-                // Put the JWT token in the header
-                Authorization: token
-            }
-        });
-    }
-    catch{
-        // Return error message
-        return {error: "Bad request" }
-    }
+    // Return all fetched orders
+    let res = await axios({
+        method: 'get',
+        url: `${baseURL}orders`,
+        header: {
+            // Put the JWT token in the header
+            Authorization: token
+        }
+    })
+    // Handle successful response
+    .then(response => parseSuccess(response))    
+    // Handle error response
+    .catch(e => parseCatch(e));
+    // Return response
+    return res;
 }
 // Create a order
 export async function addOrder(order, token = null) {
-    try{
-        // Return response
-        return await axios({
-            method: 'post',
-            url: `${baseURL}orders`,
-            header: {
-                // Put the JWT token in the header
-                Authorization: token
-            },
-            order
-        });
-    } catch {
-        // Return error message
-        return {error: "Bad request" }
-    }
+    // Return response
+    let res = await axios({
+        method: 'post',
+        url: `${baseURL}orders`,
+        header: {
+            // Put the JWT token in the header
+            Authorization: token
+        },
+        order
+    })
+    // Handle successful response
+    .then(response => parseSuccess(response))    
+    // Handle error response
+    .catch(e => parseCatch(e));
+    // Return response
+    return res;
 }
 
 //#endregion
