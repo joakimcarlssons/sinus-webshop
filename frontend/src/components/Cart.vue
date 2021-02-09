@@ -4,7 +4,7 @@
     <div class="content">
         <ul class="cartList">
             <li
-            v-for="(item, index) in cart.cartItems"
+            v-for="(item, index) in cart"
             :key="index"
             >
 

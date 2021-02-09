@@ -43,9 +43,7 @@ const User = {
     resetCart(state) {
 
       // Reset the cart to default
-      state.cart = {
-        cartItems : []
-      }
+      state.cart = []
 
       // Update backup in session storage
       updateCartInSessionStorage(state.cart)
@@ -61,7 +59,7 @@ const User = {
     addCartItem(state, item) {
 
       // Add item to cart
-      state.cart.cartItems.push(item)
+      state.cart.push(item)
 
       // Update backup in session storage
       updateCartInSessionStorage(state.cart)
@@ -70,8 +68,7 @@ const User = {
     removeCartItem(state, item) {
 
       // Remove item from cart
-      let currentCart = state.cart.cartItems
-      currentCart.splice(currentCart.indexOf(item), 1)
+      state.cart.splice(state.cart.indexOf(item), 1)
 
       // Update backup in session storage
       updateCartInSessionStorage(state.cart)
@@ -80,9 +77,11 @@ const User = {
   },
 
   getters : {
+
+    // Get the total price of the current cart
     cartTotalPrice : state => {
       let totalPrice = 0
-      state.cart.cartItems.forEach(x => totalPrice += x.price)
+      state.cart.forEach(x => totalPrice += x.price)
       return totalPrice
     }
   }

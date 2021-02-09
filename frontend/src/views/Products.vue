@@ -5,6 +5,7 @@
     v-for="(product, index) in $store.state.products.allProducts"
     :key="index"
     class="product"
+    :style="`animation: zoomIn ${index - (index * 0.9)}s`"
     >
     <Product 
     :product="product"
