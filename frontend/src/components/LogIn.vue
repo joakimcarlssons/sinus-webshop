@@ -8,7 +8,10 @@
       <input type="password" placeholder="password">
 
       <div class="bottom">
-        <router-link :to="'/'"><p>Don't have an account?</p></router-link>
+        <router-link :to="'/register'" @click.native="$emit('show', false)">
+            <p>Don't have an account?</p>
+        </router-link>
+
         <button>Login</button>
       </div>
   </div>

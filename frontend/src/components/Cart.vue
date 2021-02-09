@@ -8,7 +8,7 @@
             <li
             v-for="(item, index) in cart"
             :key="index"
-            :style="'animation: slideInRight .3s'"
+            :style="'animation: fadeIn .3s'"
             >
             <div class="cartItem" :class="{slideOutLeft : cart.indexOf(itemBeingTrashed) === index}">
                 <div 
@@ -173,7 +173,7 @@ export default {
 }
 
 .slideOutLeft {
-    animation: slideOutLeft .3s;
+    animation: slideOutLeft .2s;
 }
 
 </style>

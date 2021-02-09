@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 // Constant variables
-const baseURL = 'localhost:5000/api/';
+const baseURL = 'http://localhost:5000/api/';
 
 //#region Authentication functions
 
