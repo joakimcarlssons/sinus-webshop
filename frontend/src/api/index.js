@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 // Constant variables
-const baseURL = 'localhost:5000/api/';
+const baseURL = 'http://localhost:5000/api/';
 
 //#region Authentication functions
 
@@ -22,7 +22,7 @@ export async function login(userEmail, userPassword) {
     // If the request failed
     } catch {
         // return error response
-        return { error: "Request failed"};
+        return { error: "Bad request"};
     }
 }
 // Register a new user
@@ -39,10 +39,9 @@ export async function register(userEmail, userPassword, userRepeatPassword) {
                 repeatPassword: userRepeatPassword
             }
         });
-    // If the request failed
     } catch {
         // Return error response
-        return { errors: ["Request failed"] };
+        return { errors: ["Bad request"] };
     }
 }
 
@@ -52,28 +51,46 @@ export async function register(userEmail, userPassword, userRepeatPassword) {
 
 // Gets all products from the database
 export async function getProducts() {
-    // Return all products from the database
-    return await axios.get(`${baseURL}products`);
+    try {
+        // Return all products from the database
+        return await axios.get(`${baseURL}products`);
+    } 
+    catch{
+        // Return error message
+        return {error: "Bad request" }
+    }
 }
 // Gets a single product from the database
 export async function getProductById(id) {
-    // Return all products from the database
-    return await axios.get(`${baseURL}products/${id}`);
+    try {
+        // Return all products from the database
+        return await axios.get(`${baseURL}products/${id}`);
+    }
+    catch{
+        // Return error message
+        return {error: "Bad request" }
+    }
 }
 
 // Creates a new product and adds it to the database
 export async function createProduct(product, token) {
-    // Return response
-    return await axios({
-        method: 'post',
-        url: `${baseURL}products`,
-        header: {
-            // Put the JWT token in the header
-            Authorization: token
-        },
-        // product to be created
-        product
-    });
+    try{
+        // Return response
+        return await axios({
+            method: 'post',
+            url: `${baseURL}products`,
+            header: {
+                // Put the JWT token in the header
+                Authorization: token
+            },
+            // product to be created
+            product
+        });
+    }
+    catch{
+        // Return error message
+        return {error: "Bad request" }
+    }
 }
 
 // Updates a product in the database
@@ -120,15 +137,21 @@ export async function deleteProduct(id, token){
 
 // Returns all orders from a specific user
 export async function getOrders(token) {
-    // Return all fetched orders
-    return await axios({
-        method: 'get',
-        url: `${baseURL}orders`,
-        header: {
-            // Put the JWT token in the header
-            Authorization: token
-        }
-    });
+    try {
+        // Return all fetched orders
+        return await axios({
+            method: 'get',
+            url: `${baseURL}orders`,
+            header: {
+                // Put the JWT token in the header
+                Authorization: token
+            }
+        });
+    }
+    catch{
+        // Return error message
+        return {error: "Bad request" }
+    }
 }
 // Create a order
 export async function addOrder(order, token = null) {
@@ -143,10 +166,9 @@ export async function addOrder(order, token = null) {
             },
             order
         });
-    // If request failed
     } catch {
-        // Return error response
-        return { error: "Request failed"};
+        // Return error message
+        return {error: "Bad request" }
     }
 }
 

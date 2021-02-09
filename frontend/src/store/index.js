@@ -23,7 +23,7 @@ const Products = {
   actions : {
     async [GET_ALL](context) {
       const response = await API.getProducts()
-      context.commit(GET_ALL, response)
+      context.commit(GET_ALL, response.data)
     }
   }
 }
