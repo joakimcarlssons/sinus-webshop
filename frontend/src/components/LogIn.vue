@@ -3,24 +3,34 @@
   <div class="arrow-up"></div>
   <div class="content">
       
-      <input type="text" placeholder="username">
+      <input type="email" placeholder="email" v-model="credentials.email">
 
-      <input type="password" placeholder="password">
+      <input type="password" placeholder="password" v-model="credentials.password">
 
       <div class="bottom">
         <router-link :to="'/register'" @click.native="$emit('show', false)">
             <p>Don't have an account?</p>
         </router-link>
 
-        <button>Login</button>
+        <button @click="$store.dispatch('login', credentials)">
+            Login
+        </button>
       </div>
   </div>
 </div>
 </template>
 
 <script>
+//import axios from 'axios'
+
 export default {
 
+    data(){ return {
+        credentials : {
+            email : "",
+            password : ""
+        }
+    }},
 }
 </script>
 

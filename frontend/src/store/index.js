@@ -146,9 +146,9 @@ const User = {
       //#region  Login/Register
       
       // Attemps a login
-      async login(context, email, password) {
+      async login(context, credentials) {
         // Try to login with the provided credentials
-        let res = await API.userPost(email, password);
+        let res = await API.login(credentials.email, credentials.password);
 
         // If login failed...
         if(res.error) return res.error; // Return error message

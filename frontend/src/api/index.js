@@ -13,12 +13,15 @@ export async function login(userEmail, userPassword) {
         return await axios({
             method: 'post',
             url: `${baseURL}auth`,
+
             // Request body
-            data: {
-                email: userEmail,
-                password: userPassword
+            data : {
+                email : userEmail,
+                password : userPassword,
+
             }
         });
+
     // If the request failed
     } catch {
         // return error response
