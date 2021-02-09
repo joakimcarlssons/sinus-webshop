@@ -17,12 +17,22 @@
             @click="openLoginDialog"
             />
           </li>
-          <li>
+          <li class="navCart">
             <img src="@/assets/icon-bag-white.svg" 
             alt="" 
             class="bag"
             @click="openCartDialog"
+            @mouseover="counterOpacity = 0"
+            @mouseleave="counterOpacity = 1"
             />
+            <div 
+            class="counter"         
+            :style="`opacity: ${counterOpacity};`" 
+            v-if="cartQuantity > 0"
+            :class="{flipInY : counterAnimationActive}"
+            >
+                {{cartQuantity}}
+            </div>
           </li>
       </ul>
   </nav>
@@ -31,18 +41,37 @@
 <script>
 export default {
     computed: {
-
         // Get all the visible nav items
         visibleNavItems() {
-
             // Get all standard items
             return this.$router.options.routes.filter(x => x.inNavLink)
+        },
+        
+        // Get the cart quantity
+        // We make it a property to trigger animations on updates
+        cartQuantity() {
+            return this.$store.getters.cartQuantity
+        }
+    },
+
+    watch: {
+
+        cartQuantity: function () {
+            // Activate the animation
+            this.counterAnimationActive = true
+
+            // Turn it off after it's done
+            setTimeout(() => {
+                this.counterAnimationActive = false
+            }, 900)
         }
     },
 
     data() { return {
         showProfileDialog : false,
-        showCartDialog : false
+        showCartDialog : false,
+        counterOpacity : 1,
+        counterAnimationActive : false
     }},
 
     methods: {
@@ -70,7 +99,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 nav {
     
     ul {
@@ -79,6 +107,31 @@ nav {
 
         li {
             margin: 0 1rem;
+
+            &.navCart {
+                align-self: flex-start;
+                display: flex;
+                overflow: hidden;
+
+                .counter {
+                    align-self: flex-start;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    background-color: var(--White);
+                    height: 1rem;
+                    width: 1rem;
+                    overflow: hidden;
+                    padding: .5rem;
+                    margin-left: -1rem;
+                    margin-right: .2rem;
+
+                    border-radius: 100%;
+                    font-weight: 700;
+                    box-shadow: .2rem .1rem .4rem 0 rgba(0,0,0,0.21);
+                }
+            }
 
             img {
                 height: 1.5rem;
@@ -91,8 +144,16 @@ nav {
                     background-color: var(--MediumGrey);
                 }
 
+                &.user:hover {
+                    opacity: .6;
+                }
+
                 &.bag {
                     background-color: var(--Grapefruit);
+                }
+
+                &.bag:hover {
+                    opacity: .8;
                 }
             }
 
@@ -102,6 +163,10 @@ nav {
             }
         }
     }
+}
+
+.flipInY {
+    animation: flipInY .8s;
 }
 
 </style>

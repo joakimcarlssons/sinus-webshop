@@ -2,10 +2,17 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Register from '../views/Register.vue'
 import Products from '../views/Products.vue'
+import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/',
+    name: 'Home',
+    component: Home,
+    inNavLink : true
+  },
   {
     path: '/products',
     name: 'Products',
@@ -18,7 +25,7 @@ const routes = [
     inNavLink : false
   },
   {
-    path: '/',
+    path: '/register',
     name: 'Register',
     component: Register,
     inNavLink : false

@@ -1,15 +1,16 @@
 <template>
   <div class="container">
-    <div class="arrow-up"></div>
+    <div class="arrow-up" 
+    :style="$store.getters.cartQuantity > 0 ? 'left: 88.5%' : 'left: 92%;'">
+    </div>
     <div class="content">
         <ul class="cartList">
             <li
             v-for="(item, index) in cart"
             :key="index"
+            :style="'animation: slideInRight .3s'"
             >
-
-            <div class="cartItem">
-
+            <div class="cartItem" :class="{slideOutLeft : cart.indexOf(itemBeingTrashed) === index}">
                 <div 
                 class="productImg"
                 :style="'background-image: url(' + require(`@/assets/${item.imgFile}`) + ')'"
@@ -26,7 +27,7 @@
 
                     <img 
                     src="@/assets/trash-solid.svg" alt="" 
-                    class="trash" @click="$store.commit('removeCartItem', item)" />
+                    class="trash" @click="trash(item)" />
                 </div>
 
             </div>
@@ -59,6 +60,28 @@ export default {
             return this.$store.state.user.cart
         }
     },
+
+    data() { return {
+        itemBeingTrashed : {}
+    }},
+
+    methods: {
+
+        // Trash an item from the cart
+        trash(product) {
+
+            // Start the animation
+            this.itemBeingTrashed = product
+
+            setTimeout(() => {
+                // Commit the mutation
+                this.$store.commit('removeCartItem', product)
+
+                // End the animation
+                this.itemBeingTrashed = {}
+            }, 200)
+        }
+    }
 }
 </script>
 
@@ -69,7 +92,6 @@ export default {
 
     .arrow-up {
         position: absolute;
-        left: 92%;
     }
 
     .content {
@@ -83,26 +105,6 @@ export default {
         .cartList {
             height: 27.5rem;
             overflow-y: scroll;
-        }
-
-        /* CartList scrollbar */
-        .cartList::-webkit-scrollbar {
-            width: .5rem !important;
-            border-radius: 5rem;
-        }
-
-        .cartList::-webkit-scrollbar-track {
-            margin: .5rem;
-            border-radius: 5rem;
-        }
-
-        .cartList::-webkit-scrollbar-thumb {
-            background: var(--LightGrey);
-            border-radius: 5rem;
-        }
-
-        .cartList::-webkit-scrollbar-thumb:hover {
-            background: var(--MediumGrey);
         }
 
         .cartItem {
@@ -168,8 +170,10 @@ export default {
             align-self: center;
         }
     }
+}
 
-
+.slideOutLeft {
+    animation: slideOutLeft .3s;
 }
 
 </style>

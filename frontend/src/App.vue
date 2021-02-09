@@ -3,7 +3,15 @@
 
     <!-- Header -->
     <header>
-      <img src="@/assets/sinus-logo.svg" alt="sinus-logo" class="logo">
+
+      <router-link :to="'/'">
+        <img 
+        src="@/assets/sinus-logo.svg" 
+        alt="sinus-logo-small" 
+        class="logo"
+        :style="$route.path == '/' ? 'opacity: 0' : 'opacity: 1'"
+        >
+      </router-link>
 
       <Nav @showProfile="openLoginDialog" @showCart="openCartDialog" />
     </header>
@@ -27,7 +35,7 @@
     </transition>
 
     <!-- Router view -->
-    <router-view/>
+    <router-view />
 
     <!-- Major overlay -->
     <transition
@@ -95,10 +103,10 @@ export default {
 @import url('~@/styles/forms.scss');
 @import url('~@/styles/buttons.scss');
 @import url('~@/styles/overlays.scss');
+@import url('~@/styles/scrolls.scss');
 
 #app {
   position: relative;
-
   margin:  0 2rem;
 
   header {

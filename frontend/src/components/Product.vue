@@ -1,6 +1,7 @@
 <template>
     <div 
     class="container"
+    :class="{wrapper : !addToCartIsActive}"
     :style="{backgroundImage : bgImage}"
     @click="showProduct"
     >
@@ -9,11 +10,29 @@
         <div class="top">
             <div class="head">
                 <h3>{{product.title}}</h3>
+
+                <!-- Check mark when item added to cart -->
+                <img v-if="isAnimating"
+                src="@/assets/check-solid.svg" 
+                alt=""
+                class="addToCart"
+                :class="{animateCheck : isAnimating}"
+                @mouseover="setActiveCart"
+                @mouseleave="setActiveCart"
+                @click="addToCart(product)"
+                />
                 
-                <img 
+                <!-- Bag image -->
+                <img v-else
                 src="@/assets/icon-bag-black.svg" 
                 alt=""
+                class="addToCart"
+                :class="{animateBag : isAnimating}"
+                @mouseover="setActiveCart"
+                @mouseleave="setActiveCart"
+                @click="addToCart(product)"
                 />
+
             </div>
             <div class="description">
                 <p>{{product.shortDesc}}</p>
@@ -36,18 +55,46 @@ export default {
     },
 
     computed: {
+
+        // Get the correct product image
         bgImage(){
             return 'url(' + require(`@/assets/${this.product.imgFile}`) + ')'
         }
     },
 
     data() { return {
-        clicked : ''
+
+        // Flag to check if the user is hovering over the Cart-button
+        addToCartIsActive : false,
+
+        isAnimating : false
+
     }},
 
     methods: {
+
+        // Sets the product to be displayed in the overlay
         showProduct() {
-            this.$store.commit('setProductToDisplay', this.product)
+            if(!this.addToCartIsActive) {
+                this.$store.commit('setProductToDisplay', this.product)
+            }
+        },
+
+        // Sets the flag indicating whether the user is hovering over the cart or not
+        setActiveCart() {
+            this.addToCartIsActive = !this.addToCartIsActive
+        },
+
+        // Adds an item to the cart
+        addToCart(product) {
+            this.$store.commit('addCartItem', product)
+
+            this.isAnimating = true
+
+            setTimeout(() => {
+                this.isAnimating = false
+            }, 500)
+
         }
     }
 
@@ -77,6 +124,7 @@ export default {
                 justify-content: space-between;
     
                 img {
+                    overflow: hidden;
                     height: 1.5rem;
                     width: 1.5rem;
                     background-color: var(--LightGrey);
@@ -86,6 +134,11 @@ export default {
     
                 h3 {
                     text-transform: uppercase;
+                }
+
+                .addToCart:hover {
+                    background-color: var(--MediumGrey);
+                    cursor: pointer;
                 }
             }
 
@@ -102,6 +155,19 @@ export default {
 
         }
 
+    }
+
+    .wrapper:hover {
+        opacity: .95;
+        cursor: pointer;
+    }
+
+    .animateBag {
+        animation: fadeOut .5s;
+    }
+
+    .animateCheck {
+        animation: fadeIn 1s;
     }
 
 </style>

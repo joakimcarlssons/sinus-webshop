@@ -38,11 +38,7 @@ export default {
 
     li {
       margin: 1rem;
-
-      &.product:hover {
-        opacity: .8;
-        cursor: pointer;
-      }
+      box-shadow: .3rem .3rem .4rem 0 rgba(0,0,0,0.31);
     }
   }
 }

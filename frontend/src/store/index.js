@@ -83,7 +83,13 @@ const User = {
       let totalPrice = 0
       state.cart.forEach(x => totalPrice += x.price)
       return totalPrice
+    },
+
+    // Get the amount of items in cart
+    cartQuantity : state => {
+      return state.cart.length
     }
+
   }
 }
 
