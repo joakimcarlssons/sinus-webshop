@@ -78,6 +78,7 @@ module.exports = {
     },
 
     async addOrderToUser(order, user){
-        await users.update({_id:user._id}, {$push:{orderHistory:order._id}})
+        await users.update({_id:user._id}, 
+            {$push:{orderHistory:order._id}})   
     }
 }
