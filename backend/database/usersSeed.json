@@ -14,7 +14,7 @@
             "validUntil": "10 / 23",
             "cvv": "123"
         },
-        "ordersHistory": []
+        "orderHistory": []
     },
     {
         "email": "customer@example.com",
@@ -31,6 +31,6 @@
             "validUntil": "10 / 23",
             "cvv": "123"
         },
-        "ordersHistory": []
+        "orderHistory": []
     }
 ]
