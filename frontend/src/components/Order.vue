@@ -13,6 +13,7 @@
         </div>
 
         <div class="right">
+          <p>{{order.status == 'inProcess' ? 'In process' : 'Shipped'}}</p>
           <div 
           class="ball"
           :style="order.status == 'inProcess' ? 'background-color: var(--DarkYellow);' : 'background-color: green;'"
@@ -25,8 +26,31 @@
       enter-active-class="animated flipInX"
       leave-active-class="animated flipOutX">
         <div class="content" v-if="opened">
-          {{order}}
-          <Product :productId="AfSgMJCb0LzpHjcn" />
+            <div
+            v-for="(item,index) in order.orderProducts"
+            :key="index"
+            class="cartItem"
+            >
+              <CartItem 
+              :item="item" 
+              :forDisplay="true" 
+              />           
+            </div>
+            
+            <hr>
+
+            <div class="totals">
+              <span class="alignHorizontal">
+                <h4>Order created:</h4>
+                <p>{{orderDate}}</p>
+              </span>
+
+              <span class="alignHorizontal">
+                <h4>Total price:</h4>
+                <p>{{order.orderValue}} kr</p>
+              </span>
+            </div>
+
         </div>
     </transition>
 
@@ -34,10 +58,22 @@
 </template>
 
 <script>
-import Product from '@/components/Product'
+import CartItem from '@/components/CartItem'
 
 export default {
-  components: { Product },
+  components: { CartItem },
+
+  computed: {
+    orderDate() {
+      const date = new Date(this.order.timeStamp)
+      const options = { 
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', 
+        hour: 'numeric', minute: 'numeric', hour12 : false
+        };
+
+      return date.toLocaleDateString('se-Se', options)
+    }
+  },
 
   props : {
     order : Object
@@ -80,6 +116,10 @@ export default {
         display: flex;
         align-items: center;
 
+        p {
+          margin-right: 1rem;
+        }
+
         .ball {
           content: "";
           height: 1rem;
@@ -95,6 +135,24 @@ export default {
       background-color: var(--LightBlueFaded);
       margin-top: -1rem;
       padding: 2rem;
+
+      .totals {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+
+        .alignHorizontal {
+          display: flex;
+          align-items: center;
+
+          font-size: 1.2rem;
+
+          p {
+            margin-left: 1rem;
+          }
+        }
+      }
+
   }
 }
 

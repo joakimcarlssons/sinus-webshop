@@ -10,27 +10,13 @@
             :key="index"
             :style="'animation: fadeIn .3s'"
             >
-            <div class="cartItem" :class="{slideOutLeft : cart.indexOf(itemBeingTrashed) === index}">
-                <div 
-                class="productImg"
-                :style="'background-image: url(' + require(`@/assets/${item.imgFile}`) + ')'"
-                ></div>
 
-                <div class="info">
-                    <h3>{{item.title}}</h3>
-                    <h4>{{item.shortDesc}}</h4>
-                    <p>{{item.serial}}</p>
-                </div>
+            <CartItem
+            :item="item"
+            @trash="trash" 
+            :class="{slideOutLeft : cart.indexOf(itemBeingTrashed) === index}"
+            />
 
-                <div class="price">
-                    <h3>{{item.price}} SEK</h3>
-
-                    <img 
-                    src="@/assets/trash-solid.svg" alt="" 
-                    class="trash" @click="trash(item)" />
-                </div>
-
-            </div>
             </li>
         </ul>
 
@@ -51,7 +37,10 @@
 </template>
 
 <script>
+import CartItem from '@/components/CartItem'
+
 export default {
+    components: { CartItem },
 
     computed: {
 
@@ -105,46 +94,6 @@ export default {
         .cartList {
             height: 27.5rem;
             overflow-y: scroll;
-        }
-
-        .cartItem {
-            display: grid;
-            grid-template-columns: .8fr 1.9fr 1fr;
-            padding: 2rem;
-
-            .productImg {
-                height: 4rem;
-                width: 4rem;
-                background-size: cover;
-                background-position: center;
-            }
-
-            .info {
-                display: flex;
-                flex-direction: column;
-
-                h3 {
-                    text-transform: uppercase;
-                }
-            }
-
-            .price {
-                display: flex;
-                flex-direction: column;
-
-                .trash {
-                align-self: flex-end;
-                height: 1.1rem;
-                width: 1.1rem;
-                opacity: .3;
-                margin-top: 1rem;
-                }
-
-                .trash:hover {
-                    opacity: 1;
-                    cursor: pointer;
-                }
-            }
         }
 
         hr {

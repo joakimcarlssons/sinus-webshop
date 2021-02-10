@@ -72,10 +72,16 @@ export default {
 
   methods : {
     openLoginDialog(value) {
-      this.showLogin = value
+      this.$store.commit('toggleOverlay', value)
+      setTimeout(() => {
+        this.showLogin = this.$store.state.overlayActive
+      }, 0)
     },
     openCartDialog(value) {
-      this.showCart = value
+      this.$store.commit('toggleOverlay', value)
+      setTimeout(() => {
+        this.showCart = this.$store.state.overlayActive
+      }, 0)
     }
   },
 

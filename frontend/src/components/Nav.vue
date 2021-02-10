@@ -81,6 +81,7 @@ export default {
 
     methods: {
         openLoginDialog() {
+
             // Make sure to close the cart dialog if it's open
             this.showCartDialog = false
             this.$emit('showCart', this.showCartDialog)
@@ -98,13 +99,9 @@ export default {
             else if (this.$route.fullPath != '/account') {
                 this.$router.push('/account')
             }
-            else {
-                console.log('hej')
-            }
-
         },
-        openCartDialog() {
 
+        openCartDialog() {
             this.showProfileDialog = false
             this.$emit('showProfile', this.showProfileDialog)
 

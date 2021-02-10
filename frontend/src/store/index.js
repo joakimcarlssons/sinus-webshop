@@ -242,7 +242,9 @@ export default new Vuex.Store({
   state: {
 
     // Product to be shown in overlay
-    currentProductToBeDisplayed : null
+    currentProductToBeDisplayed : null,
+
+    overlayActive : false
 
   },
   mutations: {
@@ -250,10 +252,17 @@ export default new Vuex.Store({
     // Update the product to display
     setProductToDisplay(state, product) {
       state.currentProductToBeDisplayed = product
+    },
+
+    toggleOverlay(state, value) {
+      state.overlayActive = value
     }
+
   },
+
   actions: {
   },
+
   modules: {
     products : Products,
     user : User,
