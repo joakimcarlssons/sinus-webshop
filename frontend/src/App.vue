@@ -54,6 +54,7 @@ import Nav from '@/components/Nav'
 import LogIn from '@/components/LogIn'
 import ChosenProduct from '@/components/ChosenProduct'
 import Cart from '@/components/Cart'
+import { SAVE_USER } from '@/mutations.js'
 
 export default { 
   components : { Nav, LogIn, ChosenProduct, Cart },
@@ -82,6 +83,13 @@ export default {
 
     //#region Set User
 
+    // If a user is saved in local storage, set it in the store
+    if(localStorage.getItem('current-user')) {
+      this.$store.commit(SAVE_USER, {
+        user : JSON.parse(localStorage.getItem('current-user')),
+        token : JSON.parse(localStorage.getItem('sinus-token'))
+      })
+    }
     
     //#endregion
 

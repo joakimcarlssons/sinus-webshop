@@ -101,7 +101,7 @@ const User = {
 
     // The current user of the application,
     // If the user is logged in the information is also stored in local storage
-    currentUser : { status : "loggedOut" },
+    currentUser : null,
 
     // The current cart of the user,
     // the cart is also stored in session storage for backup
@@ -158,7 +158,7 @@ const User = {
       localStorage.setItem("sinus-token", JSON.stringify(data.token));
       // Save the current user
       localStorage.setItem("current-user", JSON.stringify(data.user));
-      state.user = data.user
+      state.currentUser = data.user
     }
 
 
@@ -186,6 +186,7 @@ const User = {
           // Return response
         return res;
       },
+      
       // Register a new user
       // This function can return an array of errors
       async register(context, userData) {

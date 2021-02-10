@@ -87,7 +87,7 @@ export default {
 
             // Check if any user is logged in,
             // if false open the Login dialog
-            if(this.currentUser.status == 'loggedOut') {
+            if(!this.currentUser) {
                 setTimeout(() => {
                     this.showProfileDialog = !this.showProfileDialog
                     this.$emit('showProfile', this.showProfileDialog)
@@ -95,7 +95,12 @@ export default {
             }
 
             // If the user is logged in, send to account page
-            else this.$router.push('/account')
+            else if (this.$route.fullPath != '/account') {
+                this.$router.push('/account')
+            }
+            else {
+                console.log('hej')
+            }
 
         },
         openCartDialog() {
