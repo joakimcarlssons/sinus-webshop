@@ -73,8 +73,6 @@ export default {
     },
 
     data() { return {
-        showProfileDialog : false,
-        showCartDialog : false,
         counterOpacity : 1,
         counterAnimationActive : false
     }},
@@ -82,17 +80,16 @@ export default {
     methods: {
         openLoginDialog() {
 
-            // Make sure to close the cart dialog if it's open
-            this.showCartDialog = false
-            this.$emit('showCart', this.showCartDialog)
-
             // Check if any user is logged in,
             // if false open the Login dialog
             if(!this.currentUser) {
-                setTimeout(() => {
-                    this.showProfileDialog = !this.showProfileDialog
-                    this.$emit('showProfile', this.showProfileDialog)
-                }, 0)
+
+                if(this.$store.state.overlay.active) {
+                    this.$store.commit('resetOverlay')
+                }
+                else {
+                    this.$store.commit('changeOverlay', { name: 'login', active: true })
+                }
             }
 
             // If the user is logged in, send to account page
@@ -102,13 +99,13 @@ export default {
         },
 
         openCartDialog() {
-            this.showProfileDialog = false
-            this.$emit('showProfile', this.showProfileDialog)
 
-            setTimeout(() => {
-                this.showCartDialog = !this.showCartDialog
-                this.$emit('showCart', this.showCartDialog)
-            }, 0)
+            if(this.$store.state.overlay.active) {
+                this.$store.commit('resetOverlay')
+            }
+            else {
+                this.$store.commit('changeOverlay', { name: 'cart', active: true })
+            }
         }
     }
 }
@@ -116,7 +113,7 @@ export default {
 
 <style lang="scss" scoped>
 nav {
-    
+    overflow: hidden;
     ul {
         display: flex;
         align-items: center;

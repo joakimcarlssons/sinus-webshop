@@ -6,6 +6,7 @@ import Register from '../views/Register.vue'
 import Products from '../views/Products.vue'
 import Home from '../views/Home.vue'
 import Account from '../views/Account.vue'
+import Checkout from '../views/Checkout.vue'
 
 //#endregion
 
@@ -36,6 +37,12 @@ const routes = [
     component: Register,
     inNavLink : false
   },
+  {
+    path: '/checkout',
+    name: 'Checkout',
+    component: Checkout,
+    inNavLink: false
+  }
 ]
 
 const router = new VueRouter({
@@ -43,5 +50,10 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+// router.beforeEach((to, from, next) => {
+  
+
+// });
 
 export default router

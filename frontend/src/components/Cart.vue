@@ -27,7 +27,7 @@
             <h3>{{$store.getters.cartTotalPrice}} SEK</h3>
         </div>
 
-        <button class="purchase">
+        <button class="purchase" @click="$router.push('/checkout')">
             <img src="@/assets/icon-bag-white.svg" alt="" class="btnImage" />
             <p>Take my money!</p>
         </button>

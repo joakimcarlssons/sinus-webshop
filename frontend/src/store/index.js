@@ -7,13 +7,6 @@ import { GET_ORDERS } from '../mutations'
 
 Vue.use(Vuex)
 
-
-//#region Variables
-
-const SINUS_TOKEN = JSON.parse(localStorage.getItem('sinus-token'))
-
-//#endregion
-
 //#region Modules
 
 // Products module
@@ -62,7 +55,7 @@ const Admin = {
     // Creates a new product and adds it to the database
     async createProduct(context, product) {
       // Make the API request
-      let res = await API.createProduct(product, localStorage.getItem(SINUS_TOKEN));
+      let res = await API.createProduct(product, JSON.parse(localStorage.getItem('sinus-token')));
 
       // If request was successful, return the message
       if(!res.error) return res.response;
@@ -71,7 +64,7 @@ const Admin = {
     // Updates a product in the database
     async updateProduct(context, product) {
       // Make the API request
-      let res = await API.updateProduct(product._id, product, localStorage.getItem(SINUS_TOKEN));
+      let res = await API.updateProduct(product._id, product, JSON.parse(localStorage.getItem('sinus-token')));
 
       // On request error
       if(res.error) return res.error;
@@ -83,7 +76,7 @@ const Admin = {
     // Delets a product from the database
     async deleteProduct(context, id){
       // Make the API request
-      let res = await API.deleteProduct(id, localStorage.getItem(SINUS_TOKEN));
+      let res = await API.deleteProduct(id, JSON.parse(localStorage.getItem('sinus-token')));
 
       // On request error
       if(res.error) return res.error;
@@ -154,10 +147,6 @@ const User = {
 
     // Saves the current user and token in local storage
     [m.SAVE_USER](state, data) {
-      // Save JWT in local storage
-      localStorage.setItem("sinus-token", JSON.stringify(data.token));
-      // Save the current user
-      localStorage.setItem("current-user", JSON.stringify(data.user));
       state.currentUser = data.user
     }
 
@@ -178,10 +167,16 @@ const User = {
         let res = await API.login(credentials.email, credentials.password);
         
         // If login was successful
-        if(!res.error) 
+        if(!res.error) {
+          // Save JWT in local storage
+          localStorage.setItem("sinus-token", JSON.stringify(res.response.token));
+          // Save the current user
+          localStorage.setItem("current-user", JSON.stringify(res.response.user));
           
           // Save token and user data
           context.commit(m.SAVE_USER, { user: res.response.user, token: res.response.token});
+        }
+          
         
           // Return response
         return res;
@@ -204,14 +199,14 @@ const User = {
       // Create the order
       let res = await API.addOrder(context.state.cart,
         // If a user is logged in, send the token
-        SINUS_TOKEN
+        JSON.parse(localStorage.getItem('sinus-token'))
         );
   
       return res
     },
 
     async [m.GET_ORDERS](context) {
-      return await API.getOrders(SINUS_TOKEN)
+      return await API.getOrders(JSON.parse(localStorage.getItem('sinus-token')))
     }
 
     //#endregion
@@ -244,7 +239,10 @@ export default new Vuex.Store({
     // Product to be shown in overlay
     currentProductToBeDisplayed : null,
 
-    overlayActive : false
+    overlay : {
+      name : "",
+      active : false
+    }
 
   },
   mutations: {
@@ -254,9 +252,13 @@ export default new Vuex.Store({
       state.currentProductToBeDisplayed = product
     },
 
-    toggleOverlay(state, value) {
-      state.overlayActive = value
-    }
+    changeOverlay(state, overlay) {
+      state.overlay = overlay
+    },
+
+    resetOverlay(state) {
+      state.overlay = { name: '', active: false }
+    },
 
   },
 

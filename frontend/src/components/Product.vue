@@ -90,6 +90,7 @@ export default {
         showProduct() {
             if(!this.addToCartIsActive) {
                 this.$store.commit('setProductToDisplay', this.product)
+                this.$store.commit('changeOverlay', { name: 'product', active: true })
             }
         },
 

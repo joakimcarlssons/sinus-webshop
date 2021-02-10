@@ -43,6 +43,7 @@ export default {
 
             if(res.error) alert(res.response)
             else this.$router.push('/account')
+
         }
     }
 }

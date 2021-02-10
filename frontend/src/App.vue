@@ -13,14 +13,14 @@
         >
       </router-link>
 
-      <Nav @showProfile="openLoginDialog" @showCart="openCartDialog" />
+      <Nav />
     </header>
 
     <!-- Login overlay -->
     <transition
     enter-active-class="animated fadeIn"
     leave-active-class="animated fadeOut">
-      <div class="logIn" v-if="showLogin">
+      <div class="logIn" v-if="activeOverlay.name == 'login' && activeOverlay.active">
         <LogIn />
       </div>
     </transition>
@@ -29,7 +29,7 @@
     <transition
     enter-active-class="animated fadeIn"
     leave-active-class="animated fadeOut">
-      <div class="cart" v-if="showCart">
+      <div class="cart" v-if="activeOverlay.name == 'cart' && activeOverlay.active">
         <Cart />
       </div>
     </transition>
@@ -41,7 +41,7 @@
     <transition
     enter-active-class="animated zoomIn"
     leave-active-class="animated zoomOut">
-      <div class="overlay" v-if="chosenProduct">
+      <div class="overlay" v-if="chosenProduct && activeOverlay.name == 'product' && activeOverlay.active">
         <ChosenProduct :product="chosenProduct" />
       </div>
     </transition>
@@ -67,21 +67,20 @@ export default {
   computed: {
     chosenProduct() {
       return this.$store.state.currentProductToBeDisplayed
+    },
+
+    activeOverlay() {
+      return this.$store.state.overlay
     }
   },
 
-  methods : {
-    openLoginDialog(value) {
-      this.$store.commit('toggleOverlay', value)
-      setTimeout(() => {
-        this.showLogin = this.$store.state.overlayActive
-      }, 0)
-    },
-    openCartDialog(value) {
-      this.$store.commit('toggleOverlay', value)
-      setTimeout(() => {
-        this.showCart = this.$store.state.overlayActive
-      }, 0)
+  watch: {
+
+    // Things that will happend every time a route changes
+    '$route': function() {
+
+      // Make sure to close all overlays when changing page
+      this.$store.commit('resetOverlay')
     }
   },
 
@@ -129,6 +128,7 @@ export default {
 @import url('~@/styles/scrolls.scss');
 
 #app {
+  min-height: 100vh;
   position: relative;
   margin:  0 2rem;
 

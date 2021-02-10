@@ -33,8 +33,10 @@ export default {
     async created() {
         const res = await this.$store.dispatch(GET_ORDERS)
 
+        console.log(res)
+
         if(!res.error) this.orders = res.response
-        else alert(res.response.error)
+        else alert(res.response)
     }
 }
 </script>

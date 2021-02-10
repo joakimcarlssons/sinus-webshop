@@ -2,7 +2,7 @@
     <div class="container">
 
         <div class="close">
-            <button @click="$store.commit('setProductToDisplay', null)">
+            <button @click="close">
                 X
             </button>
         </div>
@@ -44,6 +44,12 @@ export default {
     computed: {
         bgImage(){
             return 'url(' + require(`@/assets/${this.product.imgFile}`) + ')'
+        }
+    },
+    methods: {
+        close() {
+            this.$store.commit('setProductToDisplay', null)
+            this.$store.commit('resetOverlay')
         }
     }
 }
