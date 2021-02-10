@@ -51,6 +51,11 @@ export default {
         // We make it a property to trigger animations on updates
         cartQuantity() {
             return this.$store.getters.cartQuantity
+        },
+
+        currentUser() {
+            console.log(this.$store.state.user.currentUser)
+            return this.$store.state.user.currentUser
         }
     },
 
@@ -76,13 +81,22 @@ export default {
 
     methods: {
         openLoginDialog() {
+            // Make sure to close the cart dialog if it's open
             this.showCartDialog = false
             this.$emit('showCart', this.showCartDialog)
 
-            setTimeout(() => {
-                this.showProfileDialog = !this.showProfileDialog
-                this.$emit('showProfile', this.showProfileDialog)
-            }, 0)
+            // Check if any user is logged in,
+            // if false open the Login dialog
+            if(this.currentUser.status == 'loggedOut') {
+                setTimeout(() => {
+                    this.showProfileDialog = !this.showProfileDialog
+                    this.$emit('showProfile', this.showProfileDialog)
+                }, 0)
+            }
+
+            // If the user is logged in, send to account page
+            else this.$router.push('/account')
+
         },
         openCartDialog() {
 

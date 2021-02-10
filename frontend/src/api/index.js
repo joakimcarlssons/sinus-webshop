@@ -89,7 +89,7 @@ export async function createProduct(product, token) {
     let res = await axios({
         method: 'post',
         url: `${baseURL}products`,
-        header: {
+        headers: {
             // Put the JWT token in the header
             Authorization: token
         },
@@ -110,7 +110,7 @@ export async function updateProduct(id, product, token) {
     let res = await axios({
         method: 'patch',
         url: `${baseURL}products/${id}`,
-        header: {
+        headers: {
             // Put the JWT token in the header
             Authorization: token
         },
@@ -131,7 +131,7 @@ export async function deleteProduct(id, token){
     let res = await axios({
         method: 'delete',
         url: `${baseURL}products/${id}`,
-        header: {
+        headers: {
             // Put the JWT token in the header
             Authorization: token
         },
@@ -152,7 +152,7 @@ export async function getOrders(token) {
     let res = await axios({
         method: 'get',
         url: `${baseURL}orders`,
-        header: {
+        headers: {
             // Put the JWT token in the header
             Authorization: token
         }
@@ -170,7 +170,7 @@ export async function addOrder(order, token = null) {
     let res = await axios({
         method: 'post',
         url: `${baseURL}orders`,
-        header: {
+        headers: {
             // Put the JWT token in the header
             Authorization: token
         },

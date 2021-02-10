@@ -9,7 +9,7 @@
     <div class="content">
         <div class="top">
             <div class="head">
-                <h3>{{product.title}}</h3>
+                <h3>{{selectedProduct.title}}</h3>
 
                 <!-- Check mark when item added to cart -->
                 <img v-if="isAnimating"
@@ -19,7 +19,7 @@
                 :class="{animateCheck : isAnimating}"
                 @mouseover="setActiveCart"
                 @mouseleave="setActiveCart"
-                @click="addToCart(product)"
+                @click="addToCart(selectedProduct)"
                 />
                 
                 <!-- Bag image -->
@@ -30,17 +30,17 @@
                 :class="{animateBag : isAnimating}"
                 @mouseover="setActiveCart"
                 @mouseleave="setActiveCart"
-                @click="addToCart(product)"
+                @click="addToCart(selectedProduct)"
                 />
 
             </div>
             <div class="description">
-                <p>{{product.shortDesc}}</p>
+                <p>{{selectedProduct.shortDesc}}</p>
             </div>
         </div>
 
         <div class="priceTag">
-            <h3>{{product.price}}</h3>
+            <h3>{{selectedProduct.price}}</h3>
             <p>SEK</p>
         </div>
     </div>
@@ -49,16 +49,28 @@
 </template>
 
 <script>
+import { GET_SINGLE_PRODUCT } from '@/mutations.js'
+
 export default {
     props: {
-        product : Object
+        product : Object,
+        productId : String
+    },
+    
+    async created() {
+        if (this.productId != undefined) {
+            const res = await this.$store.dispatch(GET_SINGLE_PRODUCT, this.productId)
+
+            if(!res.error) this.selectedProduct = res.response
+        }
+        else this.selectedProduct = this.product
     },
 
     computed: {
 
         // Get the correct product image
         bgImage(){
-            return 'url(' + require(`@/assets/${this.product.imgFile}`) + ')'
+            return 'url(' + require(`@/assets/${this.selectedProduct.imgFile}`) + ')'
         }
     },
 
@@ -66,8 +78,9 @@ export default {
 
         // Flag to check if the user is hovering over the Cart-button
         addToCartIsActive : false,
+        isAnimating : false,
 
-        isAnimating : false
+        selectedProduct : {}
 
     }},
 

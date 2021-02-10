@@ -1,8 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
+//#region Component imports
 import Register from '../views/Register.vue'
 import Products from '../views/Products.vue'
 import Home from '../views/Home.vue'
+import Account from '../views/Account.vue'
+
+//#endregion
 
 Vue.use(VueRouter)
 
@@ -22,6 +27,7 @@ const routes = [
   {
     path: '/account',
     name: 'My Account',
+    component: Account,
     inNavLink : false
   },
   {

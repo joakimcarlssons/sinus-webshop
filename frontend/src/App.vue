@@ -79,6 +79,14 @@ export default {
   },
 
   created() {
+
+    //#region Set User
+
+    
+    //#endregion
+
+    //#region Fill Cart
+
     // If no cart is created, create one
     if(!sessionStorage.getItem('cart')) {
       this.$store.commit('resetCart')
@@ -89,6 +97,8 @@ export default {
     else if (this.$store.state.user.cart == null) {
       this.$store.commit('getCartFromStorage')
     }
+
+    //#endregion
 
   }
 }

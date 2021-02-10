@@ -34,13 +34,15 @@ export default {
 
     // Local methods
     methods: {
+
         // Attempt logIn
-        LogIn: async function() {
+        async LogIn() {
+
             // Try to log in with the provided credentials
             let res = await this.$store.dispatch('login', this.credentials);
 
             if(res.error) alert(res.response)
-            else alert("Wellcome back")
+            else this.$router.push('/account')
         }
     }
 }

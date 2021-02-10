@@ -16,14 +16,14 @@
 </template>
 
 <script>
-import { GET_ALL } from '@/mutations.js'
+import { GET_ALL_PRODUCTS } from '@/mutations.js'
 import Product from '@/components/Product'
 
 export default {
   components: { Product },
 
   created() {
-    this.$store.dispatch(GET_ALL)
+    this.$store.dispatch(GET_ALL_PRODUCTS)
   }
 }
 </script>
