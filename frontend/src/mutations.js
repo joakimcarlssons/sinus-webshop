@@ -6,8 +6,12 @@ module.exports = {
     GET_CART_FROM_STORAGE : 'getCartFromStorage',
     ADD_TO_CART : 'addCartItem',
     REMOVE_FROM_CART : 'removeCartItem',
+    REMOVE_SINGLE: 'removeOneFromCart',
     SAVE_USER : 'saveCurrentUser',
     GET_ORDERS : 'getOrders',
-    GET_SINGLE_PRODUCT : 'getProductById'
+    GET_SINGLE_PRODUCT : 'getProductById',
+    GET_USER_PAYMENT_INFO: 'getCurrentPaymentInfo',
+    LOGIN: 'login',
+    REGISTER: 'register'
 }
     

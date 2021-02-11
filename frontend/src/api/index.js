@@ -57,6 +57,24 @@ export async function register(userEmail, userPassword, userRepeatPassword) {
     // Return response
     return res
 }
+// Returns info from the logged on user
+export async function getCurrentUserInfo(token) {
+    // Return response
+    let res =  await axios({
+        method: 'get',
+        url: `${baseURL}auth`,
+        headers: {
+            // Put the JWT token in the header
+            Authorization: token
+        },
+    })
+    // Handle successful request
+    .then(response => parseSuccess(response))
+    // If error occurred - needs to be parsed differently
+    .catch(e => parseCatch(e));
+    // Return response
+    return res
+}
 
 //#endregion
 
@@ -165,7 +183,7 @@ export async function getOrders(token) {
     return res;
 }
 // Create a order
-export async function addOrder(order, token = null) {
+export async function addOrder(order, user, payment, token = null) {
     // Return response
     let res = await axios({
         method: 'post',
@@ -174,7 +192,11 @@ export async function addOrder(order, token = null) {
             // Put the JWT token in the header
             Authorization: token
         },
-        order
+        data: {
+            items:    order,
+            customer: user,
+            payment:  payment
+        }
     })
     // Handle successful response
     .then(response => parseSuccess(response))    

@@ -28,5 +28,23 @@ module.exports = {
                 message: "User registered!"
             })
         }
+    },
+
+    getUserData: async(req, res) => {
+        // Delete password from user
+        delete req.user.password
+        // Return result
+        if(req.user){
+            // Return 200 OK code and the payment details
+            res.status(200)
+            .json({
+                "user": req.user
+            })
+        } else {
+            // Return 403 error code
+            res.status(403).json({
+                error: "Could not get user data"
+            })
+        }
     }
 }

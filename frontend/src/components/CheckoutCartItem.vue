@@ -1,12 +1,14 @@
 <template>
-<div class="cartItem" :style="!forDisplay ? 'margin: 2rem' : 'margin: 0 2rem 2rem 0'">
+<form class="cartItem" :style="!forDisplay ? 'margin: 2rem' : 'margin: 0 2rem 2rem 0'">
     <div class="counter">
         
-        <img src="@/assets/caret-up-solid.svg" alt="" />
+        <img :style="'cursor: pointer'" src="@/assets/caret-up-solid.svg" alt="" 
+        @click="$store.commit('addCartItem', item)"/>
 
-        <p>{{item.amount}}</p>
+        <p>{{itemQTY}}</p>
 
-        <img src="@/assets/caret-down-solid.svg" alt="" />
+        <img :style="'cursor: pointer'" src="@/assets/caret-down-solid.svg" alt="" 
+        @click="$store.commit('removeOneFromCart', item)"/>
     </div>
     <div class="left">
         <div 
@@ -24,7 +26,7 @@
     <div class="price">
         <h3>{{item.price}} SEK</h3>
     </div>
-</div>
+</form>
 </template>
 
 <script>
@@ -32,6 +34,15 @@ export default {
     props: {
         item : Object,
         forDisplay : { type: Boolean, default: false }
+    },
+    // Local computed properties
+    computed: {
+        // Get the item quantity
+        itemQTY: function() {
+            console.log(this.$store.getters.getCartItemQTY(this.item));
+
+            return this.$store.getters.getCartItemQTY(this.item);
+        }
     }
 }
 </script>
@@ -77,6 +88,7 @@ export default {
 .info {
     display: flex;
     flex-direction: column;
+    margin-left: 1rem;
 }
 
 .price {

@@ -123,16 +123,52 @@ const User = {
     },
 
     [m.ADD_TO_CART](state, item) {
+      // Try to find the item in the cart
+      let cartItem = state.cart.find(i => i._id == item._id);
 
-      // Add item to cart
-      state.cart.push(item)
+      // If item already exist
+      if(cartItem) {
+        // Add 1 to the amount
+        cartItem.amount++;
+
+        let bu = state.cart;
+        state.cart = [];
+        state.cart = bu;
+
+      } else { // Else add it
+        // Set amount of item
+        item.amount = 1;
+        // Add item to cart
+        state.cart.push(item)
+      }
 
       // Update backup in session storage
       updateCartInSessionStorage(state.cart)
     },
     
-    [m.REMOVE_FROM_CART](state, item) {
+    // Removes one of the item if multiple are in the cart
+    [m.REMOVE_SINGLE](state, item) {
+      // Try to find the item in the cart
+      let cartItem = state.cart.find(i => i._id == item._id);
+      // If item already exist
+      if(cartItem.amount > 1) {
+        // Add 1 to the amount
+        cartItem.amount--;
 
+        let bu = state.cart;
+        state.cart = [];
+        state.cart = bu;
+
+      } else { // Else add it
+        // Remove item from cart
+        state.cart.splice(state.cart.indexOf(cartItem), 1)
+      }
+
+      // Update backup in session storage
+      updateCartInSessionStorage(state.cart)
+    },
+
+    [m.REMOVE_FROM_CART](state, item) {
       // Remove item from cart
       state.cart.splice(state.cart.indexOf(item), 1)
 
@@ -161,7 +197,7 @@ const User = {
       //#region  Login/Register
       
       // Attempts to login
-      async login(context, credentials) {
+      async [m.LOGIN](context, credentials) {
         
         // Try to login with the provided credentials
         let res = await API.login(credentials.email, credentials.password);
@@ -184,7 +220,7 @@ const User = {
       
       // Register a new user
       // This function can return an array of errors
-      async register(context, userData) {
+      async [m.REGISTER](context, userData) {
 
         // Try to login with the provided credentials
         return await API.register(userData.email, userData.password, userData.password)
@@ -194,14 +230,20 @@ const User = {
 
     //#region Orders
 
+    // Gets the user's payment info
+    async [m.GET_USER_PAYMENT_INFO](state){
+      let res = await API.getCurrentUserInfo(JSON.parse(localStorage.getItem('sinus-token')));
+      return res.response.user.payment;
+    },
+
     // Create order, this order will be added to the logged in user if a user is logged in
-    async createCurrentOrder(context) {
+    async createCurrentOrder(context, userData) {
       // Create the order
       let res = await API.addOrder(context.state.cart,
         // If a user is logged in, send the token
         JSON.parse(localStorage.getItem('sinus-token'))
-        );
-  
+        , userData.user, userData.payment);
+      // return result
       return res
     },
 
@@ -218,14 +260,29 @@ const User = {
 
     // Get the total price of the current cart
     cartTotalPrice : state => {
-      let totalPrice = 0
-      state.cart.forEach(x => totalPrice += x.price)
+      let totalPrice = 0 // Create total with default of 0
+      // Loop through all items in the cart
+      state.cart.forEach(x => { totalPrice += (x.price * x.amount) }) // Add price times the product amount
+      // Return the total price
       return totalPrice
+    },
+
+    // Gets the quantity of an item in the cart
+    getCartItemQTY : state => item => {
+      // Return the qty of the cart item
+      return state.cart[
+        // Get the index of the passed item
+        state.cart.indexOf(item)
+      ].amount;
     },
 
     // Get the amount of items in cart
     cartQuantity : state => {
-      return state.cart.length
+      let qty = 0; // Create quantity variable with default of 0
+      // Loop through all items in the cart
+      state.cart.forEach(x => qty += x.amount) // Add item quantity
+      // Return the quantity
+      return qty
     }
 
   }

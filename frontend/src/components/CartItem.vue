@@ -14,13 +14,21 @@
     </div>
 
     <div class="price">
-        <h3><span v-if="forDisplay" style="font-size: 1.4rem">{{item.amount}} st à </span> {{item.price}} SEK</h3>
+        <h3>
+            <span v-if="forDisplay" style="font-size: 1.4rem">{{item.amount}} st à </span>
+             {{item.price}} SEK
+        </h3>
+        <div class="edit" v-if="!forDisplay">
 
-        <img 
-        src="@/assets/trash-solid.svg" alt="" 
-        class="trash" @click="$emit('trash', item)"
-        v-if="!forDisplay"
-        />
+            <div class="incdec rem" @click="$store.commit('removeOneFromCart', item)"/>
+            <h4>{{itemQTY}}</h4>
+            <div class="incdec add" @click="$store.commit('addCartItem', item)"/>
+
+            <img 
+            src="@/assets/trash-solid.svg" alt="" 
+            class="trash" @click="$emit('trash', item)"
+            />
+        </div>
     </div>
 </div>
 </template>
@@ -30,6 +38,16 @@ export default {
     props: {
         item : Object,
         forDisplay : { type: Boolean, default: false }
+    },
+
+    // Local computed properties
+    computed: {
+        // Get the item quantity
+        itemQTY: function() {
+            console.log(this.$store.getters.getCartItemQTY(this.item));
+
+            return this.$store.getters.getCartItemQTY(this.item);
+        }
     }
 }
 </script>
@@ -70,17 +88,50 @@ export default {
     display: flex;
     flex-direction: column;
 
-    .trash {
-    align-self: flex-end;
-    height: 1.1rem;
-    width: 1.1rem;
-    opacity: .3;
-    margin-top: 1rem;
-    }
 
-    .trash:hover {
-        opacity: 1;
-        cursor: pointer;
+
+    .edit {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        //height: 100%;
+
+        .trash {
+            //align-self: flex-end;
+            height: 1.1rem;
+            width: 1.1rem;
+            opacity: .3;
+        }
+        .trash:hover {
+            opacity: 1;
+            cursor: pointer;
+        }
+        h4 {
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+            font-size: 1.4rem;
+        }
+
+        .incdec{
+            height: 20px;
+            width: 20px;
+            cursor: pointer;
+
+            background-repeat: no-repeat;                   
+            background-size: contain;
+            background-position: center;
+
+            &.add {
+                background-image: url("~@/assets/caret-down-solid.svg");
+                transform: rotate(-90deg);
+            }
+            &.rem {
+                background-image: url("~@/assets/caret-up-solid.svg");
+                transform: rotate(-90deg);
+            }
+        }
     }
 }
 

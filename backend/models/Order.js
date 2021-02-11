@@ -12,46 +12,28 @@ function validate(body){
 module.exports = {
     async create(body, user){
         if(validate(body)){
+            // Pull data from body
             const {items, customer, payment} = body
-            const products = await Product.find(items)
 
-            // Array for the full items
-            let orderProducts = []
-
-            items.forEach( id => {
-                // Find the product
-                const product = products.find(product => product._id == id)
-                
-                // increment product amount by one
-                if(product.amount != undefined)  product.amount++
-                // Add product tag
-                else product.amount = 1
-
-                // Create product item
-                let item = product;
-
-                // If product does not exist in order
-                if(!orderProducts.find(i => i._id == item._id))
-                    // Add the full item to the array
-                    orderProducts.push(item);
-            })
-
+            console.log(customer);
+            console.log(payment);
+            
+            // Create order
             const order = await orders.insert({
                 // Add the item objects to the order
                 // This will make shiure that the order will not be affected if any products get updated
-                orderProducts,
+                orderProducts : items,
                 timeStamp: Date.now(),
                 status: 'inProcess',
-                orderValue: products.reduce( (acc,product) => acc+product.price*product.amount, 0)
+                orderValue: items.reduce( (acc,product) => acc+product.price*product.amount, 0)
             })       
 
+            // Add order to user's order history
             await User.addOrderToUser(order, user)
             
-
             return {error:false}
         }else{
             return {error:true}
-
         }
 
     },

@@ -25,7 +25,7 @@
 
         <div class="totals">
           <h3>Total</h3>
-          <h3>{{$store.getters.cartTotalPrice}}</h3>
+          <h3>{{$store.getters.cartTotalPrice}} SEK</h3>
         </div>
 
       </div>
@@ -39,19 +39,19 @@
       <div class="form">
 
         <label for="name">Name</label>
-        <input type="text" id="name">
+        <input type="text" id="name" v-model="user.name">
         
-        <label for="adress">Street Adress</label>
-        <input type="text" id="adress">
+        <label for="adress">Street Address</label>
+        <input type="text" id="address" v-model="user.adress.street">
 
         <div class="bottom">
             <div class="formItem">
               <label for="city">City</label>
-              <input type="text" id="city">
+              <input type="text" id="city" v-model="user.adress.city">
             </div>
             <div class="formItem">
               <label for="zipcode">Zip Code</label>
-              <input type="text" id="zipcode">
+              <input type="text" id="zipcode" v-model="user.adress.zip">
             </div>
         </div>
 
@@ -68,19 +68,19 @@
       <div class="form">
 
         <label for="cardOwner">Card Owner</label>
-        <input type="text" id="name">
+        <input type="text" id="cardOwner" v-model="payment.cardOwner">
         
         <label for="cardNumber">Card Number</label>
-        <input type="text" id="cardNumber">
+        <input type="text" id="cardNumber" v-model="payment.cardNumber">
 
         <div class="bottom">
             <div class="formItem">
               <label for="validUntil">Valid until</label>
-              <input type="text" id="validUntil">
+              <input type="text" id="validUntil" v-model="payment.validUntil">
             </div>
             <div class="formItem">
               <label for="ccv">CCV</label>
-              <input type="text" id="ccv">
+              <input type="text" id="ccv" v-model="payment.ccv">
 
 
             </div>
@@ -88,7 +88,7 @@
 
       </div>
 
-      <button class="purchase">
+      <button class="purchase" @click="createOrder">
         <img src="@/assets/icon-bag-white.svg" alt="" class="btnImage" />
         <p>Take my money!</p>
       </button>
@@ -105,16 +105,54 @@ import CheckoutCartItem from '@/components/CheckoutCartItem'
 export default {
   components: { CheckoutCartItem },
 
+  // Local variables
+  data() { return {
+    // the current user
+    user: {},
+    // Payment details
+    payment: {}
+  }},
+
+  //#region Lifecycle hooks
+
+  // Fires when this view is created
+  async created() {
+    // Get the current user from the 
+    Object.assign(this.user, this.$store.state.user.currentUser);
+
+    // Get user's payment details
+    this.payment = await this.$store.dispatch('getCurrentPaymentInfo')
+  },
+
+  //#endregion
+
   computed: {
     cart() {
-      console.log(this.$store.state.user.cart)
       return this.$store.state.user.cart
+    }
+  },
+  // Local methods
+  methods: {
+    // Creates the oreder
+    createOrder: async function() {
+      // Create order and update user info and payment details
+      let res = await this.$store.dispatch('createCurrentOrder', {user: this.user, payment: this.payment})
+      
+      if(res.error)
+        alert(res.response)
+      else
+        alert(res.response.message)
+
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+
+input:required {
+  border-color: red;
+}
 
 .container {
   h1, h3, h4 {
