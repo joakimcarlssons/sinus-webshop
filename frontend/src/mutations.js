@@ -12,6 +12,7 @@ module.exports = {
     GET_SINGLE_PRODUCT : 'getProductById',
     GET_USER_PAYMENT_INFO: 'getCurrentPaymentInfo',
     LOGIN: 'login',
-    REGISTER: 'register'
+    REGISTER: 'register',
+    CREATE_ORDER: 'createOrder'
 }
     

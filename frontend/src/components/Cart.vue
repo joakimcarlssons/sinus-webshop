@@ -4,7 +4,7 @@
     :style="$store.getters.cartQuantity > 0 ? 'left: 88.5%' : 'left: 92%;'">
     </div>
     <div class="content">
-        <ul class="cartList">
+        <ul class="cartList" v-if="cart.length">
             <li
             v-for="(item, index) in cart"
             :key="index"
@@ -19,6 +19,9 @@
 
             </li>
         </ul>
+        <div v-else class="cartEmptyContainer">
+            <p @animationend="animationDone">Your cart is empty :(</p>
+        </div>
 
         <hr>
 
@@ -51,17 +54,14 @@ export default {
     },
 
     data() { return {
-        itemBeingTrashed : {}
+        itemBeingTrashed : {},
     }},
 
     methods: {
-
         // Trash an item from the cart
         trash(product) {
-
             // Start the animation
             this.itemBeingTrashed = product
-
             setTimeout(() => {
                 // Commit the mutation
                 this.$store.commit('removeCartItem', product)
@@ -90,6 +90,19 @@ export default {
 
         display: flex;
         flex-direction: column;
+
+        .cartEmptyContainer{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-content: center;
+                height: 27.5rem;
+            p {
+                text-align: center;
+                font-size: 2rem;
+                font-weight: bold;
+            }
+        }
 
         .cartList {
             height: 27.5rem;

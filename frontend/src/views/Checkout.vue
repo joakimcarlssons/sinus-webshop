@@ -12,7 +12,7 @@
         </div>
 
         <!-- Cart -->
-        <ul>
+        <ul v-if="cart.length">
           <li
           v-for="(item, index) in cart"
           :key="index"
@@ -20,6 +20,9 @@
           <CheckoutCartItem :item="item" />
           </li>
         </ul>
+        <div v-else class="cartEmptyContainer">
+          <p @animationend="animationDone" :class="{'animate': animate}">Your cart is empty :(</p>
+        </div>
 
         <hr>
 
@@ -107,10 +110,29 @@ export default {
 
   // Local variables
   data() { return {
-    // the current user
-    user: {},
+    /*
+      the current user
+      Define user and payment variables here in case it is an
+      anonymous customer
+    */
+   // The current user
+    user: {
+      name:  "",
+      adress: {
+        street: "",
+        city:   "",
+        zip:    ""   
+      }
+    },
     // Payment details
-    payment: {}
+    payment: {
+      cardOwner:  "",
+      cardNumber: "",
+      validUntil: "",
+      ccv:        ""
+    },
+    // Silly stuff
+    animate: false
   }},
 
   //#region Lifecycle hooks
@@ -119,7 +141,6 @@ export default {
   async created() {
     // Get the current user from the 
     Object.assign(this.user, this.$store.state.user.currentUser);
-
     // Get user's payment details
     this.payment = await this.$store.dispatch('getCurrentPaymentInfo')
   },
@@ -135,14 +156,22 @@ export default {
   methods: {
     // Creates the oreder
     createOrder: async function() {
-      // Create order and update user info and payment details
-      let res = await this.$store.dispatch('createCurrentOrder', {user: this.user, payment: this.payment})
-      
-      if(res.error)
-        alert(res.response)
-      else
-        alert(res.response.message)
+      // Only process the order if there are any items in the cart
+      if(this.$store.state.user.cart.length) {
+        // Create order and update user info and payment details
+        let res = await this.$store.dispatch('createOrder', {user: this.user, payment: this.payment})
+        
+        if(res.error) alert(res.response)
+        else alert(res.response.message)
+      } else {
+        // Animate text
+        this.animate = true;
+      }
 
+    },
+    // When animation is done on text
+    animationDone: function() {
+      this.animate = false;
     }
   }
 }
@@ -150,8 +179,17 @@ export default {
 
 <style lang="scss" scoped>
 
-input:required {
-  border-color: red;
+// This is a zoom in and out animation for the 'cart is empty' label
+@keyframes hithere {
+  30% { transform: scale(1.2); }
+  40%, 60% { transform: rotate(-20deg) scale(1.2); }
+  50% { transform: rotate(20deg) scale(1.2); }
+  70% { transform: rotate(0deg) scale(1.2); }
+  100% { transform: scale(1); }
+}
+// This is a class that applies the the '' in and out animation
+.animate {
+  animation: hithere 1s ease;
 }
 
 .container {
@@ -167,6 +205,19 @@ input:required {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 
+      .cartEmptyContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        height: 20rem;
+        p {
+          text-align: center;
+          font-size: 2rem;
+          font-weight: bold;
+        }
+      }
+
       .contentItem {
         margin: 1rem;
 
@@ -176,7 +227,7 @@ input:required {
         .subHeading {
         display: flex;
         align-items: center;
-  
+
         hr {
             margin-left: 1rem;
             flex-grow: 1;

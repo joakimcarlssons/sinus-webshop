@@ -41,8 +41,10 @@ module.exports = {
                 status: 'inProcess',
                 // Save the total price for the order
                 orderValue: orderProducts.reduce( (acc,product) => acc+product.price*product.amount, 0),
-                // Save who ordered this and the shipping address for each order
-                // on the receipt, this will make shure that each order gets logged
+                // Save customer and shipping address for each order
+                // on the receipt, this makes shure that customers that are not logged in will be logged
+                // and that the data on the receipt does not change if logged in user
+                // changes profile settings.
                 customer
             })       
 

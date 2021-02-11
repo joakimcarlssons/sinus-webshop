@@ -237,7 +237,7 @@ const User = {
     },
 
     // Create order, this order will be added to the logged in user if a user is logged in
-    async createCurrentOrder(context, userData) {
+    async [m.CREATE_ORDER](context, userData) {
       // Server will search for the product by the id and get the data from there
       let parsedCart = []
       // Loop through all products in the cart
