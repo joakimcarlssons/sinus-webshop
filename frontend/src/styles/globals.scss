@@ -21,6 +21,7 @@
     --DarkYellow: #a5b60b;
     --LightBlue: #d1e2f3;
     --LightBlueFaded : rgba(209, 226, 243, .5);
+    --WhiteFaded : rgba(255, 255, 255, .3);
 
     /* Main background color */
     --MainBg : var(--LightGrey);
@@ -55,10 +56,6 @@ body::after {
     right: 0;
     position: absolute;
     z-index: -1;   
-}
-
-ul {
-    list-style: none;
 }
 
 .container {

@@ -126,6 +126,7 @@ export default {
 @import url('~@/styles/buttons.scss');
 @import url('~@/styles/overlays.scss');
 @import url('~@/styles/scrolls.scss');
+@import '~@/styles/lists.scss';
 
 #app {
   min-height: 100vh;

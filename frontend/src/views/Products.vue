@@ -1,10 +1,9 @@
 <template>
 <div class="container">
-  <ul>
+  <ul class="productList">
     <li
-    v-for="(product, index) in $store.state.products.allProducts"
+    v-for="(product, index) in allProducts"
     :key="index"
-    class="product"
     :style="`animation: zoomIn ${index - (index * 0.9)}s`"
     >
     <Product 
@@ -22,24 +21,14 @@ import Product from '@/components/Product'
 export default {
   components: { Product },
 
+  computed: {
+    allProducts() {
+      return this.$store.state.products.allProducts
+    }
+  },
+
   created() {
     this.$store.dispatch(GET_ALL_PRODUCTS)
   }
 }
 </script>
-
-<style lang="scss" scoped>
-
-.container {
-  ul {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-
-    li {
-      margin: 1rem;
-      box-shadow: .3rem .3rem .4rem 0 rgba(0,0,0,0.31);
-    }
-  }
-}
-</style>

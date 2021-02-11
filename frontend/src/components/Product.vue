@@ -3,7 +3,7 @@
     class="container"
     :class="{wrapper : !addToCartIsActive}"
     :style="{backgroundImage : bgImage}"
-    @click="showProduct"
+    @click="$route.fullPath != '/admin' ? showProduct : $emit('updateProduct', selectedProduct, addToCartIsActive)"
     >
 
     <div class="content">
@@ -17,9 +17,17 @@
                 alt=""
                 class="addToCart"
                 :class="{animateCheck : isAnimating}"
+                />
+
+                <!-- Trash image -->
+                <img v-else-if="$route.fullPath == '/admin'"
+                src="@/assets/trash-solid.svg" 
+                alt=""
+                class="addToCart"
+                :class="{animateBag : isAnimating}"
                 @mouseover="setActiveCart"
                 @mouseleave="setActiveCart"
-                @click="addToCart(selectedProduct)"
+                @click="$emit('removeProduct', selectedProduct, addToCartIsActive)"
                 />
                 
                 <!-- Bag image -->

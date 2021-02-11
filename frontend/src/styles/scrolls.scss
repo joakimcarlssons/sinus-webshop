@@ -18,22 +18,26 @@ body::-webkit-scrollbar-thumb:hover {
     background: var(--DarkGrey);
 }
 
-/* CartList scrollbar */
-.cartList::-webkit-scrollbar {
+/* CartList & Textarea scrollbar */
+.cartList::-webkit-scrollbar,
+textarea::-webkit-scrollbar {
     width: .5rem !important;
     border-radius: 5rem;
 }
 
-.cartList::-webkit-scrollbar-track {
+.cartList::-webkit-scrollbar-track,
+textarea::-webkit-scrollbar-track {
     margin: .5rem;
     border-radius: 5rem;
 }
 
-.cartList::-webkit-scrollbar-thumb {
+.cartList::-webkit-scrollbar-thumb,
+textarea::-webkit-scrollbar-thumb {
     background: var(--LightGrey);
     border-radius: 5rem;
 }
 
-.cartList::-webkit-scrollbar-thumb:hover {
+.cartList::-webkit-scrollbar-thumb:hover,
+textarea::-webkit-scrollbar-thumb:hover {
     background: var(--MediumGrey);
 }
