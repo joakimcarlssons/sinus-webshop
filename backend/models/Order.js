@@ -15,26 +15,43 @@ module.exports = {
             // Pull data from body
             const {items, customer, payment} = body
 
-            console.log(customer);
-            console.log(payment);
-            
+            // Load products outside of foreach
+            let loadedProducts = await Product.find(items.map(i => i.id));
+
+            // Create array for products
+            let orderProducts = []
+            // Loop through all items
+            items.forEach(i => {
+                // Get product
+                let prod = loadedProducts.find(p => p._id == i.id)
+                // Set amount
+                prod.amount = i.amount;
+                // Push item
+                orderProducts.push(prod);
+            })
+
             // Create order
             const order = await orders.insert({
-                // Add the item objects to the order
-                // This will make shiure that the order will not be affected if any products get updated
-                orderProducts : items,
+                // Save full items on the receipt, this will make shure that the data will not change if
+                // products in the orde gets removed or changed
+                orderProducts,  
+                // Set timestamp on order
                 timeStamp: Date.now(),
+                // Set default status on the order
                 status: 'inProcess',
-                orderValue: items.reduce( (acc,product) => acc+product.price*product.amount, 0)
+                // Save the total price for the order
+                orderValue: orderProducts.reduce( (acc,product) => acc+product.price*product.amount, 0),
+                // Save who ordered this and the shipping address for each order
+                // on the receipt, this will make shure that each order gets logged
+                customer
             })       
 
             // Add order to user's order history
             await User.addOrderToUser(order, user)
             
             return {error:false}
-        }else{
-            return {error:true}
         }
+        else return {error:true}
 
     },
 

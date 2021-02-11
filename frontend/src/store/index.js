@@ -238,11 +238,18 @@ const User = {
 
     // Create order, this order will be added to the logged in user if a user is logged in
     async createCurrentOrder(context, userData) {
+      // Server will search for the product by the id and get the data from there
+      let parsedCart = []
+      // Loop through all products in the cart
+      context.state.cart.forEach(p => {
+        // Create object and add it to array
+        parsedCart.push({id: p._id, amount: p.amount})
+      });
       // Create the order
-      let res = await API.addOrder(context.state.cart,
+      let res = await API.addOrder(parsedCart,
+        userData.user, userData.payment,
         // If a user is logged in, send the token
-        JSON.parse(localStorage.getItem('sinus-token'))
-        , userData.user, userData.payment);
+        JSON.parse(localStorage.getItem('sinus-token')));
       // return result
       return res
     },
