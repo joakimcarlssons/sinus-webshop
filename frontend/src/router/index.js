@@ -7,6 +7,7 @@ import Products from '../views/Products.vue'
 import Home from '../views/Home.vue'
 import Account from '../views/Account.vue'
 import Checkout from '../views/Checkout.vue'
+import Admin from '../views/Admin.vue'
 
 //#endregion
 
@@ -41,6 +42,12 @@ const routes = [
     path: '/checkout',
     name: 'Checkout',
     component: Checkout,
+    inNavLink: false
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin,
     inNavLink: false
   }
 ]

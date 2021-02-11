@@ -1,0 +1,15 @@
+ul {
+    list-style: none;
+
+    /* Product list */
+    &.productList {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      li {
+        margin: 1rem;
+        box-shadow: .3rem .3rem .4rem 0 rgba(0,0,0,0.31);
+      }
+    }
+}
