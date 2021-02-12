@@ -45,7 +45,10 @@
                 <textarea id="desc" v-model="newProduct.longDesc"></textarea>
             </div>
 
-            <button class="adminButton" @click="addProduct">Add new product</button>
+            <div class="bottom">
+                <div class="radioImages"></div>
+                <button class="adminButton" @click="addProduct">Add new product</button>
+            </div>
         </div>
 
     </div>
@@ -221,6 +224,12 @@ export default {
         text-transform: uppercase;
     }
     
+    .bottom {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
     .subHeading {
         display: flex;
         align-items: center;
