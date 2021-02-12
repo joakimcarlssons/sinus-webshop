@@ -39,15 +39,37 @@
             
             <hr>
 
-            <div class="totals">
+
+            <div class="info-area">
               <span class="alignHorizontal">
-                <h4>Order created:</h4>
+                <h4>Order created</h4>
                 <p>{{orderDate}}</p>
               </span>
+            </div>
 
+            <div class="info-area">
               <span class="alignHorizontal">
-                <h4>Total price:</h4>
-                <p>{{order.orderValue}} kr</p>
+                <h4>Payment method</h4>
+                <p>Card / Internet banking</p>
+              </span>
+            </div>
+
+            <div class="info-area">
+              <span class="alignHorizontal">
+                <h4>Delivery address</h4>
+                <p>{{adressName}}<br/>
+                   {{order.customer.adress.street || '-'}}<br/>
+                   {{order.customer.adress.zip || '-'}} {{order.customer.adress.city || '-'}}
+                </p>
+              </span>
+            </div>
+
+            <hr>
+
+            <div class="info-area">
+              <span class="alignHorizontal">
+                <h4>Total price</h4>
+                <p class="price-tag">{{order.orderValue}} SEK</p>
               </span>
             </div>
 
@@ -58,12 +80,18 @@
 </template>
 
 <script>
+
+//#region Component imports
 import CartItem from '@/components/CartItem'
+//#endregion
 
 export default {
+  // Component registrations
   components: { CartItem },
 
+  // Local computed properties
   computed: {
+    // Parses and returns the order date 
     orderDate() {
       const date = new Date(this.order.timeStamp)
       const options = { 
@@ -72,16 +100,27 @@ export default {
         };
 
       return date.toLocaleDateString('se-Se', options)
-    }
+    },
+
+  //#region Return attributes from the current order, fallback values are needed
+  adressName:   function() { return this.order.customer.name   || '-' }, // Get billing address name
+  adressStreet: function() { return this.order.customer.street || '-' }, // Get billing address street
+  adressCity:   function() { return this.order.customer.city   || '-' }, // Get billing address city
+  adressZip:    function() { return this.order.customer.zip    || '-' }  // Get billing address zip code
+  //#endregion
+
   },
 
+  // Local properties
   props : {
-    order : Object
+    order : Object // The order for this component
   },
 
+  // Local variables
   data() {return {
-    opened : false
+    opened : false // Switch to tell if order if opened
   }}
+
 }
 </script>
 
@@ -136,23 +175,31 @@ export default {
       margin-top: -1rem;
       padding: 2rem;
 
-      .totals {
-        margin-top: 1rem;
+      .info-area {
         display: flex;
         justify-content: space-between;
 
         .alignHorizontal {
           display: flex;
           align-items: center;
-
           font-size: 1.2rem;
+          margin-top: 1rem;
+          margin-bottom: 1rem;
+
+          .price-tag {
+            font-weight: bold;
+          }
+
+          h4 {
+            width: 14rem;
+            align-self: flex-start;
+          }
 
           p {
             margin-left: 1rem;
           }
         }
       }
-
   }
 }
 

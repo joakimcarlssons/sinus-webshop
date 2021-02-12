@@ -26,18 +26,27 @@ import { GET_ORDERS } from '@/mutations.js'
 export default {
     components : { Order },
 
+    // Local variables
     data() { return {
+        // Order history
         orders : []
     }},
     
+    //#region Lifecycle hooks
+
+    // Fires when this view is created
     async created() {
+        // Get order history
         const res = await this.$store.dispatch(GET_ORDERS)
 
-        console.log(res)
+        // If no errors occurred...
+        if(!res.error) this.orders = res.response // Save orders in local variable
 
-        if(!res.error) this.orders = res.response
-        else alert(res.response)
+        // If errors occurred...
+        else alert(res.response) // Alert error to user
     }
+
+    //#endregion
 }
 </script>
 
