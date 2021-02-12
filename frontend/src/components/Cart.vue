@@ -21,7 +21,7 @@
         </ul>
         
         <div v-else class="cartEmptyContainer">
-            <p @animationend="animationDone">Your cart is empty :(</p>
+            <p>Your cart is empty :(</p>
         </div>
 
         <hr>
@@ -41,23 +41,29 @@
 </template>
 
 <script>
+//#region Component imports
 import CartItem from '@/components/CartItem'
+//#endregion
 
 export default {
+    // Component registrations
     components: { CartItem },
 
+    // Local computed properties
     computed: {
-
         // Get the current cart
         cart() {
+            // Return the cart
             return this.$store.state.user.cart
         }
     },
 
+    // Local variables
     data() { return {
         itemBeingTrashed : {},
     }},
 
+    // Local methods
     methods: {
         // Trash an item from the cart
         trash(product) {
