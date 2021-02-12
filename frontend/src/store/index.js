@@ -179,14 +179,19 @@ const User = {
 
     //#endregion
 
-    //#region API mutations
+    //#region User mutations
 
     // Saves the current user and token in local storage
     [m.SAVE_USER](state, data) {
       state.currentUser = data.user
+    },
+
+    logOutUser(state) {
+      state.currentUser = null
+      console.log(state.currentUser)
+      localStorage.removeItem('current-user')
+      localStorage.removeItem('sinus-token')
     }
-
-
 
     //#endregion
   },
@@ -336,10 +341,24 @@ export default new Vuex.Store({
     },
 
     // Reset the nav links to default mode
-    resetVisibleNavItems(state) {
-      state.visibleNavItems.forEach(x => {
-        x.inNavLink = x.defaultVisibility
-      })
+    resetVisibleNavItems(state, logOut) {
+
+      if(logOut) {
+
+        // If the user logs out, make a hard reset of the navbar
+        state.visibleNavItems.forEach(x => {
+          if(x.path == '/' || x.path == '/products') x.inNavLink = true
+          else {
+            x.inNavLink = false
+            x.defaultVisibility = false
+          }
+        })
+      }
+      else {
+        state.visibleNavItems.forEach(x => {
+          x.inNavLink = x.defaultVisibility
+        })
+      }
     }
 
   },

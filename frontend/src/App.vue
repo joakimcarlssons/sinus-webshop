@@ -20,7 +20,8 @@
     <transition
     enter-active-class="animated fadeIn"
     leave-active-class="animated fadeOut">
-      <div class="logIn" v-if="activeOverlay.name == 'login' && activeOverlay.active">
+      <div :class="{logInOverlay : !$store.state.user.currentUser, logOutOverlay : $store.state.user.currentUser}" 
+      v-if="activeOverlay.name == 'login' && activeOverlay.active">
         <LogIn />
       </div>
     </transition>

@@ -81,22 +81,11 @@ export default {
 
     methods: {
         openLoginDialog() {
-
-            // Check if any user is logged in,
-            // if false open the Login dialog
-            if(!this.currentUser) {
-
-                if(this.$store.state.overlay.active) {
-                    this.$store.commit('resetOverlay')
-                }
-                else {
-                    this.$store.commit('changeOverlay', { name: 'login', active: true })
-                }
+            if(this.$store.state.overlay.active) {
+                this.$store.commit('resetOverlay')
             }
-
-            // If the user is logged in, send to account page
-            else if (this.$route.fullPath != '/account') {
-                this.$router.push('/account')
+            else {
+                this.$store.commit('changeOverlay', { name: 'login', active: true })
             }
         },
 

@@ -1,7 +1,9 @@
 <template>
 <div class="container">
-  <div class="arrow-up"></div>
-  <div class="content">
+
+  <div class="arrow-up" :style="$store.state.user.currentUser ? 'left: 47%' : 'left: 77%'"></div>
+
+  <div class="content" v-if="!$store.state.user.currentUser">
       
       <input type="email" placeholder="email" v-model="credentials.email">
 
@@ -20,6 +22,19 @@
         </button>
       </div>
   </div>
+
+  <div class="loggedIn" v-else>
+    <router-link :to="'/'" @click.native="logOut">
+
+        <div class="logOut">
+            <h4>Logga ut</h4>
+            <img src="@/assets/long-arrow-alt-right-solid.svg" alt="" />
+        </div>
+
+    </router-link>
+  </div>
+
+
 </div>
 </template>
 
@@ -61,6 +76,13 @@ export default {
                 this.$router.push('/account')
             } 
 
+        },
+
+        logOut() {
+            this.$store.commit('logOutUser')
+            this.$store.commit('resetOverlay')
+            this.$store.commit('resetVisibleNavItems', true)
+            this.$store.commit('setVisibleNavItems', this.$router.options.routes.filter(x => x.inNavLink))
         }
     }
 }
@@ -77,13 +99,12 @@ export default {
 
 .container {
     position: relative;
-    height: 100%;
+
     .arrow-up {
         position: absolute;
-        left: 77%;
     }
 
-    .content {
+    .content, .loggedIn {
         background-color: var(--White);
         margin-top: .8rem;
         padding: 2.9rem;
@@ -125,6 +146,34 @@ export default {
             }
         }
 
+    }
+
+    .loggedIn {
+        align-self: flex-end;
+
+        .logOut {
+            align-self: flex-start;
+            display: flex;
+            align-items: center;
+
+            &:hover {
+                h4 {
+                    border-bottom: 2px solid black;
+                }
+
+                img {
+                    height: 1.7rem;
+                    width: 1.7rem;
+                    transition: .1s;
+                }
+            }
+
+            img {
+                margin-left: .6rem;
+                height: 1.5rem;
+                width: 1.5rem;
+            }
+        }     
     }
 }
 

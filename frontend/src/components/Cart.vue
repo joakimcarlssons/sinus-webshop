@@ -19,6 +19,7 @@
 
             </li>
         </ul>
+        
         <div v-else class="cartEmptyContainer">
             <p @animationend="animationDone">Your cart is empty :(</p>
         </div>
