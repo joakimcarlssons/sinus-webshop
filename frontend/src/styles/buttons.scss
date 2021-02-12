@@ -23,3 +23,13 @@ button:hover {
     width: 2rem;
     padding: .5rem;
 }
+
+.adminButton {
+    grid-column: 3;
+    margin: 0 1rem;
+    text-transform: uppercase;
+    letter-spacing: .1rem;
+    font-weight: 700;
+    font-size: 1rem;
+    border: 1px solid var(--WhiteFaded);
+}

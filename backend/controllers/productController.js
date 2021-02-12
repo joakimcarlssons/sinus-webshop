@@ -17,7 +17,7 @@ module.exports = {
         }
     },
     createProduct: async (req,res) => {
-        let result = await Product.create(req.body)
+        let result = await Product.create(req.body.product)
         if(result.error){
             res.json({
                 error: "Could not create product"
@@ -31,7 +31,7 @@ module.exports = {
     },
 
     updateProduct: async (req,res) => {
-        let result = await Product.update(req.params.id, req.body)
+        let result = await Product.update(req.params.id, req.body.product)
         switch(result.error){
             case Errors.NO_ERROR:
                 res.status(200).json({message: 'Product updated', data: result.data}); break;

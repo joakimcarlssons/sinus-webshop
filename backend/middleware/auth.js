@@ -23,7 +23,9 @@ module.exports = {
         try {
             const token = req.header('Authorization').replace('Bearer ', '')
             const data = jwt.verify(token, 'secret')
+
             const user = await User.findOneBy({ _id: data.id })
+
             if (!user) { throw new Error() }
             else if(user.role != "admin"){ throw new Error() }
 

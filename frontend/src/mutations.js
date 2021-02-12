@@ -13,6 +13,9 @@ module.exports = {
     GET_USER_PAYMENT_INFO: 'getCurrentPaymentInfo',
     LOGIN: 'login',
     REGISTER: 'register',
-    CREATE_ORDER: 'createOrder'
+    CREATE_ORDER: 'createOrder',
+    CREATE_PRODUCT: 'createProduct',
+    DELETE_PRODUCT: 'deleteProduct',
+    UPDATE_PRODUCT: 'updateProduct',
 }
     

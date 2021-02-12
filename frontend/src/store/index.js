@@ -53,36 +53,29 @@ const Admin = {
   actions: {
 
     // Creates a new product and adds it to the database
-    async createProduct(context, product) {
+    async [m.CREATE_PRODUCT](context, product) {
       // Make the API request
       let res = await API.createProduct(product, JSON.parse(localStorage.getItem('sinus-token')));
-
       // If request was successful, return the message
-      if(!res.error) return res.response;
+      return res;
     },
   
     // Updates a product in the database
-    async updateProduct(context, product) {
+    async [m.UPDATE_PRODUCT](context, product) {
       // Make the API request
       let res = await API.updateProduct(product._id, product, JSON.parse(localStorage.getItem('sinus-token')));
-
-      // On request error
-      if(res.error) return res.error;
-
-      // If request was successful, return the message
-      else return res.message;
+      
+      console.log(res);
+      // Return response
+      return res;
     },
     
     // Delets a product from the database
-    async deleteProduct(context, id){
+    async [m.DELETE_PRODUCT](context, id){
       // Make the API request
       let res = await API.deleteProduct(id, JSON.parse(localStorage.getItem('sinus-token')));
-
-      // On request error
-      if(res.error) return res.error;
-
-      // If request was successful, return the message
-      else return res.message;
+      // Return response
+      return res;
     },
 
   },

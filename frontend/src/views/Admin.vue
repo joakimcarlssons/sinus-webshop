@@ -45,7 +45,7 @@
                 <textarea id="desc" v-model="newProduct.longDesc"></textarea>
             </div>
 
-        <button class="addBtn">Add new product</button>
+            <button class="adminButton" @click="addProduct">Add new product</button>
         </div>
 
     </div>
@@ -94,6 +94,8 @@
                 <textarea id="desc" v-model="selectedProduct.longDesc"></textarea>
             </div>
 
+        <button class="adminButton" v-if="productChanged" @click="updateProduct">Update product</button>
+
         </div>
 
         <ul class="productList">
@@ -124,7 +126,13 @@ export default {
 
   data() { return {
       selectedProduct : {},
-      newProduct : {},
+      newProduct : {
+          title:     "",
+          shortDesc: "",
+          longDesc:  "",
+          price:     0
+      },
+      backupProduct: {},
       showAdd : false,
       showEdit : false,
       chosenImg : ''
@@ -141,6 +149,12 @@ export default {
             return 'url(' + require(`@/assets/${this.selectedProduct.imgFile}`) + ')'
         }
         else return ''
+    },
+
+    productChanged() {
+        if (JSON.stringify(this.backupProduct) === JSON.stringify(this.selectedProduct)) return false;
+
+        return true;
     }
   },
 
@@ -150,16 +164,58 @@ export default {
 
   methods: {
       setSelectedProduct(product, flag) {
-            if(!flag) this.selectedProduct = product
+            if(!flag) {
+                // If this is not the first selected item
+                if(this.setSelectedProduct)
+                    // restore from backup
+                    Object.assign(this.selectedProduct, this.backupProduct);
+                // Set the selected product
+                this.selectedProduct = product
+                // Create backup
+                Object.assign(this.backupProduct, product);              
+            }
       },
-      removeProduct(product, flag) {
-          if(flag) console.log(product)
+      // Fires when the 'delete' button is pressed on a product
+      async removeProduct(product) {
+          // Delete the product
+          let res = await this.$store.dispatch('deleteProduct', product._id);
+          // Alert product if it could be deleted
+          if(!res.error) alert(res.response.message);
+          // Show error messag if product could not be deleted
+          else alert(res.response.error);
+      },
+      async updateProduct() {
+          // Update the product
+          let res = await this.$store.dispatch('updateProduct', this.selectedProduct);
+          // Alert product if it could be updated
+          if(!res.error) alert(res.response.message);
+          // Show error messag if product could not be updated
+          else alert(res.response.error);
+      },
+      // Fires when the 'Add new product' button is pressed
+      async addProduct() {
+          // Declare switch to tell if product contain empty values
+          let containsEmpty = false;
+          // Loop through all prop values in the product
+          Object.values(this.newProduct).forEach(val => {
+              // If value if null of empty
+              if(!val || val === '') containsEmpty = true;
+          })
+
+          // Create the product
+          if(!containsEmpty) {
+              // Create product
+              let res = await this.$store.dispatch('createProduct', this.newProduct)
+              // Alert user if no error was present
+              if(!res.error) alert("product created")
+          }
       }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+
 .container {
     h1, h4 {
         text-transform: uppercase;
@@ -238,16 +294,6 @@ export default {
 
 .add {
     margin-bottom: 3rem;
-
-    .addBtn {
-        grid-column: 3;
-        margin: 0 1rem;
-        text-transform: uppercase;
-        letter-spacing: .1rem;
-        font-weight: 700;
-        font-size: 1rem;
-        border: 1px solid var(--WhiteFaded);
-    }
 }
 
 </style>

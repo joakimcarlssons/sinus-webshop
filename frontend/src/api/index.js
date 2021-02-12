@@ -111,8 +111,9 @@ export async function createProduct(product, token) {
             // Put the JWT token in the header
             Authorization: token
         },
-        // product to be created
-        product
+        data: {
+            product
+        }
     })
     // Handle successful response
     .then(response => parseSuccess(response))   
@@ -133,7 +134,9 @@ export async function updateProduct(id, product, token) {
             Authorization: token
         },
         // New product data
-        product
+        data: {
+            product
+        }
     })
     // Handle successful response
     .then(response => parseSuccess(response))  
