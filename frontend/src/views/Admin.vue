@@ -145,7 +145,16 @@ export default {
   },
 
   created() {
+    console.log(this.$store.getters.userRole)
+
     this.$store.dispatch(GET_ALL_PRODUCTS)
+
+    // Make sure the logged in user is an admin
+    // Else redirect the user to the start page
+    if(JSON.parse(localStorage.getItem('current-user')).role != 'admin') {
+        this.$router.push('/')
+        alert("You don't have permission to visit this page.")
+    }
   },
 
   methods: {

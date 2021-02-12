@@ -75,6 +75,10 @@ export default {
       else alert("Account created")
 
     }
+  },
+
+  created() {
+    this.$router.options.routes.find(x => x.path == '/register').inNavLink = true
   }
 
 }

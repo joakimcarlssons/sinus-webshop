@@ -290,8 +290,11 @@ const User = {
       state.cart.forEach(x => qty += x.amount) // Add item quantity
       // Return the quantity
       return qty
-    }
+    },
 
+    userRole : state => {
+      return state.currentUser.role
+    }
   }
 }
 
@@ -303,10 +306,11 @@ export default new Vuex.Store({
     // Product to be shown in overlay
     currentProductToBeDisplayed : null,
 
-    overlay : {
-      name : "",
-      active : false
-    }
+    // The overlay that is currently being showed in the application
+    overlay : { name : "", active : false },
+
+    // Array of all the visible nav items
+    visibleNavItems : []
 
   },
   mutations: {
@@ -316,13 +320,27 @@ export default new Vuex.Store({
       state.currentProductToBeDisplayed = product
     },
 
+    // Change the current overlay
     changeOverlay(state, overlay) {
       state.overlay = overlay
     },
 
+    // Close all active overlays
     resetOverlay(state) {
       state.overlay = { name: '', active: false }
     },
+
+    // Update the visible nav items
+    setVisibleNavItems(state, navItems) {
+      state.visibleNavItems = navItems
+    },
+
+    // Reset the nav links to default mode
+    resetVisibleNavItems(state) {
+      state.visibleNavItems.forEach(x => {
+        x.inNavLink = x.defaultVisibility
+      })
+    }
 
   },
 

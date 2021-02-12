@@ -40,13 +40,7 @@
 
 <script>
 export default {
-    computed: {
-        // Get all the visible nav items
-        visibleNavItems() {
-            // Get all standard items
-            return this.$router.options.routes.filter(x => x.inNavLink)
-        },
-        
+    computed: {        
         // Get the cart quantity
         // We make it a property to trigger animations on updates
         cartQuantity() {
@@ -56,6 +50,14 @@ export default {
         currentUser() {
             console.log(this.$store.state.user.currentUser)
             return this.$store.state.user.currentUser
+        },
+
+        currentRoutePath() {
+            return this.$store.state.currentRoutePath
+        },
+
+        visibleNavItems() {
+            return this.$store.state.visibleNavItems
         }
     },
 
@@ -74,7 +76,7 @@ export default {
 
     data() { return {
         counterOpacity : 1,
-        counterAnimationActive : false
+        counterAnimationActive : false,
     }},
 
     methods: {
