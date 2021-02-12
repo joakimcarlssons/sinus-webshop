@@ -8,7 +8,7 @@
 
           <img src="@/assets/caret-down-solid.svg" alt="" v-if="!opened" />
           <img src="@/assets/caret-up-solid.svg" alt="" v-if="opened" />
-          <p><strong>Ordernummer:</strong> {{order._id}}</p>
+          <p><strong>Ordernummer:</strong> {{orderID}}</p>
 
         </div>
 
@@ -27,7 +27,7 @@
       leave-active-class="animated flipOutX">
         <div class="content" v-if="opened">
             <div
-            v-for="(item,index) in order.orderProducts"
+            v-for="(item,index) in orderProducts"
             :key="index"
             class="cartItem"
             >
@@ -58,8 +58,8 @@
               <span class="alignHorizontal">
                 <h4>Delivery address</h4>
                 <p>{{adressName}}<br/>
-                   {{order.customer.adress.street || '-'}}<br/>
-                   {{order.customer.adress.zip || '-'}} {{order.customer.adress.city || '-'}}
+                   {{adressStreet}}<br/>
+                   {{adressZip}} {{adressCity}}
                 </p>
               </span>
             </div>
@@ -103,10 +103,13 @@ export default {
     },
 
   //#region Return attributes from the current order, fallback values are needed
-  adressName:   function() { return this.order.customer.name   || '-' }, // Get billing address name
-  adressStreet: function() { return this.order.customer.street || '-' }, // Get billing address street
-  adressCity:   function() { return this.order.customer.city   || '-' }, // Get billing address city
-  adressZip:    function() { return this.order.customer.zip    || '-' }  // Get billing address zip code
+  adressName:   function() { return this.order.customer.name          || '-' }, // Get billing address name
+  adressStreet: function() { return this.order.customer.adress.street || '-' }, // Get billing address street
+  adressCity:   function() { return this.order.customer.adress.city   || '-' }, // Get billing address city
+  adressZip:    function() { return this.order.customer.adress.zip    || '-' }, // Get billing address zip code
+  
+  orderID:       function() { return this.order._id || '-'},          // Get the order id
+  orderProducts: function() { return this.order.orderProducts || [] } // Get items in the order
   //#endregion
 
   },
