@@ -58,8 +58,8 @@
               <span class="alignHorizontal">
                 <h4>Delivery address</h4>
                 <p>{{adressName}}<br/>
-                   {{order.customer.adress.street || '-'}}<br/>
-                   {{order.customer.adress.zip || '-'}} {{order.customer.adress.city || '-'}}
+                   {{adressStreet}}<br/>
+                   {{adressZip}} {{adressCity || '-'}}
                 </p>
               </span>
             </div>
