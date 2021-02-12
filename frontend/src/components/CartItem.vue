@@ -20,9 +20,11 @@
         </h3>
         <div class="edit" v-if="!forDisplay">
 
-            <div class="incdec rem" @click="$store.commit('removeOneFromCart', item)"/>
-            <h4>{{itemQTY}}</h4>
-            <div class="incdec add" @click="$store.commit('addCartItem', item)"/>
+            <div class="countContainer">
+                <div class="incdec rem" @click="$store.commit('removeOneFromCart', item)"/>
+                <h4>{{itemQTY}}</h4>
+                <div class="incdec add" @click="$store.commit('addCartItem', item)"/>
+            </div>
 
             <img 
             src="@/assets/trash-solid.svg" alt="" 
@@ -95,7 +97,7 @@ export default {
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        //height: 100%;
+        margin-top: .3rem;
 
         .trash {
             //align-self: flex-end;
@@ -114,22 +116,33 @@ export default {
             font-size: 1.4rem;
         }
 
-        .incdec{
-            height: 20px;
-            width: 20px;
-            cursor: pointer;
+        .countContainer {
+            display: flex;
+            align-items: center;
 
-            background-repeat: no-repeat;                   
-            background-size: contain;
-            background-position: center;
-
-            &.add {
-                background-image: url("~@/assets/caret-down-solid.svg");
-                transform: rotate(-90deg);
+            h4 {
+                font-size: 1.1rem;
             }
-            &.rem {
-                background-image: url("~@/assets/caret-up-solid.svg");
-                transform: rotate(-90deg);
+
+            .incdec{
+                height: 1.2rem;
+                width: 1.2rem;
+                cursor: pointer;
+
+                background-repeat: no-repeat;                   
+                background-size: contain;
+                background-position: center;
+
+                &.add {
+                    background-image: url("~@/assets/caret-down-solid.svg");
+                    transform: rotate(-90deg);
+                    margin-left: .3rem;
+                }
+                &.rem {
+                    background-image: url("~@/assets/caret-up-solid.svg");
+                    transform: rotate(-90deg);
+                    margin-right: .3rem;
+                }
             }
         }
     }

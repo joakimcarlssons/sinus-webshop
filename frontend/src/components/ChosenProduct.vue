@@ -24,7 +24,7 @@
                     <h2>{{product.price}} sek</h2>
                 </div>
 
-                <button class="purchase" @click="$store.commit('addCartItem', product)">
+                <button class="purchase" @click="addCartItem">
                     <img src="@/assets/icon-bag-white.svg" alt="" class="btnImage" />
                     <p>Take my money!</p>
                 </button>
@@ -49,6 +49,11 @@ export default {
     methods: {
         close() {
             this.$store.commit('setProductToDisplay', null)
+            this.$store.commit('resetOverlay')
+        },
+
+        addCartItem() {
+            this.$store.commit('addCartItem', this.product)
             this.$store.commit('resetOverlay')
         }
     }

@@ -179,14 +179,19 @@ const User = {
 
     //#endregion
 
-    //#region API mutations
+    //#region User mutations
 
     // Saves the current user and token in local storage
     [m.SAVE_USER](state, data) {
       state.currentUser = data.user
+    },
+
+    logOutUser(state) {
+      state.currentUser = null
+      console.log(state.currentUser)
+      localStorage.removeItem('current-user')
+      localStorage.removeItem('sinus-token')
     }
-
-
 
     //#endregion
   },
@@ -290,8 +295,11 @@ const User = {
       state.cart.forEach(x => qty += x.amount) // Add item quantity
       // Return the quantity
       return qty
-    }
+    },
 
+    userRole : state => {
+      return state.currentUser.role
+    }
   }
 }
 
@@ -303,10 +311,11 @@ export default new Vuex.Store({
     // Product to be shown in overlay
     currentProductToBeDisplayed : null,
 
-    overlay : {
-      name : "",
-      active : false
-    }
+    // The overlay that is currently being showed in the application
+    overlay : { name : "", active : false },
+
+    // Array of all the visible nav items
+    visibleNavItems : []
 
   },
   mutations: {
@@ -316,13 +325,41 @@ export default new Vuex.Store({
       state.currentProductToBeDisplayed = product
     },
 
+    // Change the current overlay
     changeOverlay(state, overlay) {
       state.overlay = overlay
     },
 
+    // Close all active overlays
     resetOverlay(state) {
       state.overlay = { name: '', active: false }
     },
+
+    // Update the visible nav items
+    setVisibleNavItems(state, navItems) {
+      state.visibleNavItems = navItems
+    },
+
+    // Reset the nav links to default mode
+    resetVisibleNavItems(state, logOut) {
+
+      if(logOut) {
+
+        // If the user logs out, make a hard reset of the navbar
+        state.visibleNavItems.forEach(x => {
+          if(x.path == '/' || x.path == '/products') x.inNavLink = true
+          else {
+            x.inNavLink = false
+            x.defaultVisibility = false
+          }
+        })
+      }
+      else {
+        state.visibleNavItems.forEach(x => {
+          x.inNavLink = x.defaultVisibility
+        })
+      }
+    }
 
   },
 

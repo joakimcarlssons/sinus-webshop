@@ -18,37 +18,43 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    inNavLink : true
+    inNavLink : true,
+    defaultVisibility : true
   },
   {
     path: '/products',
     name: 'Products',
     component: Products,
-    inNavLink : true
+    inNavLink : true,
+    defaultVisibility : true
   },
   {
     path: '/account',
     name: 'My Account',
     component: Account,
-    inNavLink : false
+    inNavLink : false,
+    defaultVisibility : false
   },
   {
     path: '/register',
     name: 'Register',
     component: Register,
-    inNavLink : false
+    inNavLink : false,
+    defaultVisibility : false
   },
   {
     path: '/checkout',
     name: 'Checkout',
     component: Checkout,
-    inNavLink: false
+    inNavLink: false,
+    defaultVisibility : false
   },
   {
     path: '/admin',
     name: 'Admin',
     component: Admin,
-    inNavLink: false
+    inNavLink: false,
+    defaultVisibility : false
   }
 ]
 
@@ -57,10 +63,5 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-
-// router.beforeEach((to, from, next) => {
-  
-
-// });
 
 export default router

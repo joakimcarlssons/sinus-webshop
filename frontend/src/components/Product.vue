@@ -3,7 +3,7 @@
     class="container"
     :class="{wrapper : !addToCartIsActive}"
     :style="{backgroundImage : bgImage}"
-    @click="$route.fullPath != '/admin' ? showProduct : $emit('updateProduct', selectedProduct, addToCartIsActive)"
+    @click="$route.fullPath != '/admin' ? showProduct() : $emit('updateProduct', selectedProduct, addToCartIsActive)"
     >
 
     <div class="content">

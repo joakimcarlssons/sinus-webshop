@@ -19,6 +19,7 @@
 
             </li>
         </ul>
+        
         <div v-else class="cartEmptyContainer">
             <p>Your cart is empty :(</p>
         </div>

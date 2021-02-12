@@ -20,7 +20,8 @@
     <transition
     enter-active-class="animated fadeIn"
     leave-active-class="animated fadeOut">
-      <div class="logIn" v-if="activeOverlay.name == 'login' && activeOverlay.active">
+      <div :class="{logInOverlay : !$store.state.user.currentUser, logOutOverlay : $store.state.user.currentUser}" 
+      v-if="activeOverlay.name == 'login' && activeOverlay.active">
         <LogIn />
       </div>
     </transition>
@@ -65,13 +66,8 @@ export default {
   }},
 
   computed: {
-    chosenProduct() {
-      return this.$store.state.currentProductToBeDisplayed
-    },
-
-    activeOverlay() {
-      return this.$store.state.overlay
-    }
+    chosenProduct() { return this.$store.state.currentProductToBeDisplayed },
+    activeOverlay() { return this.$store.state.overlay },  
   },
 
   watch: {
@@ -81,10 +77,56 @@ export default {
 
       // Make sure to close all overlays when changing page
       this.$store.commit('resetOverlay')
+
+
+      //#region Nav links
+      try {
+
+        // Update the nav links
+        if(this.$route.fullPath == '/register') {
+          this.$router.options.routes.find(x => x.path == this.$route.fullPath).inNavLink = true
+        }
+
+        // If the user is logged in, My account will be shown in the navbar
+        else if(JSON.parse(localStorage.getItem('current-user'))) {
+          let routeItem = this.$router.options.routes.find(x => x.path == this.$route.fullPath)
+          routeItem.inNavLink = true
+          routeItem.defaultVisibility = true
+
+          // If the logged in user is an admin, also show the admin navigation
+          if (JSON.parse(localStorage.getItem('current-user')).role == 'admin') {
+            let adminRouteItem = this.$router.options.routes.find(x => x.path == '/admin')
+            adminRouteItem.inNavLink = true
+            adminRouteItem.defaultVisibility = true
+          }
+        }
+
+        // Reset to default mode 
+        else this.$store.commit('resetVisibleNavItems')
+      }
+
+      // Make sure the nav bar is updated
+      finally { this.$store.commit('setVisibleNavItems', this.$router.options.routes.filter(x => x.inNavLink)) }
+
+
+      //#endregion
     }
   },
 
   created() {
+
+    //#region Set initial nav links
+
+    // Check if it's the start page...
+    if(this.$route.fullPath == '/') this.$store.commit('setVisibleNavItems', this.$router.options.routes.filter(x => x.inNavLink))
+    
+    // Else activate the current path aswell
+    else {
+      this.$router.options.routes.find(x => x.path == this.$route.fullPath).inNavLink = true
+      this.$store.commit('setVisibleNavItems', this.$router.options.routes.filter(x => x.inNavLink))
+    }
+
+    //#endregion
 
     //#region Set User
 
