@@ -5,9 +5,9 @@
 
   <div class="content" v-if="!$store.state.user.currentUser">
       
-      <input type="email" placeholder="email" v-model="credentials.email">
+      <input type="email" placeholder="email" v-model="credentials.email" v-on:keyup.enter="LogIn">
 
-      <input type="password" placeholder="password" v-model="credentials.password">
+      <input type="password" placeholder="password" v-model="credentials.password" v-on:keyup.enter="LogIn">
 
       <p class="errorMessage" 
       :class="{'hide': !showErrorMessage, 'animate': showErrorMessage}" >{{errorText}}</p>

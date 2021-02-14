@@ -23,7 +23,7 @@
 
             <div class="itemColumn itemPhoto">
                 <h4>Product Photo</h4>
-                <div class="photo" :style="{backgroundImage : chosenImg}"></div>
+                <div class="photo" :style="{backgroundImage : newProductImg}"></div>
             </div>
 
             <div class="itemColumn itemInfo">
@@ -45,10 +45,18 @@
                 <textarea id="desc" v-model="newProduct.longDesc"></textarea>
             </div>
 
-            <div class="bottom">
-                <div class="radioImages"></div>
-                <button class="adminButton" @click="addProduct">Add new product</button>
+            <div class="radioImages">
+                <ul>
+                    <li
+                    v-for="(image, index) in images"
+                    :key="index"
+                    >
+                        <input type="radio" :id="index" :value="image.url" v-model="newProduct.imgFile">
+                        <label :for="index">{{image.name}}</label>
+                    </li>
+                </ul>
             </div>
+            <button class="adminButton" @click="addProduct">Add new product</button>
         </div>
 
     </div>
@@ -128,17 +136,37 @@ export default {
   components: { Product },
 
   data() { return {
+
       selectedProduct : {},
       newProduct : {
           title:     "",
           shortDesc: "",
           longDesc:  "",
-          price:     0
+          price:     0,
+          imgFile : "skateboard-generic.png"
       },
+
       backupProduct: {},
       showAdd : false,
       showEdit : false,
-      chosenImg : ''
+      images : [
+          {
+              name : "Skateboard",
+              url : "skateboard-generic.png"
+          },          
+          {
+              name : "Greta",
+              url : "skateboard-greta.png"
+          },          
+          {
+              name : "Shirt",
+              url : "hoodie-ash.png"
+          },          
+          {
+              name : "Wheel",
+              url : "wheel-rocket.png"
+          },
+      ]
   }},
 
   computed: {
@@ -150,6 +178,14 @@ export default {
     bgImage(){
         if(this.selectedProduct.imgFile) {
             return 'url(' + require(`@/assets/${this.selectedProduct.imgFile}`) + ')'
+        }
+        else return ''
+    },
+
+    // Get the correct product image when adding products
+    newProductImg(){
+        if(this.newProduct.imgFile) {
+            return 'url(' + require(`@/assets/${this.newProduct.imgFile}`) + ')'
         }
         else return ''
     },
@@ -296,6 +332,29 @@ export default {
                 background-repeat: no-repeat;
                 background-size: contain;
                 border: 1px solid var(--WhiteFaded);
+            }
+        }
+
+        .radioImages {
+            grid-column: 1;
+            
+            ul {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+
+                li {
+                    display: flex;
+                    align-items: center;
+
+                    label {
+                        margin-left: .3rem;
+                        font-size: 1.1rem;
+                        letter-spacing: .1rem;
+                    }
+                }
             }
         }
     }
