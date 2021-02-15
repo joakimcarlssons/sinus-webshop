@@ -29,6 +29,10 @@ export default {
     background-color: var(--White);
     padding: 5rem;
 
+    h4 {
+        font-size: 1.3rem;
+    }
+
     .btns {
         display: flex;
         justify-content: center;

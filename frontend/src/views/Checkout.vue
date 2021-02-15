@@ -153,10 +153,13 @@ export default {
   async created() {
 
     if(this.$store.state.user.currentUser) {
+
       // Get the current user from the 
       Object.assign(this.user, this.$store.state.user.currentUser);
+
       // Get user's payment details
       this.payment = await this.$store.dispatch('getCurrentPaymentInfo')
+
       // Create cvv attr
       this.payment.cvv = "";
     }
@@ -204,7 +207,6 @@ export default {
         let isEmpty = false;
         // Loop through all prop values in the object
         Object.values(obj).forEach(val => { isEmpty = this.isEmpty(val); // If value if null of empty
-        console.log(obj);
         })
         // return the result
         return isEmpty

@@ -142,7 +142,8 @@
     enter-active-class="animated zoomIn"
     leave-active-class="animated zoomOut">
       <div class="overlay" v-if="activeOverlay.name == 'confirmation' && activeOverlay.active">
-        <Confirmation 
+        <Confirmation
+        class="confOverlay"
         :product="chosenProduct" 
         :message="confirmationMessage"
         @confirm="removeProduct" />
@@ -479,6 +480,15 @@ export default {
 
 .add {
     margin-bottom: 3rem;
+}
+
+.overlay {
+    background-color: transparent;
+
+    .confOverlay {
+        border: 3px solid var(--MediumGrey);
+        box-shadow: 1rem 1.2rem 1.2rem -2px rgba(0,0,0,0.45);
+    }
 }
 
 </style>
