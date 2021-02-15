@@ -22,19 +22,28 @@ module.exports = {
     async admin(req, res, next){
         try {
             const token = req.header('Authorization').replace('Bearer ', '')
+
             const data = jwt.verify(token, 'secret')
 
             const user = await User.findOneBy({ _id: data.id })
 
             if (!user) { throw new Error() }
-            else if(user.role != "admin"){ throw new Error() }
-
-            req.user = user
-            
-            next()
+            else if(user.role != "admin")
+            { 
+                res.status(401).send({ 
+                    error: 'Unauthorized',
+                    expired: false
+                })
+            } else {
+                req.user = user           
+                next()
+            }
         } catch (error) {
             res.status(401)
-            .send({ error: 'Unauthorized' })
+            .send({ 
+                error: 'Unauthorized',
+                expired: true
+            })
         }
     
     },
@@ -49,7 +58,11 @@ module.exports = {
             next()
         } catch (error) {
             res.status(401)
-            .send({ error: 'Unauthorized' })
+            .send(
+                { 
+                    error: 'Unauthorized' ,
+                    expired: true
+                })
         }
     
     }

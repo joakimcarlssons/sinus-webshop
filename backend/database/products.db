@@ -1,104 +1,11 @@
-{"title":"Swag","price":799,"shortDesc":"Unisex","category":"board","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","serial":"172381278381237","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Blue Hoodie","price":699,"shortDesc":"Ocean unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"hoodie-ocean.png","_id":"7Xps98LocXj45uVl"}
+{"title":"Swag","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
+{"title":"Blue Hoodie 1","price":699,"shortDesc":"Ocean unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"hoodie-ocean.png","_id":"7Xps98LocXj45uVl"}
 {"title":"Spinner","price":249,"shortDesc":"Soft","category":"wheels","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"wheel-spinner.png","serial":"239491299929222","_id":"FzykoVDAjdlC4PUl"}
 {"title":"Flipper","price":799,"shortDesc":"Unisex","category":"board","longDesc":"Axle crailtap fastplant dude regular footed helipop impossible. Wax Jimmy'Z half-flip transfer nollie launch ramp mongo egg plant. Pogo slap maxwell g-turn boneless risers blunt nose slide.","imgFile":"skateboard-generic.png","serial":"238498293848233","_id":"Gtnxdwb0zgL1tvUn"}
 {"title":"Rocket","price":299,"category":"wheels","shortDesc":"Hard","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"wheel-rocket.png","serial":"712387128788877","_id":"IBk82897YExRWNx4"}
-{"title":"Tricky","price":799,"shortDesc":"Unisex","category":"board","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","serial":"231874871397182","_id":"Kbm18TVlfIDWTRzv"}
-{"title":"Hiphop","price":799,"shortDesc":"Unisex","category":"board","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","serial":"2834982384832822","_id":"XuDTJbdjqMY2aMv7"}
 {"title":"Gretas Fury","price":999,"shortDesc":"Unisex","category":"board","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-greta.png","serial":"127127838128877","_id":"fv1yU4pMWUJPGTbb"}
+{"title":"Jockes special","price":"579","shortDesc":"Otroligt speciell","longDesc":"Sanslös tröja till oslagbart pris","imgFile":"hoodie-fire.png","serial":1613386875114,"_id":"i6Wm48tCjvdpmwdJ"}
 {"title":"Hoodie","price":699,"shortDesc":"Fire unisex","category":"clothes","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"hoodie-fire.png","serial":"9919312731273772","_id":"i7upzf5AhdWdmbGq"}
 {"title":"Hoodie","price":699,"shortDesc":"Ash unisex","category":"clothes","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"hoodie-ash.png","serial":"898329843984982","_id":"lMre45Llx8cbKOmu"}
 {"title":"Wave","price":249,"shortDesc":"Medium","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"wheel-wave.png","serial":"9919291231232312","_id":"tZlbYfvGuy9lWNdS"}
-{"title":"Awesome","price":799,"shortDesc":"Unisex","category":"board","longDesc":"Axle crailtap fastplant dude regular footed helipop impossible. Wax Jimmy'Z half-flip transfer nollie launch ramp mongo egg plant. Pogo slap maxwell g-turn boneless risers blunt nose slide.","imgFile":"skateboard-generic.png","serial":"2384993841228443","_id":"vytpNRdXilKoJXQ5"}
-{"title":"Greta on fire","price":"455","shortDesc":"test","longDesc":"test","imgFile":"skateboard-greta.png","serial":1613380916874,"_id":"SkrnFhSgoYIOaUuL"}
-{"$$deleted":true,"_id":"SkrnFhSgoYIOaUuL"}
-{"title":"ta bort denna","price":"654651","shortDesc":"test","longDesc":"gfdfgdfgfd","imgFile":"hoodie-ash.png","serial":1613381143365,"_id":"CRYGkIciKSZHWjBb"}
-{"$$deleted":true,"_id":"CRYGkIciKSZHWjBb"}
-{"title":"test","price":"465","shortDesc":"test","longDesc":"test","imgFile":"hoodie-ash.png","serial":1613381213950,"_id":"DWrbjry8cs5bIry4"}
-{"$$deleted":true,"_id":"DWrbjry8cs5bIry4"}
-{"$$deleted":true,"_id":"XuDTJbdjqMY2aMv7"}
-{"$$deleted":true,"_id":"vytpNRdXilKoJXQ5"}
-{"title":"test","price":"1231","shortDesc":"test","longDesc":"test","imgFile":"skateboard-generic.png","serial":1613382095661,"_id":"qAQ04H2e8JN6LJJJ"}
-{"$$deleted":true,"_id":"qAQ04H2e8JN6LJJJ"}
-{"$$deleted":true,"_id":"Kbm18TVlfIDWTRzv"}
-{"title":"test","price":"123","shortDesc":"test","longDesc":"test","imgFile":"skateboard-generic.png","serial":1613382252647,"_id":"Tk6Qbj6Xlu9tDJpY"}
-{"title":"test","price":"123","shortDesc":"test","longDesc":"test","imgFile":"skateboard-generic.png","serial":1613382282566,"_id":"B6s7dmWq42HbY8fu"}
-{"title":"test2","price":"123","shortDesc":"test","longDesc":"test","imgFile":"skateboard-generic.png","serial":1613382284321,"_id":"4TDE51Jpc8t9hHou"}
-{"title":"test","price":"123","shortDesc":"test","longDesc":"test","imgFile":"skateboard-generic.png","serial":1613382289861,"_id":"Wb8YqqH3HsSfO2GG"}
-{"$$deleted":true,"_id":"4TDE51Jpc8t9hHou"}
-{"$$deleted":true,"_id":"Wb8YqqH3HsSfO2GG"}
-{"$$deleted":true,"_id":"Tk6Qbj6Xlu9tDJpY"}
-{"$$deleted":true,"_id":"B6s7dmWq42HbY8fu"}
-{"title":"test","price":"1","shortDesc":"test","longDesc":"test","imgFile":"skateboard-generic.png","serial":1613382557616,"_id":"jTHXogCVVGF5Hpzm"}
-{"title":"test2","price":"1","shortDesc":"test","longDesc":"test","imgFile":"skateboard-generic.png","serial":1613382562731,"_id":"g2oLeZpRlOU2WtqN"}
-{"title":"e","price":"1","shortDesc":"e","longDesc":"e","imgFile":"skateboard-generic.png","serial":1613382617547,"_id":"u4gRht6GkkqAMe7a"}
-{"title":"e","price":"1","shortDesc":"e","longDesc":"e","imgFile":"skateboard-generic.png","serial":1613382665091,"_id":"UcjLePwsourlAl4U"}
-{"title":"g","price":"1","shortDesc":"g","longDesc":"g","imgFile":"skateboard-generic.png","serial":1613382674571,"_id":"Gae38xMJ7fGUTfbo"}
-{"$$deleted":true,"_id":"UcjLePwsourlAl4U"}
-{"$$deleted":true,"_id":"Gae38xMJ7fGUTfbo"}
-{"$$deleted":true,"_id":"u4gRht6GkkqAMe7a"}
-{"$$deleted":true,"_id":"g2oLeZpRlOU2WtqN"}
-{"$$deleted":true,"_id":"jTHXogCVVGF5Hpzm"}
-{"title":"e","price":"1","shortDesc":"e","longDesc":"e","imgFile":"skateboard-generic.png","serial":1613383049789,"_id":"Daesm4tZLmF38gFi"}
-{"$$deleted":true,"_id":"Daesm4tZLmF38gFi"}
-{"title":"e","price":"1","shortDesc":"e","longDesc":"e","imgFile":"skateboard-generic.png","serial":1613383097005,"_id":"p6iS8whaoMHyms4L"}
-{"$$deleted":true,"_id":"p6iS8whaoMHyms4L"}
-{"title":"e","price":"1","shortDesc":"e","longDesc":"e","imgFile":"skateboard-generic.png","serial":1613383110748,"_id":"EVFAvzSDGnMDNfF9"}
-{"title":"e2","price":"1","shortDesc":"e","longDesc":"e","imgFile":"skateboard-generic.png","serial":1613383112009,"_id":"eiSScGEVKtxjBUZA"}
-{"$$deleted":true,"_id":"EVFAvzSDGnMDNfF9"}
-{"$$deleted":true,"_id":"eiSScGEVKtxjBUZA"}
-{"title":"e","price":"1","shortDesc":"e","longDesc":"e","imgFile":"skateboard-generic.png","serial":1613383222589,"_id":"T8NwnXxqlBnhDKLv"}
-{"title":"g","price":"1","shortDesc":"g","longDesc":"g","imgFile":"skateboard-generic.png","serial":1613383232549,"_id":"9w0eIFMuS6Cu5BJQ"}
-{"$$deleted":true,"_id":"9w0eIFMuS6Cu5BJQ"}
-{"$$deleted":true,"_id":"T8NwnXxqlBnhDKLv"}
-{"title":"a","price":"1","shortDesc":"a","longDesc":"a","imgFile":"hoodie-fire.png","serial":1613383449837,"_id":"ONh84GQMgPY2tgia"}
-{"title":"b","price":"1","shortDesc":"b","longDesc":"b","imgFile":"wheel-rocket.png","serial":1613383456445,"_id":"iHGbIddgADy1O5YL"}
-{"$$deleted":true,"_id":"ONh84GQMgPY2tgia"}
-{"$$deleted":true,"_id":"iHGbIddgADy1O5YL"}
-{"title":"a","price":"1","shortDesc":"a","longDesc":"a","imgFile":"skateboard-generic.png","serial":1613384048772,"_id":"1BWuAMfMzskNIoCK"}
-{"title":"b","price":"1","shortDesc":"b","longDesc":"b","imgFile":"wheel-rocket.png","serial":1613384145207,"_id":"FOJJTRhe33EhwtoM"}
-{"title":"b","price":"1","shortDesc":"b","longDesc":"b","imgFile":"skateboard-greta.png","serial":1613384150891,"_id":"Ch1O8QE3DWC23ixZ"}
-{"title":"c","price":"1","shortDesc":"c","longDesc":"c","imgFile":"skateboard-generic.png","serial":1613384184228,"_id":"bGQJn3lDBd5hTeWX"}
-{"title":"k","price":"1","shortDesc":"k","longDesc":"k","imgFile":"hoodie-ash.png","serial":1613384244955,"_id":"sR676w6AI4NkqEvq"}
-{"$$deleted":true,"_id":"1BWuAMfMzskNIoCK"}
-{"$$deleted":true,"_id":"Ch1O8QE3DWC23ixZ"}
-{"$$deleted":true,"_id":"FOJJTRhe33EhwtoM"}
-{"$$deleted":true,"_id":"bGQJn3lDBd5hTeWX"}
-{"$$deleted":true,"_id":"sR676w6AI4NkqEvq"}
-{"title":"a","price":"1","shortDesc":"a","longDesc":"a","imgFile":"skateboard-generic.png","serial":1613384769645,"_id":"xksYDprlgs2LfWm1"}
-{"title":"b","price":"1","shortDesc":"b","longDesc":"b","imgFile":"skateboard-generic.png","serial":1613384828844,"_id":"iYZOkEpOa63T1Myo"}
-{"$$deleted":true,"_id":"xksYDprlgs2LfWm1"}
-{"title":"bella","price":"1","shortDesc":"b","longDesc":"b","imgFile":"skateboard-generic.png","_id":"iYZOkEpOa63T1Myo"}
-{"title":"stella","price":"1","shortDesc":"b","longDesc":"b","imgFile":"skateboard-generic.png","_id":"iYZOkEpOa63T1Myo"}
-{"title":"bella","price":"1","shortDesc":"b","longDesc":"b","imgFile":"skateboard-generic.png","_id":"iYZOkEpOa63T1Myo"}
-{"title":"stella","price":"1","shortDesc":"b","longDesc":"b","imgFile":"skateboard-generic.png","_id":"iYZOkEpOa63T1Myo"}
-{"title":"adsafa","price":"1","shortDesc":"b","longDesc":"b","imgFile":"skateboard-generic.png","_id":"iYZOkEpOa63T1Myo"}
-{"title":"adsaf","price":"1","shortDesc":"b","longDesc":"b","imgFile":"skateboard-generic.png","_id":"iYZOkEpOa63T1Myo"}
-{"title":"Swagger","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swagger","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swag","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swagger","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swag","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swagger","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swag","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swag","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swagger","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swag","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swag","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swagger","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swag","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swag","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swag","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swag","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swag","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swag","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swage","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swager","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swage","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swager","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Swage","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"$$deleted":true,"_id":"iYZOkEpOa63T1Myo"}
-{"title":"Swag","price":799,"shortDesc":"Unisex","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"skateboard-generic.png","_id":"5fDkN9nfp4jXTpc5"}
-{"title":"Jockes svettiga tröja","price":"579","shortDesc":"Svettig som fan","longDesc":"Otroligt svettig tröja till sanslöst bra pris","imgFile":"skateboard-generic.png","serial":1613386410569,"_id":"bzGQWw09HlclSIZ5"}
-{"$$deleted":true,"_id":"bzGQWw09HlclSIZ5"}
-{"title":"Jockes special","price":"579","shortDesc":"Otroligt speciell","longDesc":"Sanslös tröja till oslagbart pris","imgFile":"hoodie-fire.png","serial":1613386875114,"_id":"i6Wm48tCjvdpmwdJ"}
+{"title":"test 23","price":"123","shortDesc":"test","longDesc":"test","imgFile":"skateboard-generic.png","serial":1613387700925,"_id":"z0HX9qyN6rqYdQa5"}
