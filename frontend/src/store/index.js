@@ -260,9 +260,8 @@ const User = {
       // Register a new user
       // This function can return an array of errors
       async [m.REGISTER](context, userData) {
-
         // Try to login with the provided credentials
-        return await API.register(userData.email, userData.password, userData.password)
+        return await API.register(userData.email, userData.password, userData.confirmPassword)
       },
 
       //#endregion

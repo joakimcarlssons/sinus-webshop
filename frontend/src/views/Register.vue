@@ -37,7 +37,14 @@
 
         <!-- Password -->
         <label for="password">Password</label>
-        <input type="password" id="password" v-model="userData.Password">
+        <input type="password" id="password" v-model="userData.password">
+
+        <!-- Confirm Password -->
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" v-model="userData.confirmPassword">
+
+        <!-- Error message -->
+        <h4 class="errorMessage" v-if="errorMessage != ''">{{errorMessage}}</h4>
 
         <!-- Register button -->
         <button @click="register">Register!</button>
@@ -50,6 +57,8 @@
 </template>
 
 <script>
+import { LOGIN } from '@/mutations.js'
+
 export default {
 
   // Local variables
@@ -58,8 +67,10 @@ export default {
     userData: {
       name: "",
       email: "",
-      password: ""
-    }
+      password: "",
+      confirmPassword: ""
+    },
+    errorMessage : ''
   }},
 
   // Local methods
@@ -70,9 +81,12 @@ export default {
       let res = await this.$store.dispatch('register', this.userData);
 
       if(res.error) res.response.forEach(err => {
-        alert(err)
+        this.errorMessage = err
       });
-      else alert("Account created")
+      else {
+        let res = await this.$store.dispatch(LOGIN, {email:this.userData.email, password:this.userData.password })
+        if(!res.error) this.$router.push('/account')
+      }
 
     }
   },
@@ -128,6 +142,11 @@ export default {
         margin-bottom: 2rem;
       }
     }
+  }
+
+  .errorMessage {
+    color: red;
+    margin-bottom: 1rem;
   }
 
 }
