@@ -43,19 +43,23 @@
       <div class="form">
 
         <label for="name">Name</label>
-        <input type="text" id="name" v-model="user.name">
+        <input type="text" id="name" v-model="user.name"
+        :class="{'empty': showRed && isEmpty(user.name)}">
         
         <label for="adress">Street Address</label>
-        <input type="text" id="address" v-model="user.adress.street">
+        <input type="text" id="address" v-model="user.adress.street"
+        :class="{'empty': showRed && isEmpty(user.adress.street)}">
 
         <div class="bottom">
             <div class="formItem">
               <label for="city">City</label>
-              <input type="text" id="city" v-model="user.adress.city">
+              <input type="text" id="city" v-model="user.adress.city"
+              :class="{'empty': showRed && isEmpty(user.adress.city)}">
             </div>
             <div class="formItem">
               <label for="zipcode">Zip Code</label>
-              <input type="text" id="zipcode" v-model="user.adress.zip">
+              <input type="text" id="zipcode" v-model="user.adress.zip"
+              :class="{'empty': showRed && isEmpty(user.adress.zip)}">
             </div>
         </div>
 
@@ -72,19 +76,23 @@
       <div class="form">
 
         <label for="cardOwner">Card Owner</label>
-        <input type="text" id="cardOwner" v-model="payment.cardOwner">
+        <input type="text" id="cardOwner" v-model="payment.cardOwner"
+        :class="{'empty': showRed && isEmpty(payment.cardOwner)}">
         
         <label for="cardNumber">Card Number</label>
-        <input type="text" id="cardNumber" v-model="payment.cardNumber">
+        <input type="text" id="cardNumber" v-model="payment.cardNumber"
+        :class="{'empty': showRed && isEmpty(payment.cardNumber)}">
 
         <div class="bottom">
             <div class="formItem">
               <label for="validUntil">Valid until</label>
-              <input type="text" id="validUntil" v-model="payment.validUntil">
+              <input type="text" id="validUntil" v-model="payment.validUntil"
+              :class="{'empty': showRed && isEmpty(payment.validUntil)}">
             </div>
             <div class="formItem">
-              <label for="ccv">CCV</label>
-              <input type="text" id="ccv" v-model="payment.ccv">
+              <label for="cvv">CVV</label>
+              <input type="text" id="cvv" v-model="payment.cvv"
+              :class="{'empty': showRed && isEmpty(payment.cvv)}">
 
 
             </div>
@@ -131,8 +139,10 @@ export default {
       cardOwner:  "",
       cardNumber: "",
       validUntil: "",
-      ccv:        ""
+      cvv:        ""
     },
+    // If field borders should be red
+    showRed: false,
     // Silly stuff
     animate: false
   }},
@@ -147,6 +157,8 @@ export default {
       Object.assign(this.user, this.$store.state.user.currentUser);
       // Get user's payment details
       this.payment = await this.$store.dispatch('getCurrentPaymentInfo')
+      // Create cvv attr
+      this.payment.cvv = "";
     }
   },
 
@@ -155,12 +167,20 @@ export default {
   computed: {
     cart() {
       return this.$store.state.user.cart
-    }
+    },
   },
   // Local methods
   methods: {
     // Creates the oreder
     createOrder: async function() {
+      // If any required fields are empty...  
+      if(this.containsEmpty(this.user)||this.containsEmpty(this.payment)) {
+        // Show red border on empty fields
+        this.showRed = true;
+        // Cancel the payment process
+        return;
+      }
+
       // Only process the order if there are any items in the cart
       if(this.$store.state.user.cart.length) {
         // Create order and update user info and payment details
@@ -179,6 +199,23 @@ export default {
       }
 
     },
+    // Check if an object contains empty fields
+    containsEmpty(obj) {
+        let isEmpty = false;
+        // Loop through all prop values in the object
+        Object.values(obj).forEach(val => { isEmpty = this.isEmpty(val); // If value if null of empty
+        console.log(obj);
+        })
+        // return the result
+        return isEmpty
+    },
+
+    // Checks if a value is empty
+    isEmpty(val) {
+      if(!val || val === '') return true; // If value if null of empty
+      else return false;
+    },
+
     // When animation is done on text
     animationDone: function() {
       this.animate = false;
@@ -188,6 +225,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.empty{
+  border-color: red;
+}
 
 // This is a zoom in and out animation for the 'cart is empty' label
 @keyframes hithere {

@@ -228,13 +228,11 @@ export default {
     // Check if the product trying be added has empty props
     containsEmpty() {
         let isEmpty = false;
-
         // Loop through all prop values in the product
         Object.values(this.newProduct).forEach(val => {
-            // If value if null of empty
-            if(!val || val === '') isEmpty = true;
+            if(!val || val === '') isEmpty = true; // If value if null of empty
         })
-
+        // return the result
         return isEmpty
     },
 
