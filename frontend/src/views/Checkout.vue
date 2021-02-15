@@ -20,6 +20,7 @@
           <CheckoutCartItem :item="item" />
           </li>
         </ul>
+        
         <div v-else class="cartEmptyContainer">
           <p @animationend="animationDone" :class="{'animate': animate}">Your cart is empty :(</p>
         </div>
@@ -104,6 +105,7 @@
 
 <script>
 import CheckoutCartItem from '@/components/CheckoutCartItem'
+import { RESET_CART } from '../mutations'
 
 export default {
   components: { CheckoutCartItem },
@@ -139,10 +141,13 @@ export default {
 
   // Fires when this view is created
   async created() {
-    // Get the current user from the 
-    Object.assign(this.user, this.$store.state.user.currentUser);
-    // Get user's payment details
-    this.payment = await this.$store.dispatch('getCurrentPaymentInfo')
+
+    if(this.$store.state.user.currentUser) {
+      // Get the current user from the 
+      Object.assign(this.user, this.$store.state.user.currentUser);
+      // Get user's payment details
+      this.payment = await this.$store.dispatch('getCurrentPaymentInfo')
+    }
   },
 
   //#endregion
@@ -161,8 +166,13 @@ export default {
         // Create order and update user info and payment details
         let res = await this.$store.dispatch('createOrder', {user: this.user, payment: this.payment})
         
-        if(res.error) alert(res.response)
-        else alert(res.response.message)
+        if(!res.error) {
+          this.$router.push('/orderdone')
+
+          // Empty the cart
+          this.$store.commit(RESET_CART)
+        }
+
       } else {
         // Animate text
         this.animate = true;

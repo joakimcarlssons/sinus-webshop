@@ -1,7 +1,7 @@
 <template>
 <div class="container">
 
-  <div class="arrow-up" :style="currentUser ? 'left: 47%' : 'left: 77%'"></div>
+  <div class="arrow-up" :style="`left:${arrowMargin}%`"></div>
 
   <div class="content" v-if="!currentUser">
       
@@ -55,7 +55,13 @@ export default {
     }},
 
     computed: {
-        currentUser() { return this.$store.state.user.currentUser }
+        currentUser() { return this.$store.state.user.currentUser },
+        arrowMargin() { 
+            if(this.$store.state.user.cart.length > 0 && this.currentUser) return 39
+            else if (this.$store.state.user.cart.length > 0 && !this.currentUser) return 74
+            else if (this.currentUser) return 47
+            else return 77
+        }
     },
 
     // Local methods
@@ -85,8 +91,7 @@ export default {
         logOut() {
             this.$store.commit('logOutUser')
             this.$store.commit('resetOverlay')
-            this.$store.commit('resetVisibleNavItems', true)
-            this.$store.commit('setVisibleNavItems', this.$router.options.routes.filter(x => x.inNavLink))
+            this.$router.push('/')
         }
     }
 }
@@ -106,6 +111,7 @@ export default {
 
     .arrow-up {
         position: absolute;
+        left: 77%;
     }
 
     .content, .loggedIn {

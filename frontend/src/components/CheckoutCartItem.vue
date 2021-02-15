@@ -1,5 +1,5 @@
 <template>
-<form class="cartItem" :style="!forDisplay ? 'margin: 2rem' : 'margin: 0 2rem 2rem 0'">
+<form class="cartItem" :style="!forDisplay ? 'margin: 2rem .7rem' : 'margin: 0 2rem 2rem 0'">
     <div class="counter">
         
         <img :style="'cursor: pointer'" src="@/assets/caret-up-solid.svg" alt="" 
@@ -39,8 +39,6 @@ export default {
     computed: {
         // Get the item quantity
         itemQTY: function() {
-            console.log(this.$store.getters.getCartItemQTY(this.item));
-
             return this.$store.getters.getCartItemQTY(this.item);
         }
     }
@@ -65,6 +63,7 @@ export default {
         flex-direction: column;
         align-items: center;
         font-weight: 900;
+        margin-right: .8rem;
 
         img {
             width: 1.5rem;
@@ -93,6 +92,7 @@ export default {
 
 .price {
     align-self: flex-start;
+    margin-top: .7rem;
     display: flex;
     flex-direction: column;
 }

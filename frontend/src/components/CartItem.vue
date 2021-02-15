@@ -46,8 +46,6 @@ export default {
     computed: {
         // Get the item quantity
         itemQTY: function() {
-            console.log(this.$store.getters.getCartItemQTY(this.item));
-
             return this.$store.getters.getCartItemQTY(this.item);
         }
     }

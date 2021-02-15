@@ -79,20 +79,12 @@ export default {
 
     // Things that will happend every time a route changes
     '$route': function() {
-
       // Make sure to close all overlays when changing page
       this.$store.commit('resetOverlay')
-      this.$store.commit('setVisibleNavItems')
     }
   },
 
   created() {
-
-    //#region Set initial nav links
-
-    this.$store.commit('setVisibleNavItems')
-
-    //#endregion
 
     //#region Set User
 

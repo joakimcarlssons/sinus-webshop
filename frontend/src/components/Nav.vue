@@ -48,7 +48,6 @@ export default {
         },
 
         currentUser() {
-            console.log(this.$store.state.user.currentUser)
             return this.$store.state.user.currentUser
         },
 

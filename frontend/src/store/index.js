@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 
 import * as m   from '@/mutations.js'
 import * as API from '@/api/index.js'
-import { GET_ORDERS } from '../mutations'
 import router  from '../router'
 
 Vue.use(Vuex)
@@ -77,8 +76,6 @@ const Admin = {
     async [m.CREATE_PRODUCT](context, product) {
       // Make the API request
       let res = await API.createProduct(product, JSON.parse(localStorage.getItem('sinus-token')));
-
-      console.log(res);
 
       // If token has not expired (User auto logged out)
       if(!res.response.expired) return res; // Return the response
@@ -228,8 +225,7 @@ const User = {
       localStorage.removeItem('sinus-token')
 
       // Send user to start page
-      router.push('/')
-
+      router.push('/expired')
     }
 
     //#endregion
@@ -394,35 +390,10 @@ export default new Vuex.Store({
     },
 
     // Update the visible nav items
-    setVisibleNavItems(state) {
-
-      // If logged in
-      if(JSON.parse(localStorage.getItem('current-user'))) {
-        let accountRoute = router.options.routes.find(x => x.path == '/account')
-        accountRoute.inNavLink = true
-        accountRoute.defaultVisibility = true
-
-        // Check if user is admin
-        if(JSON.parse(localStorage.getItem('current-user')).role == 'admin') {
-          let adminRoute = router.options.routes.find(x => x.path == '/admin')
-          adminRoute.inNavLink = true
-          adminRoute.defaultVisibility = true
-        }
-      }
-
-      // If no user is logged in...
-      else {
-
-        //...and a user goes to the register page
-        if(router.currentRoute.fullPath == '/register') {
-          // Make the register navlink visible
-          router.options.routes.find(x => x.path == '/register').inNavLink = true
-        }
-
-      }
+    setVisibleNavItems(state, routes) {
 
       // Update visible nav items
-      state.visibleNavItems = router.options.routes.filter(x => x.inNavLink)
+      state.visibleNavItems = routes.filter(x => x.inNavLink)
     },
   },
 
