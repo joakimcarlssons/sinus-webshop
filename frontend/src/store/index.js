@@ -76,8 +76,13 @@ const Admin = {
     async [m.CREATE_PRODUCT](context, product) {
       // Make the API request
       let res = await API.createProduct(product, JSON.parse(localStorage.getItem('sinus-token')));
-      // If request was successful, return the message
-      return res;
+
+      // If token has not expired (User auto logged out)
+      if(!res.expired) return res; // Return the response
+      else {
+        // Clear local storage and prompt user to login again
+        context.state.logOut();
+      }
     },
   
     // Updates a product in the database
@@ -85,17 +90,25 @@ const Admin = {
       // Make the API request
       let res = await API.updateProduct(product._id, product, JSON.parse(localStorage.getItem('sinus-token')));
       
-      console.log(res);
-      // Return response
-      return res;
+      // If token has not expired (User auto logged out)
+      if(!res.expired) return res; // Return the response
+      else {
+        // Clear local storage and prompt user to login again
+        context.state.logOut();
+      }
     },
     
     // Delets a product from the database
     async [m.DELETE_PRODUCT](context, id){
       // Make the API request
       let res = await API.deleteProduct(id, JSON.parse(localStorage.getItem('sinus-token')));
-      // Return response
-      return res;
+      
+      // If token has not expired (User auto logged out)
+      if(!res.expired) return res; // Return the response
+      else {
+        // Clear local storage and prompt user to login again
+        context.state.logOut();
+      }
     },
 
   },
@@ -201,7 +214,6 @@ const User = {
 
     logOutUser(state) {
       state.currentUser = null
-      console.log(state.currentUser)
       localStorage.removeItem('current-user')
       localStorage.removeItem('sinus-token')
     }
@@ -250,8 +262,15 @@ const User = {
 
     // Gets the user's payment info
     async [m.GET_USER_PAYMENT_INFO](state){
+      // Get info about the current user
       let res = await API.getCurrentUserInfo(JSON.parse(localStorage.getItem('sinus-token')));
-      return res.response.user.payment;
+
+      // If token has not expired (User auto logged out)
+      if(!res.expired) return res.response.user.payment; // Return the response
+      else {
+        // Clear local storage and prompt user to login again
+        state.state.logOut();
+      }
     },
 
     // Create order, this order will be added to the logged in user if a user is logged in
@@ -272,8 +291,17 @@ const User = {
       return res
     },
 
+    // Gets the current user's orders
     async [m.GET_ORDERS](context) {
-      return await API.getOrders(JSON.parse(localStorage.getItem('sinus-token')))
+      // Get orders from API
+      let res = await API.getOrders(JSON.parse(localStorage.getItem('sinus-token')))
+
+      // If token has not expired (User auto logged out)
+      if(!res.expired) return res; // Return the response
+      else {
+        // Clear local storage and prompt user to login again
+        context.state.logOut();
+      }
     }
 
     //#endregion

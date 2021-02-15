@@ -331,7 +331,7 @@ export default {
           }
 
           // Show error messag if product could not be updated
-          else alert(res.response.error);
+          else alert(res.response);
       },
       // Fires when the 'Add new product' button is pressed
       async addProduct() {
