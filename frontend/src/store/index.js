@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import * as m   from '@/mutations.js'
 import * as API from '@/api/index.js'
 import { GET_ORDERS } from '../mutations'
+import { router } from '../main.js'
 
 Vue.use(Vuex)
 
@@ -81,7 +82,7 @@ const Admin = {
       if(!res.expired) return res; // Return the response
       else {
         // Clear local storage and prompt user to login again
-        context.state.logOut();
+        context.commit('logOutUser');
       }
     },
   
@@ -94,7 +95,7 @@ const Admin = {
       if(!res.expired) return res; // Return the response
       else {
         // Clear local storage and prompt user to login again
-        context.state.logOut();
+        context.commit('logOutUser');
       }
     },
     
@@ -107,7 +108,7 @@ const Admin = {
       if(!res.expired) return res; // Return the response
       else {
         // Clear local storage and prompt user to login again
-        context.state.logOut();
+        context.commit('logOutUser');
       }
     },
 
@@ -261,7 +262,7 @@ const User = {
     //#region Orders
 
     // Gets the user's payment info
-    async [m.GET_USER_PAYMENT_INFO](state){
+    async [m.GET_USER_PAYMENT_INFO](context){
       // Get info about the current user
       let res = await API.getCurrentUserInfo(JSON.parse(localStorage.getItem('sinus-token')));
 
@@ -269,7 +270,7 @@ const User = {
       if(!res.expired) return res.response.user.payment; // Return the response
       else {
         // Clear local storage and prompt user to login again
-        state.state.logOut();
+        context.commit('logOutUser');
       }
     },
 
@@ -300,7 +301,7 @@ const User = {
       if(!res.expired) return res; // Return the response
       else {
         // Clear local storage and prompt user to login again
-        context.state.logOut();
+        context.commit('logOutUser');
       }
     }
 

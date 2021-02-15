@@ -8,3 +8,7 @@
 {"title":"Hoodie","price":699,"shortDesc":"Fire unisex","category":"clothes","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"hoodie-fire.png","serial":"9919312731273772","_id":"i7upzf5AhdWdmbGq"}
 {"title":"Hoodie","price":699,"shortDesc":"Ash unisex","category":"clothes","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"hoodie-ash.png","serial":"898329843984982","_id":"lMre45Llx8cbKOmu"}
 {"title":"Wave","price":249,"shortDesc":"Medium","longDesc":"Skate ipsum dolor sit amet, 50-50 Sidewalk Surfer nose bump kickflip bruised heel fakie berm soul skate. Bluntslide transition nollie hard flip bank pressure flip ho-ho. Steps rip grip nosepicker roll-in yeah 540 pump. ","imgFile":"wheel-wave.png","serial":"9919291231232312","_id":"tZlbYfvGuy9lWNdS"}
+{"title":"test","price":"1","shortDesc":"test","longDesc":"test","imgFile":"skateboard-generic.png","serial":1613393758810,"_id":"gs18kFwPmc2kjdHX"}
+{"$$deleted":true,"_id":"gs18kFwPmc2kjdHX"}
+{"$$deleted":true,"_id":"i6Wm48tCjvdpmwdJ"}
+{"title":"a","price":"1","shortDesc":"a","longDesc":"a","imgFile":"skateboard-generic.png","serial":1613394102338,"_id":"d5xI0NBNZuHuw6b2"}

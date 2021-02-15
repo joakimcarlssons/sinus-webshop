@@ -14,7 +14,7 @@
             <CartItem
             :item="item"
             @trash="trash" 
-            :class="{slideOutLeft : cart.indexOf(itemBeingTrashed) === index}"
+            :class="{fadeOut : cart.indexOf(itemBeingTrashed) === index}"
             />
 
             </li>

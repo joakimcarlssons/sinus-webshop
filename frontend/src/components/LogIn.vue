@@ -1,9 +1,9 @@
 <template>
 <div class="container">
 
-  <div class="arrow-up" :style="$store.state.user.currentUser ? 'left: 47%' : 'left: 77%'"></div>
+  <div class="arrow-up" :style="currentUser ? 'left: 47%' : 'left: 77%'"></div>
 
-  <div class="content" v-if="!$store.state.user.currentUser">
+  <div class="content" v-if="!currentUser">
       
       <input type="email" placeholder="email" v-model="credentials.email" v-on:keyup.enter="LogIn">
 
@@ -53,6 +53,10 @@ export default {
         // This is the error text
         errorText: ""
     }},
+
+    computed: {
+        currentUser() { return this.$store.state.user.currentUser }
+    },
 
     // Local methods
     methods: {
