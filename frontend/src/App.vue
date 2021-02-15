@@ -46,7 +46,7 @@
         <ChosenProduct :product="chosenProduct" />
       </div>
     </transition>
-
+    
   </div>
 </template>
 

@@ -104,8 +104,19 @@
                 <label for="desc">Product description</label>
                 <textarea id="desc" v-model="selectedProduct.longDesc"></textarea>
             </div>
+            <div class="radioImages">
+                <ul>
+                    <li
+                    v-for="(image, index) in images"
+                    :key="index"
+                    >
+                        <input type="radio" :id="index" :value="image.url" v-model="selectedProduct.imgFile">
+                        <label :for="index">{{image.name}}</label>
+                    </li>
+                </ul>
+            </div>
 
-        <button class="adminButton" v-if="productChanged" @click="updateProduct">Update product</button>
+        <button class="adminButton" :disabled="!productChanged" @click="updateProduct">Update product</button>
 
         </div>
 
@@ -159,12 +170,28 @@ export default {
               url : "skateboard-greta.png"
           },          
           {
-              name : "Shirt",
+              name : "Black Shirt",
               url : "hoodie-ash.png"
           },          
           {
-              name : "Wheel",
+              name : "Red Shirt",
+              url : "hoodie-fire.png"
+          },
+          {
+              name : "Blue Shirt",
+              url : "hoodie-ocean.png"
+          },
+          {
+              name : "Red Wheel",
               url : "wheel-rocket.png"
+          },
+          {
+              name : "White Wheel",
+              url : "wheel-spinner.png"
+          },
+          {
+              name : "Blue Wheel",
+              url : "wheel-wave.png"
           },
       ]
   }},
@@ -290,9 +317,16 @@ export default {
         color: var(--White);
 
         display: grid;
-        grid-template-columns: .8fr 1fr 1fr;
+        grid-template-columns: repeat(6, 1fr);
+
+        .adminButton {
+            align-self: flex-start;
+            grid-column: 5 / span 2;
+        }
 
         .itemColumn {
+            grid-column: 3 / span 2;
+
             display: flex;
             flex-direction: column;
             margin: 1rem;
@@ -324,7 +358,13 @@ export default {
             }
         }
 
+        .itemDescription {
+            grid-column: 5 / span 2;
+        }
+
         .itemPhoto {
+            grid-column: 1 / span 2;
+
             .photo {
                 margin-top: .3rem;
                 height: 90%;
@@ -336,14 +376,12 @@ export default {
         }
 
         .radioImages {
-            grid-column: 1;
+            grid-column: 1 / span 2;
             
             ul {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 1.5rem;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                margin-left: 1rem;
 
                 li {
                     display: flex;
