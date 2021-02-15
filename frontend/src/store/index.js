@@ -77,11 +77,15 @@ const Admin = {
       // Make the API request
       let res = await API.createProduct(product, JSON.parse(localStorage.getItem('sinus-token')));
 
+      console.log(res);
+
       // If token has not expired (User auto logged out)
-      if(!res.expired) return res; // Return the response
+      if(!res.response.expired) return res; // Return the response
       else {
         // Clear local storage and prompt user to login again
-        context.state.logOut();
+        context.commit('logOutUser')
+        // return response anyway to prevent errors
+        return res;
       }
     },
   
@@ -91,10 +95,12 @@ const Admin = {
       let res = await API.updateProduct(product._id, product, JSON.parse(localStorage.getItem('sinus-token')));
       
       // If token has not expired (User auto logged out)
-      if(!res.expired) return res; // Return the response
+      if(!res.response.expired) return res; // Return the response
       else {
         // Clear local storage and prompt user to login again
-        context.state.logOut();
+        context.commit('logOutUser')
+        // return response anyway to prevent errors
+        return res;
       }
     },
     
@@ -104,10 +110,12 @@ const Admin = {
       let res = await API.deleteProduct(id, JSON.parse(localStorage.getItem('sinus-token')));
       
       // If token has not expired (User auto logged out)
-      if(!res.expired) return res; // Return the response
+      if(!res.response.expired) return res; // Return the response
       else {
         // Clear local storage and prompt user to login again
-        context.state.logOut();
+        context.commit('logOutUser')
+        // return response anyway to prevent errors
+        return res;
       }
     },
 
@@ -266,10 +274,12 @@ const User = {
       let res = await API.getCurrentUserInfo(JSON.parse(localStorage.getItem('sinus-token')));
 
       // If token has not expired (User auto logged out)
-      if(!res.expired) return res.response.user.payment; // Return the response
+      if(!res.response.expired) return res.response.user.payment; // Return the response
       else {
         // Clear local storage and prompt user to login again
-        state.state.logOut();
+        state.commit('logOutUser')
+        // return response anyway to prevent errors
+        return res;
       }
     },
 
@@ -297,10 +307,12 @@ const User = {
       let res = await API.getOrders(JSON.parse(localStorage.getItem('sinus-token')))
 
       // If token has not expired (User auto logged out)
-      if(!res.expired) return res; // Return the response
+      if(!res.response.expired) return res; // Return the response
       else {
         // Clear local storage and prompt user to login again
-        context.state.logOut();
+        context.commit('logOutUser')
+        // return response anyway to prevent errors
+        return res;
       }
     }
 
