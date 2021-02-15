@@ -48,6 +48,9 @@ module.exports = {
                 customer
             })       
 
+            // Update users payment details
+            await User.updatePaymentDetails(payment, user);
+
             // Add order to user's order history
             await User.addOrderToUser(order, user)
             

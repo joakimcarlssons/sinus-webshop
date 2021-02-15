@@ -61,7 +61,7 @@ module.exports = {
         if(passwordMatch){
             let token = await jwt.sign({
                 id:user._id,
-                exp: Math.floor(Date.now() / 1000) + (1 * 60)
+                exp: Math.floor(Date.now() / 1000) + (60 * 60)
             }, 'secret')
 
             const {email,name,role,adress} = user
@@ -80,5 +80,10 @@ module.exports = {
     async addOrderToUser(order, user){
         await users.update({_id:user._id}, 
             {$push:{orderHistory:order._id}})   
+    },
+
+    async updatePaymentDetails(payment, user) {
+        await users.update({_id:user._id}, 
+            {$set:{payment:payment}})   
     }
 }
