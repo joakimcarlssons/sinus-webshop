@@ -31,8 +31,10 @@ module.exports = {
             else if(user.role != "admin")
             { 
                 res.status(401).send({ 
-                    error: 'Unauthorized',
-                    expired: false
+                    error: {
+                        message: 'Unauthorized',
+                        expired: false
+                    }
                 })
             } else {
                 req.user = user           
@@ -41,8 +43,10 @@ module.exports = {
         } catch (error) {
             res.status(401)
             .send({ 
-                error: 'Unauthorized',
-                expired: true
+                error: {
+                    message: 'Unauthorized',
+                    expired: true
+                }
             })
         }
     
@@ -60,8 +64,10 @@ module.exports = {
             res.status(401)
             .send(
                 { 
-                    error: 'Unauthorized' ,
-                    expired: true
+                    error: {
+                        message: 'Unauthorized',
+                        expired: true
+                    }
                 })
         }
     
