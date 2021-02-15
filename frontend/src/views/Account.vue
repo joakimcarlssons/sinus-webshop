@@ -41,9 +41,6 @@ export default {
 
         // If no errors occurred...
         if(!res.error) this.orders = res.response // Save orders in local variable
-
-        // If errors occurred...
-        else alert(res.response) // Alert error to user
     }
 
     //#endregion

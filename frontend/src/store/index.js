@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 import * as m   from '@/mutations.js'
 import * as API from '@/api/index.js'
 import { GET_ORDERS } from '../mutations'
-import { router } from '../main.js'
+import router  from '../router'
 
 Vue.use(Vuex)
 
@@ -226,6 +226,10 @@ const User = {
       state.currentUser = null
       localStorage.removeItem('current-user')
       localStorage.removeItem('sinus-token')
+
+      // Send user to start page
+      router.push('/')
+
     }
 
     //#endregion
@@ -233,7 +237,6 @@ const User = {
 
   actions: {
     //#region API calls
-
       //#region  Login/Register
       
       // Attempts to login
@@ -391,31 +394,36 @@ export default new Vuex.Store({
     },
 
     // Update the visible nav items
-    setVisibleNavItems(state, navItems) {
-      state.visibleNavItems = navItems
-    },
+    setVisibleNavItems(state) {
 
-    // Reset the nav links to default mode
-    resetVisibleNavItems(state, logOut) {
+      // If logged in
+      if(JSON.parse(localStorage.getItem('current-user'))) {
+        let accountRoute = router.options.routes.find(x => x.path == '/account')
+        accountRoute.inNavLink = true
+        accountRoute.defaultVisibility = true
 
-      if(logOut) {
-
-        // If the user logs out, make a hard reset of the navbar
-        state.visibleNavItems.forEach(x => {
-          if(x.path == '/' || x.path == '/products') x.inNavLink = true
-          else {
-            x.inNavLink = false
-            x.defaultVisibility = false
-          }
-        })
+        // Check if user is admin
+        if(JSON.parse(localStorage.getItem('current-user')).role == 'admin') {
+          let adminRoute = router.options.routes.find(x => x.path == '/admin')
+          adminRoute.inNavLink = true
+          adminRoute.defaultVisibility = true
+        }
       }
+
+      // If no user is logged in...
       else {
-        state.visibleNavItems.forEach(x => {
-          x.inNavLink = x.defaultVisibility
-        })
-      }
-    }
 
+        //...and a user goes to the register page
+        if(router.currentRoute.fullPath == '/register') {
+          // Make the register navlink visible
+          router.options.routes.find(x => x.path == '/register').inNavLink = true
+        }
+
+      }
+
+      // Update visible nav items
+      state.visibleNavItems = router.options.routes.filter(x => x.inNavLink)
+    },
   },
 
   actions: {

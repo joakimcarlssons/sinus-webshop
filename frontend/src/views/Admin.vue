@@ -270,6 +270,8 @@ export default {
 
   created() {
     this.$store.dispatch(GET_ALL_PRODUCTS)
+
+    if(!this.$store.state.user.currentUser || this.$store.state.user.currentUser.role != 'admin') this.$router.push('/')
   },
 
   methods: {
