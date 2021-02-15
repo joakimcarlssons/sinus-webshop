@@ -56,7 +56,7 @@
                     </li>
                 </ul>
             </div>
-            <button class="adminButton" @click="addProduct">Add new product</button>
+            <button class="adminButton" :disabled="containsEmpty" @click="addProduct">{{addBtnContent}}</button>
         </div>
 
     </div>
@@ -116,35 +116,49 @@
                 </ul>
             </div>
 
-        <button class="adminButton" :disabled="!productChanged" @click="updateProduct">Update product</button>
+        <button class="adminButton" :disabled="!productChanged" @click="updateProduct">{{updateBtnContent}}</button>
 
         </div>
 
         <ul class="productList">
             <li
             v-for="(product, index) in allProducts"
-            :key="index"
+            :key="product._id"
             :style="`animation: zoomIn ${index - (index * 0.9)}s`"
             >
             <Product 
             :product="product"
             @updateProduct="setSelectedProduct"
-            @removeProduct="removeProduct"
+            @removeProduct="confirmRemoval"
             />
             </li>
         </ul>
         </div>
     </div>
     </div>
+
+    <!-- Confirmation Overlay -->
+    <transition
+    enter-active-class="animated zoomIn"
+    leave-active-class="animated zoomOut">
+      <div class="overlay" v-if="activeOverlay.name == 'confirmation' && activeOverlay.active">
+        <Confirmation 
+        :product="chosenProduct" 
+        :message="confirmationMessage"
+        @confirm="removeProduct" />
+      </div>
+    </transition>
+
   </div>
 </template>
 
 <script>
 import { GET_ALL_PRODUCTS } from '@/mutations.js'
 import Product from '@/components/Product'
+import Confirmation from '@/components/Confirmation'
 
 export default {
-  components: { Product },
+  components: { Product, Confirmation },
 
   data() { return {
 
@@ -154,6 +168,7 @@ export default {
           shortDesc: "",
           longDesc:  "",
           price:     0,
+          category: "boards",
           imgFile : "skateboard-generic.png"
       },
 
@@ -163,42 +178,68 @@ export default {
       images : [
           {
               name : "Skateboard",
-              url : "skateboard-generic.png"
+              url : "skateboard-generic.png",
+              category : "boards"
           },          
           {
               name : "Greta",
-              url : "skateboard-greta.png"
+              url : "skateboard-greta.png",
+              category : "boards"
           },          
           {
               name : "Black Shirt",
-              url : "hoodie-ash.png"
+              url : "hoodie-ash.png",
+              category : "clothes"
           },          
           {
               name : "Red Shirt",
-              url : "hoodie-fire.png"
+              url : "hoodie-fire.png",
+              category : "clothes"
           },
           {
               name : "Blue Shirt",
-              url : "hoodie-ocean.png"
+              url : "hoodie-ocean.png",
+              category : "clothes"
           },
           {
               name : "Red Wheel",
-              url : "wheel-rocket.png"
+              url : "wheel-rocket.png",
+              category : "wheels"
           },
           {
               name : "White Wheel",
-              url : "wheel-spinner.png"
+              url : "wheel-spinner.png",
+              category : "wheels"
           },
           {
               name : "Blue Wheel",
-              url : "wheel-wave.png"
+              url : "wheel-wave.png",
+              category : "wheels"
           },
-      ]
+      ],
+
+      confirmationMessage : "",
+      updateBtnContent : "Update product",
+      addBtnContent : "Add new product",
   }},
 
   computed: {
+
+    // Check if the product trying be added has empty props
+    containsEmpty() {
+        let isEmpty = false;
+
+        // Loop through all prop values in the product
+        Object.values(this.newProduct).forEach(val => {
+            // If value if null of empty
+            if(!val || val === '') isEmpty = true;
+        })
+
+        return isEmpty
+    },
+
     allProducts() {
-      return this.$store.state.products.allProducts
+      return this.$store.getters.getAllProducts
     },
 
     // Get the correct product image
@@ -221,7 +262,10 @@ export default {
         if (JSON.stringify(this.backupProduct) === JSON.stringify(this.selectedProduct)) return false;
 
         return true;
-    }
+    },
+
+    chosenProduct() { return this.$store.state.currentProductToBeDisplayed },
+    activeOverlay() { return this.$store.state.overlay },  
   },
 
   created() {
@@ -241,39 +285,76 @@ export default {
                 Object.assign(this.backupProduct, product);              
             }
       },
+
+      confirmRemoval(product) {
+            if(this.$store.state.overlay.active) {
+                this.$store.commit('resetOverlay')
+            }
+            else {
+                this.confirmationMessage = `Är du säker på att du vill ta bort ${product.title}?`
+
+                this.$store.commit('setProductToDisplay', product)
+                this.$store.commit('changeOverlay', { name: 'confirmation', active: true })
+            }
+      },
+
       // Fires when the 'delete' button is pressed on a product
       async removeProduct(product) {
-          // Delete the product
-          let res = await this.$store.dispatch('deleteProduct', product._id);
-          // Alert product if it could be deleted
-          if(!res.error) alert(res.response.message);
-          // Show error messag if product could not be deleted
-          else alert(res.response.error);
+
+          this.confirmationMessage = `${product.title} borttagen.`
+            // Delete the product
+            let res = await this.$store.dispatch('deleteProduct', product._id);
+            // Alert product if it could be deleted
+            if(!res.error) {
+                this.$store.commit('removeProduct', product)
+            }
+            // Show error messag if product could not be deleted
+            else alert(res.response.error);
+
+            setTimeout(() => {
+                this.$store.commit('resetOverlay');
+            }, 500)
       },
       async updateProduct() {
           // Update the product
           let res = await this.$store.dispatch('updateProduct', this.selectedProduct);
+
           // Alert product if it could be updated
-          if(!res.error) alert(res.response.message);
+          if(!res.error) {
+              Object.assign(this.backupProduct, this.selectedProduct)
+
+              this.updateBtnContent = "Product updated!"
+
+              setTimeout(() => {
+                  this.updateBtnContent = "Update product"
+              }, 500)
+          }
+
           // Show error messag if product could not be updated
           else alert(res.response.error);
       },
       // Fires when the 'Add new product' button is pressed
       async addProduct() {
-          // Declare switch to tell if product contain empty values
-          let containsEmpty = false;
-          // Loop through all prop values in the product
-          Object.values(this.newProduct).forEach(val => {
-              // If value if null of empty
-              if(!val || val === '') containsEmpty = true;
-          })
 
           // Create the product
-          if(!containsEmpty) {
+          if(!this.containsEmpty) {
+
+              // Set the category
+              this.newProduct.category = this.images.find(x => x.url == this.newProduct.imgFile).category
+
               // Create product
               let res = await this.$store.dispatch('createProduct', this.newProduct)
               // Alert user if no error was present
-              if(!res.error) alert("product created")
+              if(!res.error) { 
+                this.$store.commit('addProduct', res.response.product)
+                
+                this.addBtnContent = "Product added"
+
+                setTimeout(() => {
+                  this.addBtnContent = "Add new product"
+                }, 500)
+
+              }
           }
       }
   }

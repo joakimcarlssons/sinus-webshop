@@ -20,6 +20,22 @@ const Products = {
     // Get all
     [m.GET_ALL_PRODUCTS](state, products) {
       state.allProducts = products
+    },
+
+    // Add new product
+    addProduct(state, product) {
+      state.allProducts.push(product)
+    },
+
+    // Remove product
+    removeProduct(state, product) {
+      state.allProducts = state.allProducts.filter(x => x._id != product._id)
+    },
+
+    // Update product
+    updateProduct(state, product) {
+      let productToUpdate = state.allProducts.find(x => x._id == product._id)
+      productToUpdate = product
     }
   },
 
@@ -37,6 +53,10 @@ const Products = {
     async [m.GET_SINGLE_PRODUCT](context, id) {
       return await API.getProductById(id)
     }
+  },
+
+  getters : {
+    getAllProducts : state => { return state.allProducts }
   }
 }
 

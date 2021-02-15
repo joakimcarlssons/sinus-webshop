@@ -155,6 +155,7 @@ export default {
             align-self: flex-start;
             display: flex;
             align-items: center;
+            padding-left: 1.3rem;
 
             &:hover {
                 h4 {

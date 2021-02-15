@@ -46,21 +46,26 @@
         <ChosenProduct :product="chosenProduct" />
       </div>
     </transition>
-    
+
   </div>
 </template>
 
 <script>
+
+//#region  Imports
 import Nav from '@/components/Nav'
 import LogIn from '@/components/LogIn'
 import ChosenProduct from '@/components/ChosenProduct'
 import Cart from '@/components/Cart'
 import { SAVE_USER } from '@/mutations.js'
 
+//#endregion
+
 export default { 
   components : { Nav, LogIn, ChosenProduct, Cart },
 
-  data(){ return {
+  
+    Confirmationdata(){ return {
     showLogin : false,
     showCart : false
   }},
