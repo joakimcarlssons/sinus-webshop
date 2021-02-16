@@ -156,6 +156,7 @@ export default {
   margin:  0 2rem;
 
   header {
+    align-self: flex-end;
     display: flex;
     justify-content: space-between;
     align-items: center;

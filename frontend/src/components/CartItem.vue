@@ -15,7 +15,7 @@
 
     <div class="price">
         <h3>
-            <span v-if="forDisplay" :style="fontSize">{{item.amount}} st à </span>
+            <span v-if="forDisplay">{{item.amount}} st à </span>
              {{item.price}} SEK
         </h3>
         <div class="edit" v-if="!forDisplay">
