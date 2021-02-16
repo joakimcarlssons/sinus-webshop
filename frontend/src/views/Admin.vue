@@ -491,4 +491,33 @@ export default {
     }
 }
 
+@media screen and (max-width: 600px) {
+    .container {
+        .content {
+            .selectedItemContainer {
+                display: flex;
+                flex-direction: column;
+
+                .adminButton {
+                    align-self: center;
+                }
+
+                .radioImages {
+                    align-self: center;
+                    margin-top: 1rem;
+                    margin-bottom: 2rem;
+
+                    li {
+                        margin: 0 .5rem;
+                    }
+                }
+
+                .itemPhoto {
+                    height: 10rem;
+                }
+            }
+        }
+    }
+}
+
 </style>

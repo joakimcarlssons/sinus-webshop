@@ -84,6 +84,12 @@ export default {
     }
   },
 
+  methods: {
+      onResize() {
+          this.$store.commit('updateDeviceWidth', window.innerWidth)
+      },
+  },
+
   created() {
 
     //#region Set User
@@ -112,6 +118,9 @@ export default {
     }
 
     //#endregion
+
+    // Check for change in window size
+    window.addEventListener('resize', this.onResize)
 
   }
 }
@@ -147,6 +156,7 @@ export default {
   margin:  0 2rem;
 
   header {
+    align-self: flex-end;
     display: flex;
     justify-content: space-between;
     align-items: center;

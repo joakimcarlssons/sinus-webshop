@@ -240,6 +240,7 @@ export default {
   70% { transform: rotate(0deg) scale(1.2); }
   100% { transform: scale(1); }
 }
+
 // This is a class that applies the the '' in and out animation
 .animate {
   animation: hithere 1s ease;
@@ -320,6 +321,25 @@ export default {
         margin-top: 2rem;
         padding: 1rem 2rem;
       }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .container {
+    
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1fr;
+
+      button {
+        align-self: center;
+      }
+    }
   }
 }
 

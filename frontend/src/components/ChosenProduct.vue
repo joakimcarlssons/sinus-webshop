@@ -107,7 +107,47 @@ export default {
         }
 
     }
+}
 
+@media screen and (max-width: 780px) {
+.container {
+
+        .content {
+            grid-template-columns: 1fr;
+
+            .left {
+                background-size: contain;
+            }
+
+            .right {
+                justify-content: center;
+                text-align: center;
+                margin: 0 20rem;
+                
+                p {
+                }
+
+                button {
+                    margin-top: 2rem;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 340px) {
+    .container {
+        .content {
+            .right {
+                
+                .info {
+                    h1 { font-size: 2.8rem; }
+                }
+
+                margin: 0 28rem;
+            }
+        }
+    }
 }
 
 </style>

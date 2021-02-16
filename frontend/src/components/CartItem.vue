@@ -1,7 +1,7 @@
 <template>
-<div class="cartItem" :style="!forDisplay ? 'margin: 2rem' : 'margin: 0 2rem 2rem 0'">
+<div class="cartItem" :style="!forDisplay ? 'margin: 2rem' : 'margin: 0 2rem 2rem 0;'">
     <div class="left">
-        <div 
+        <div
         class="productImg"
         :style="'background-image: url(' + require(`@/assets/${item.imgFile}`) + ')'"
         ></div>
@@ -15,7 +15,7 @@
 
     <div class="price">
         <h3>
-            <span v-if="forDisplay" style="font-size: 1.4rem">{{item.amount}} st à </span>
+            <span v-if="forDisplay">{{item.amount}} st à </span>
              {{item.price}} SEK
         </h3>
         <div class="edit" v-if="!forDisplay">
@@ -47,7 +47,9 @@ export default {
         // Get the item quantity
         itemQTY: function() {
             return this.$store.getters.getCartItemQTY(this.item);
-        }
+        },
+
+        deviceWidth() { return this.$store.state.deviceWidth },
     }
 }
 </script>
@@ -141,6 +143,38 @@ export default {
                     transform: rotate(-90deg);
                     margin-right: .3rem;
                 }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 380px) {
+    h3 { font-size: 1rem; }
+    h4, p { font-size: .8rem; }
+
+    .price {
+        flex-direction: column;
+        align-items: center;
+
+        h3 {
+            align-self: flex-end;
+            font-size: 1rem;
+        }
+
+        .edit {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            .trash {
+                height: 1rem;
+                width: 1rem;
+                margin: .5rem;
+            }
+
+            .countContainer {
+
+                h4 { font-size: .9rem; }
             }
         }
     }

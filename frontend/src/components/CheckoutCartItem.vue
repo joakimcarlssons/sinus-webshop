@@ -97,4 +97,16 @@ export default {
     flex-direction: column;
 }
 
+@media screen and (max-width: 380px) {
+    .cartItem {
+        h3 {
+            font-size: 1rem;
+        }
+
+        .price {
+            margin-left: -1rem;
+        }
+    }
+}
+
 </style>

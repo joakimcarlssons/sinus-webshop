@@ -91,4 +91,16 @@ export default {
 
 }
 
+@media screen and (max-width: 280px) {
+  .container {
+    text-align: center;
+
+    .content {
+      button {
+        margin: 2rem;
+      }
+    }
+  }
+}
+
 </style>

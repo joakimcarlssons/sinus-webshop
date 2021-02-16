@@ -210,4 +210,19 @@ export default {
   animation-duration: .5s;
 }
 
+@media screen and (max-width: 380px) {
+  .container {
+    .orderHeader {
+      .top {
+        flex-direction: column;
+
+        .right {
+          align-self: flex-end;
+          margin-top: .5rem;
+        }
+      }
+    }
+  }
+}
+
 </style>

@@ -145,4 +145,14 @@ export default {
     animation: slideOutLeft .2s;
 }
 
+@media screen and (max-width: 280px) {
+.container {
+    .content {
+            .purchase {
+                width: 90%;
+            }
+        }
+    }
+}
+
 </style>

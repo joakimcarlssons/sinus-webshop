@@ -56,11 +56,19 @@ export default {
 
     computed: {
         currentUser() { return this.$store.state.user.currentUser },
-        arrowMargin() { 
-            if(this.$store.state.user.cart.length > 0 && this.currentUser) return 39
-            else if (this.$store.state.user.cart.length > 0 && !this.currentUser) return 74
-            else if (this.currentUser) return 47
-            else return 77
+        arrowMargin() {
+            if(this.$store.state.deviceWidth > 280) {
+                if(this.$store.state.user.cart.length > 0 && this.currentUser) return 39
+                else if (this.$store.state.user.cart.length > 0 && !this.currentUser) return 74
+                else if (this.currentUser) return 47
+                else return 77
+            }
+            else {
+                if(this.$store.state.user.cart.length > 0 && this.currentUser) return 55
+                else if (this.$store.state.user.cart.length > 0 && !this.currentUser) return 74
+                else if (this.currentUser) return 47
+                else return 77
+            }
         }
     },
 
@@ -190,6 +198,22 @@ export default {
                 width: 1.5rem;
             }
         }     
+    }
+}
+
+@media screen and (max-width: 280px) {
+    .container {
+        .content {
+            margin-right: -2rem;
+            align-items: center;
+            justify-content: center;
+
+            .bottom {
+                button {
+                    padding-left: 2.5rem;
+                }
+            }
+        }
     }
 }
 

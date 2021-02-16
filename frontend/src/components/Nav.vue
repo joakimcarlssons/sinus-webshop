@@ -1,6 +1,44 @@
 <template>
   <nav>
-      <ul>
+      <ul v-if="deviceWidth < 580" class="mobile">
+
+          <li>
+              <img 
+              src="@/assets/bars-solid.svg" 
+              alt=""
+              class="bars"
+              @click="toggleMobileNav"
+              >
+          </li>
+          <li>
+            <img 
+            src="@/assets/icon-user-black.svg" 
+            alt="" 
+            class="user"
+            @click="openLoginDialog"
+            />
+          </li>
+          <li class="navCart">
+            <img src="@/assets/icon-bag-white.svg" 
+            alt="" 
+            class="bag"
+            @click="openCartDialog"
+            @mouseover="counterOpacity = 0"
+            @mouseleave="counterOpacity = 1"
+            />
+                <div 
+                class="counter"         
+                :style="`opacity: ${counterOpacity};`" 
+                v-if="cartQuantity > 0"
+                :class="{flipInY : counterAnimationActive}"
+                >
+                {{cartQuantity}}
+            </div>
+          </li>
+
+      </ul>
+      <ul v-else>
+
           <li
           v-for="(route, index) in visibleNavItems"
           :key="index"
@@ -35,11 +73,24 @@
             </div>
           </li>
       </ul>
+
+    <!-- Mobile Nav overlay -->
+    <transition
+    enter-active-class="animated slideInDown"
+    leave-active-class="animated slideOutUp">
+      <div class="overlay" v-if="activeOverlay.name == 'mobileNav' && activeOverlay.active">
+        <MobileNav :navList="visibleNavItems" @close="toggleMobileNav" />
+      </div>
+    </transition>
   </nav>
 </template>
 
 <script>
+import MobileNav from '@/components/MobileNav'
+
 export default {
+    components: { MobileNav },
+
     computed: {        
         // Get the cart quantity
         // We make it a property to trigger animations on updates
@@ -57,6 +108,14 @@ export default {
 
         visibleNavItems() {
             return this.$store.state.visibleNavItems
+        },
+
+        activeOverlay() {
+            return this.$store.state.overlay
+        },
+
+        deviceWidth() {
+            return this.$store.state.deviceWidth
         }
     },
 
@@ -95,6 +154,16 @@ export default {
             }
             else {
                 this.$store.commit('changeOverlay', { name: 'cart', active: true })
+            }
+        },
+
+        toggleMobileNav() {
+
+            if(this.$store.state.overlay.active) {
+                this.$store.commit('resetOverlay')
+            }
+            else {
+                this.$store.commit('changeOverlay', { name: 'mobileNav', active: true })
             }
         }
     }
@@ -170,6 +239,29 @@ nav {
 
 .flipInY {
     animation: flipInY .8s;
+}
+
+@media screen and (max-width: 320px) {
+
+    .mobile {
+
+        .navCart {
+            .counter {
+                font-size: .8rem;
+                height: .3rem;
+                width: .3rem;
+                padding: .5rem;
+                margin-left: -.7rem;
+                margin-right: .2rem;
+            }
+        }
+
+        img {
+            height: 1.1rem;
+            width: 1.1rem;
+            padding: .5rem;
+        }
+    }
 }
 
 </style>

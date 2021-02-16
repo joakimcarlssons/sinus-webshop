@@ -364,7 +364,9 @@ export default new Vuex.Store({
     overlay : { name : "", active : false },
 
     // Array of all the visible nav items
-    visibleNavItems : []
+    visibleNavItems : [],
+
+    deviceWidth : window.innerWidth,
 
   },
   mutations: {
