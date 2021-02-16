@@ -140,19 +140,15 @@ const User = {
     //#region Cart mutations
 
     [m.RESET_CART](state) {
-
       // Reset the cart to default
       state.cart = []
-
       // Update backup in session storage
       updateCartInSessionStorage(state.cart)
     },
 
     [m.GET_CART_FROM_STORAGE](state) {
-
       // And then load the items from session storage
       state.cart = JSON.parse(sessionStorage.getItem('cart'))
-
     },
 
     [m.ADD_TO_CART](state, item) {
@@ -237,7 +233,6 @@ const User = {
       
       // Attempts to login
       async [m.LOGIN](context, credentials) {
-        
         // Try to login with the provided credentials
         let res = await API.login(credentials.email, credentials.password);
         
@@ -261,7 +256,10 @@ const User = {
       // This function can return an array of errors
       async [m.REGISTER](context, userData) {
         // Try to login with the provided credentials
-        return await API.register(userData.email, userData.password, userData.confirmPassword)
+        return await API.register(userData.email, 
+                                  userData.password, 
+                                  userData.confirmPassword,
+                                  userData.name)
       },
 
       //#endregion
@@ -274,7 +272,8 @@ const User = {
       let res = await API.getCurrentUserInfo(JSON.parse(localStorage.getItem('sinus-token')));
 
       // If token has not expired (User auto logged out)
-      if(!res.response.expired) return res.response.user.payment; // Return the response
+      if(!res.response.expired) return { payment: res.response.user.payment,
+                                         address: res.response.user.adress}; // Return the response
       else {
         // Clear local storage and prompt user to login again
         context.commit('logOutUser')
@@ -292,6 +291,11 @@ const User = {
         // Create object and add it to array
         parsedCart.push({id: p._id, amount: p.amount})
       });
+
+      // Server should never see or save this values
+      delete userData.payment.cvv;
+      delete userData.payment.validUntil;
+
       // Create the order
       let res = await API.addOrder(parsedCart,
         userData.user, userData.payment,

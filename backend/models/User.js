@@ -82,8 +82,14 @@ module.exports = {
             {$push:{orderHistory:order._id}})   
     },
 
+    // Updates the payment details of a user
     async updatePaymentDetails(payment, user) {
         await users.update({_id:user._id}, 
             {$set:{payment:payment}})   
+    },
+    // Updates the billing address
+    async updateBillingDetails(details, user) {
+        await users.update({_id:user._id}, 
+            {$set:{adress:details}})   
     }
 }
