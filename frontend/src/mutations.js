@@ -25,7 +25,7 @@ module.exports = {
     CART_TOTAL_PRICE: 'cartTotalPrice',
     GET_CART_ITEM_QTY: 'getCartItemQTY',
     GET_CART_QTY: 'cartQuantity',
-
+    UPDATE_DEVICE_WIDTH : 'updateDeviceWidth',
     SET_PRODUCT_TO_DISPLAY: 'setProductToDisplay',
     CHANGE_OVERLAY: 'changeOverlay',
     RESET_OVERLAY: 'resetOverlay',
