@@ -207,10 +207,12 @@ export default {
     },
     // Check if an object contains empty fields
     containsEmpty(obj) {
+      let res = false
         // Loop through all prop values in the object -- If value if null of empty
-        Object.values(obj).forEach(val => { if (this.isEmpty(val)) return true; })
-        // return the result
-        return false
+        Object.values(obj).forEach(val => { 
+          if (this.isEmpty(val)) { res = true; return; } })
+        // return the result        
+        return res
     },
 
     // Checks if a value is empty

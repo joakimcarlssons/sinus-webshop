@@ -23,17 +23,17 @@ const Products = {
     },
 
     // Add new product
-    addProduct(state, product) {
+    [m.ADD_PRPDUCT](state, product) {
       state.allProducts.push(product)
     },
 
     // Remove product
-    removeProduct(state, product) {
+    [m.REMOVE_PRPDUCT](state, product) {
       state.allProducts = state.allProducts.filter(x => x._id != product._id)
     },
 
     // Update product
-    updateProduct(state, product) {
+    [m.UPDATE_PRPDUCT](state, product) {
       let productToUpdate = state.allProducts.find(x => x._id == product._id)
       productToUpdate = product
     }
@@ -56,20 +56,12 @@ const Products = {
   },
 
   getters : {
-    getAllProducts : state => { return state.allProducts }
+    [m.GET_ALL_PRPDUCTS] : state => { return state.allProducts }
   }
 }
 
 // Admin module
 const Admin = {
-  state: () => ({
-
-  }),
-
-  mutations: {
-    
-  },
-
   actions: {
 
     // Creates a new product and adds it to the database
@@ -215,7 +207,7 @@ const User = {
       state.currentUser = data.user
     },
 
-    logOutUser(state) {
+    [m.LOGOUT_USER](state) {
       state.currentUser = null
       localStorage.removeItem('current-user')
       localStorage.removeItem('sinus-token')
@@ -328,7 +320,7 @@ const User = {
   getters : {
 
     // Get the total price of the current cart
-    cartTotalPrice : state => {
+    [m.CART_TOTAL_PRICE] : state => {
       let totalPrice = 0 // Create total with default of 0
       // Loop through all items in the cart
       state.cart.forEach(x => { totalPrice += (x.price * x.amount) }) // Add price times the product amount
@@ -337,7 +329,7 @@ const User = {
     },
 
     // Gets the quantity of an item in the cart
-    getCartItemQTY : state => item => {
+    [m.GET_CART_ITEM_QTY] : state => item => {
       // Return the qty of the cart item
       return state.cart[
         // Get the index of the passed item
@@ -346,7 +338,7 @@ const User = {
     },
 
     // Get the amount of items in cart
-    cartQuantity : state => {
+    [m.GET_CART_QTY] : state => {
       let qty = 0; // Create quantity variable with default of 0
       // Loop through all items in the cart
       state.cart.forEach(x => qty += x.amount) // Add item quantity
@@ -376,33 +368,18 @@ export default new Vuex.Store({
 
   },
   mutations: {
-
     // Update the product to display
-    setProductToDisplay(state, product) {
-      state.currentProductToBeDisplayed = product
-    },
+    [m.SET_PRODUCT_TO_DISPLAY]: (state, product) => state.currentProductToBeDisplayed = product,
 
     // Change the current overlay
-    changeOverlay(state, overlay) {
-      state.overlay = overlay
-    },
+    [m.CHANGE_OVERLAY]: (state, overlay) => state.overlay = overlay,
 
     // Close all active overlays
-    resetOverlay(state) {
-      state.overlay = { name: '', active: false }
-    },
+    [m.RESET_OVERLAY]: (state) => state.overlay = { name: '', active: false },
 
     // Update the visible nav items
-    setVisibleNavItems(state, routes) {
-
-      // Update visible nav items
-      state.visibleNavItems = routes.filter(x => x.inNavLink)
-    },
+    [m.SET_VISIBLE_NAV_ITEM]: (state, routes) => state.visibleNavItems = routes.filter(x => x.inNavLink),
   },
-
-  actions: {
-  },
-
   modules: {
     products : Products,
     user : User,
@@ -410,10 +387,13 @@ export default new Vuex.Store({
   }
 })
 
+//#region Helper functions
 
-// HELPERS //
+// Updates the cart in session storage
 function updateCartInSessionStorage(cart) {
   setTimeout(() => {
     sessionStorage.setItem('cart', JSON.stringify(cart))
   }, 0)
 }
+
+//#endregion

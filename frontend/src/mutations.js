@@ -17,5 +17,18 @@ module.exports = {
     CREATE_PRODUCT: 'createProduct',
     DELETE_PRODUCT: 'deleteProduct',
     UPDATE_PRODUCT: 'updateProduct',
+    ADD_PRPDUCT: 'addProduct',
+    REMOVE_PRPDUCT: 'removeProduct',
+    UPDATE_PRPDUCT: 'updateProduct',
+    GET_ALL_PRPDUCTS: 'getAllProducts',
+    LOGOUT_USER: 'logOutUser',
+    CART_TOTAL_PRICE: 'cartTotalPrice',
+    GET_CART_ITEM_QTY: 'getCartItemQTY',
+    GET_CART_QTY: 'cartQuantity',
+
+    SET_PRODUCT_TO_DISPLAY: 'setProductToDisplay',
+    CHANGE_OVERLAY: 'changeOverlay',
+    RESET_OVERLAY: 'resetOverlay',
+    SET_VISIBLE_NAV_ITEM: 'setVisibleNavItems',
 }
     
