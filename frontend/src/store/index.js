@@ -368,7 +368,9 @@ export default new Vuex.Store({
     overlay : { name : "", active : false },
 
     // Array of all the visible nav items
-    visibleNavItems : []
+    visibleNavItems : [],
+
+    deviceWidth : window.innerWidth,
 
   },
   mutations: {
@@ -394,6 +396,10 @@ export default new Vuex.Store({
       // Update visible nav items
       state.visibleNavItems = routes.filter(x => x.inNavLink)
     },
+
+    updateDeviceWidth(state, width) {
+      state.deviceWidth = width
+    }
   },
 
   actions: {

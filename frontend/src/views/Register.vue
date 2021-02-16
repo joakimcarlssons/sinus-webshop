@@ -29,19 +29,19 @@
 
         <!-- Name -->
         <label for="name">Name</label>
-        <input type="text" id="name" v-model="userData.name">
+        <input type="text" id="name" v-model="userData.name" v-on:keyup.enter="register">
 
         <!-- Email -->
         <label for="email">Email</label>
-        <input type="text" id="email" v-model="userData.email">
+        <input type="text" id="email" v-model="userData.email" v-on:keyup.enter="register">
 
         <!-- Password -->
         <label for="password">Password</label>
-        <input type="password" id="password" v-model="userData.password">
+        <input type="password" id="password" v-model="userData.password" v-on:keyup.enter="register">
 
         <!-- Confirm Password -->
         <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" v-model="userData.confirmPassword">
+        <input type="password" id="confirmPassword" v-model="userData.confirmPassword" v-on:keyup.enter="register">
 
         <!-- Error message -->
         <h4 class="errorMessage" v-if="errorMessage != ''">{{errorMessage}}</h4>
@@ -147,6 +147,20 @@ export default {
   .errorMessage {
     color: red;
     margin-bottom: 1rem;
+  }
+
+}
+
+@media screen and (max-width: 500px) {
+
+  .container {
+    .mainImg { text-align: center; }
+
+    .content {
+      grid-template-columns: 1fr;
+
+      .info, .form { margin-bottom: 2rem; }
+    }
   }
 
 }
