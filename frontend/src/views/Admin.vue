@@ -51,8 +51,8 @@
                     v-for="(image, index) in images"
                     :key="index"
                     >
-                        <input type="radio" :id="index" :value="image.url" v-model="newProduct.imgFile">
-                        <label :for="index">{{image.name}}</label>
+                        <input type="radio" :id="'new' + index" :value="image.url" v-model="newProduct.imgFile">
+                        <label :for="'new' + index">{{image.name}}</label>
                     </li>
                 </ul>
             </div>
@@ -313,6 +313,13 @@ export default {
             setTimeout(() => {
                 this.$store.commit('resetOverlay');
             }, 500)
+
+            // Reset selected product if it's the one being removed
+            if(this.selectedProduct.serial == product.serial) {
+                this.selectedProduct = {
+                    title : "", shortDesc : "", price : "", serial : "", longDesc : "", imgFile : ""
+                }
+            }
       },
       async updateProduct() {
           // Update the product
@@ -352,6 +359,11 @@ export default {
                 setTimeout(() => {
                   this.addBtnContent = "Add new product"
                 }, 500)
+
+                // Reset product
+                this.newProduct = {
+                    title : "", shortDesc : "", price : 0, serial : "", longDesc : "", category : "", imgFile : "skateboard-generic.png"
+                }
 
               }
           }

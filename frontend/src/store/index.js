@@ -380,6 +380,8 @@ export default new Vuex.Store({
 
     // Update the visible nav items
     [m.SET_VISIBLE_NAV_ITEM]: (state, routes) => state.visibleNavItems = routes.filter(x => x.inNavLink),
+
+    [m.UPDATE_DEVICE_WIDTH]: (state) => state.deviceWidth = window.innerWidth
   },
   modules: {
     products : Products,

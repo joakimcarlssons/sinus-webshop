@@ -10,7 +10,7 @@
           v-for="(route, index) in navList"
           :key="index"
           >
-              <router-link :to="route.path" @click.native="$store.commit('toggleMobileNavActive')">
+              <router-link :to="route.path">
               {{route.name}}
               </router-link>
 
