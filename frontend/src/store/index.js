@@ -265,7 +265,7 @@ const User = {
 
       // If token has not expired (User auto logged out)
       if(!res.response.expired) return { payment: res.response.user.payment,
-                                         address: res.response.user.adress}; // Return the response
+                                         user: {name : res.response.user.name, adress : res.response.user.adress }}; // Return the response
       else {
         // Clear local storage and prompt user to login again
         context.commit('logOutUser')

@@ -153,10 +153,11 @@ export default {
   async created() {
 
     if(this.$store.state.user.currentUser) {
+
       // Get userData
       let data = await this.$store.dispatch('getCurrentPaymentInfo')
       // Get the current user from the 
-      Object.assign(this.user, data.address);
+      Object.assign(this.user, data.user);
       // Get user's payment details
       Object.assign(this.payment, data.payment)
     }
