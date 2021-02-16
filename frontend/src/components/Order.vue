@@ -104,9 +104,9 @@ export default {
 
   //#region Return attributes from the current order, fallback values are needed
   adressName:   function() { return this.order.customer.name          || '-' }, // Get billing address name
-  adressStreet: function() { return this.order.customer.adress.street || '-' }, // Get billing address street
-  adressCity:   function() { return this.order.customer.adress.city   || '-' }, // Get billing address city
-  adressZip:    function() { return this.order.customer.adress.zip    || '-' }, // Get billing address zip code
+  adressStreet: function() { return this.order.customer.street || '-' }, // Get billing address street
+  adressCity:   function() { return this.order.customer.city   || '-' }, // Get billing address city
+  adressZip:    function() { return this.order.customer.zip    || '-' }, // Get billing address zip code
   
   orderID:       function() { return this.order._id || '-'},          // Get the order id
   orderProducts: function() { return this.order.orderProducts || [] } // Get items in the order

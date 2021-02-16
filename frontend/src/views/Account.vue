@@ -38,7 +38,6 @@ export default {
     async created() {
         // Get order history
         const res = await this.$store.dispatch(GET_ORDERS)
-
         // If no errors occurred...
         if(!res.error) this.orders = res.response // Save orders in local variable
     }

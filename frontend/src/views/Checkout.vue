@@ -43,23 +43,23 @@
       <div class="form">
 
         <label for="name">Name</label>
-        <input type="text" id="name" v-model="user.name"
-        :class="{'empty': showRed && isEmpty(user.name)}">
+        <input type="text" id="name" v-model="name"
+        :class="{'empty': showRed && isEmpty(name)}">
         
         <label for="adress">Street Address</label>
-        <input type="text" id="address" v-model="user.adress.street"
-        :class="{'empty': showRed && isEmpty(user.adress.street)}">
+        <input type="text" id="address" v-model="adress.street"
+        :class="{'empty': showRed && isEmpty(adress.street)}">
 
         <div class="bottom">
             <div class="formItem">
               <label for="city">City</label>
-              <input type="text" id="city" v-model="user.adress.city"
-              :class="{'empty': showRed && isEmpty(user.adress.city)}">
+              <input type="text" id="city" v-model="adress.city"
+              :class="{'empty': showRed && isEmpty(adress.city)}">
             </div>
             <div class="formItem">
               <label for="zipcode">Zip Code</label>
-              <input type="text" id="zipcode" v-model="user.adress.zip"
-              :class="{'empty': showRed && isEmpty(user.adress.zip)}">
+              <input type="text" id="zipcode" v-model="adress.zip"
+              :class="{'empty': showRed && isEmpty(adress.zip)}">
             </div>
         </div>
 
@@ -125,14 +125,13 @@ export default {
       Define user and payment variables here in case it is an
       anonymous customer
     */
-   // The current user
-    user: {
-      name:  "",
-      adress: {
-        street: "",
-        city:   "",
-        zip:    ""   
-      }
+   // The current user name
+   name:  "",
+   // The current user billing address
+    adress: {
+      street: "",
+      city:   "",
+      zip:    ""   
     },
     // Payment details
     payment: {
@@ -154,12 +153,15 @@ export default {
 
     if(this.$store.state.user.currentUser) {
 
+      this.name = this.$store.state.user.currentUser.name
       // Get userData
       let data = await this.$store.dispatch('getCurrentPaymentInfo')
       // Get the current user from the 
-      Object.assign(this.user, data.user);
+      Object.assign(this.adress, data.adress);
       // Get user's payment details
       Object.assign(this.payment, data.payment)
+
+      console.log(this.adress);
     }
   },
 
@@ -175,7 +177,7 @@ export default {
     // Creates the oreder
     createOrder: async function() {
       // If any required fields are empty...  
-      if(this.containsEmpty(this.user)||this.containsEmpty(this.payment)) {
+      if(this.containsEmpty(this.adress)||this.containsEmpty(this.payment)) {
         // Show red border on empty fields
         this.showRed = true;
         // Cancel the payment process
@@ -186,8 +188,10 @@ export default {
       if(this.$store.state.user.cart.length) {
         // This can fail if the server id down...
         try{
+          // Set billing name
+          this.adress.name = this.name
           // Create order and update user info and payment details
-          let res = await this.$store.dispatch('createOrder', {user: this.user, payment: this.payment})
+          let res = await this.$store.dispatch('createOrder', {adress: this.adress, payment: this.payment})
           
           if(!res.error) {
             this.$router.push('/orderdone')

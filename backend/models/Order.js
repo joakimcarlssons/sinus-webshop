@@ -28,7 +28,7 @@ module.exports = {
                 prod.amount = i.amount;
                 // Push item
                 orderProducts.push(prod);
-            })
+            })      
 
             // Create order
             const order = await orders.insert({
@@ -47,6 +47,9 @@ module.exports = {
                 // changes profile settings.
                 customer
             })       
+
+            // The customer name is not needed when updating the billing address
+            delete customer.name
 
             // Update users payment details
             await User.updatePaymentDetails(payment, user);

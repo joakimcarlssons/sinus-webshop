@@ -187,7 +187,8 @@ export async function getOrders(token) {
     return res;
 }
 // Create a order
-export async function addOrder(order, user, payment, token = null) {
+export async function addOrder(order, adress, payment, token = null) {
+    console.log(adress);
     // Return response
     let res = await axios({
         method: 'post',
@@ -198,7 +199,7 @@ export async function addOrder(order, user, payment, token = null) {
         },
         data: {
             items:    order,
-            customer: user,
+            customer: adress,
             payment:  payment
         }
     })

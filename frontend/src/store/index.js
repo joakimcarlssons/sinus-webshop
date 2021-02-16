@@ -262,10 +262,9 @@ const User = {
     async [m.GET_USER_PAYMENT_INFO](context){
       // Get info about the current user
       let res = await API.getCurrentUserInfo(JSON.parse(localStorage.getItem('sinus-token')));
-
       // If token has not expired (User auto logged out)
       if(!res.response.expired) return { payment: res.response.user.payment,
-                                         user: {name : res.response.user.name, adress : res.response.user.adress }}; // Return the response
+        adress: res.response.user.adress}; // Return the response
       else {
         // Clear local storage and prompt user to login again
         context.commit('logOutUser')
@@ -290,7 +289,7 @@ const User = {
 
       // Create the order
       let res = await API.addOrder(parsedCart,
-        userData.user, userData.payment,
+        userData.adress, userData.payment,
         // If a user is logged in, send the token
         JSON.parse(localStorage.getItem('sinus-token')));
       // return result
