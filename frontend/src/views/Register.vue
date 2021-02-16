@@ -91,7 +91,7 @@ export default {
         }
       } catch {
           // Show error message 
-          errorMessage = "Could not connect to server"
+          this.errorMessage = "Could not connect to server"
       }
 
     }

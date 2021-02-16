@@ -148,7 +148,7 @@ export default {
     }
 }
 
-@media screen and (max-width: 280px) {
+@media screen and (max-width: 380px) {
     h3 { font-size: 1rem; }
     h4, p { font-size: .8rem; }
 
@@ -175,9 +175,6 @@ export default {
             .countContainer {
 
                 h4 { font-size: .9rem; }
-
-                .incdec {
-                }
             }
         }
     }

@@ -210,7 +210,7 @@ export default {
   animation-duration: .5s;
 }
 
-@media screen and (max-width: 280px) {
+@media screen and (max-width: 380px) {
   .container {
     .orderHeader {
       .top {

@@ -38,6 +38,7 @@
 
       </ul>
       <ul v-else>
+
           <li
           v-for="(route, index) in visibleNavItems"
           :key="index"
@@ -157,6 +158,7 @@ export default {
         },
 
         toggleMobileNav() {
+
             if(this.$store.state.overlay.active) {
                 this.$store.commit('resetOverlay')
             }
@@ -239,7 +241,7 @@ nav {
     animation: flipInY .8s;
 }
 
-@media screen and (max-width: 285px) {
+@media screen and (max-width: 320px) {
 
     .mobile {
 
