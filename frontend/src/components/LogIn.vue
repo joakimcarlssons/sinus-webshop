@@ -51,7 +51,7 @@ export default {
         // Should be set to true if the user entered wrong credentials
         showErrorMessage: true,
         // This is the error text
-        errorText: ""
+        errorText: "",
     }},
 
     computed: {
@@ -76,24 +76,29 @@ export default {
     methods: {
         // Attempt logIn
         async LogIn() {
-            // Try to log in with the provided credentials
-            let res = await this.$store.dispatch('login', this.credentials);
-
-            // If login failed
-            if(res.error) {
-                // Show error message
-                this.showErrorMessage = true;
-                // Set error message
-                this.errorText = res.response
+            // This can fail if the server is down...
+            try{
+                // Try to log in with the provided credentials
+                let res = await this.$store.dispatch('login', this.credentials);
+    
+                // If login failed
+                if(res.error) {
+                    // Show error message
+                    this.showErrorMessage = true;
+                    // Set error message
+                    this.errorText = res.response
+                }
+                // If login was successful
+                else{
+                    // Hide error message (Even if the login view goes away)
+                    this.showErrorMessage = true;
+                    // Go to the account page
+                    this.$router.push('/account')
+                } 
+            } catch {
+                this.showErrorMessage = true
+                this.errorText = "Could not connect to server"
             }
-            // If login was successful
-            else{
-                // Hide error message (Even if the login view goes away)
-                this.showErrorMessage = true;
-                // Go to the account page
-                this.$router.push('/account')
-            } 
-
         },
 
         logOut() {

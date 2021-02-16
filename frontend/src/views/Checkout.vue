@@ -153,15 +153,12 @@ export default {
   async created() {
 
     if(this.$store.state.user.currentUser) {
-
+      // Get userData
+      let data = await this.$store.dispatch('getCurrentPaymentInfo')
       // Get the current user from the 
-      Object.assign(this.user, this.$store.state.user.currentUser);
-
+      Object.assign(this.user, data.address);
       // Get user's payment details
-      this.payment = await this.$store.dispatch('getCurrentPaymentInfo')
-
-      // Create cvv attr
-      this.payment.cvv = "";
+      Object.assign(this.payment, data.payment)
     }
   },
 
@@ -186,14 +183,20 @@ export default {
 
       // Only process the order if there are any items in the cart
       if(this.$store.state.user.cart.length) {
-        // Create order and update user info and payment details
-        let res = await this.$store.dispatch('createOrder', {user: this.user, payment: this.payment})
-        
-        if(!res.error) {
-          this.$router.push('/orderdone')
-
-          // Empty the cart
-          this.$store.commit(RESET_CART)
+        // This can fail if the server id down...
+        try{
+          // Create order and update user info and payment details
+          let res = await this.$store.dispatch('createOrder', {user: this.user, payment: this.payment})
+          
+          if(!res.error) {
+            this.$router.push('/orderdone')
+  
+            // Empty the cart
+            this.$store.commit(RESET_CART)
+          }
+        } catch {
+          // Alert the user
+          alert("Could not connect to server")
         }
 
       } else {
@@ -204,19 +207,14 @@ export default {
     },
     // Check if an object contains empty fields
     containsEmpty(obj) {
-        let isEmpty = false;
-        // Loop through all prop values in the object
-        Object.values(obj).forEach(val => { isEmpty = this.isEmpty(val); // If value if null of empty
-        })
+        // Loop through all prop values in the object -- If value if null of empty
+        Object.values(obj).forEach(val => { if (this.isEmpty(val)) return true; })
         // return the result
-        return isEmpty
+        return false
     },
 
     // Checks if a value is empty
-    isEmpty(val) {
-      if(!val || val === '') return true; // If value if null of empty
-      else return false;
-    },
+    isEmpty: (val) => (!val || val === '') ? true : false, // If value if null of empty  
 
     // When animation is done on text
     animationDone: function() {

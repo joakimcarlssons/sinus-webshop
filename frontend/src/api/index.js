@@ -38,7 +38,7 @@ export async function login(userEmail, userPassword) {
     return res;
 }
 // Register a new user
-export async function register(userEmail, userPassword, userRepeatPassword) {   
+export async function register(userEmail, userPassword, userRepeatPassword, userName) {   
     // Return response
     let res =  await axios({
         method: 'post',
@@ -47,7 +47,8 @@ export async function register(userEmail, userPassword, userRepeatPassword) {
         data: {
             email:          userEmail,
             password:       userPassword,
-            repeatPassword: userRepeatPassword
+            repeatPassword: userRepeatPassword,
+            name: userName
         }
     })
     // Handle successful request

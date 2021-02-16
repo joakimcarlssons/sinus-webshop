@@ -77,15 +77,21 @@ export default {
   methods: {
     // Register the new user
     register: async function() {
-      // Register
-      let res = await this.$store.dispatch('register', this.userData);
-
-      if(res.error) res.response.forEach(err => {
-        this.errorMessage = err
-      });
-      else {
-        let res = await this.$store.dispatch(LOGIN, {email:this.userData.email, password:this.userData.password })
-        if(!res.error) this.$router.push('/account')
+      // This can fail if the server is down...
+      try{
+        // Register
+        let res = await this.$store.dispatch('register', this.userData);
+  
+        if(res.error) res.response.forEach(err => {
+          this.errorMessage = err
+        });
+        else {
+          let res = await this.$store.dispatch(LOGIN, {email:this.userData.email, password:this.userData.password })
+          if(!res.error) this.$router.push('/account')
+        }
+      } catch {
+          // Show error message 
+          errorMessage = "Could not connect to server"
       }
 
     }

@@ -4,8 +4,8 @@ const Product = require('./Product')
 const User = require('./User')
 
 function validate(body){
-    let {items} = body
-    if(items){ return true }
+    let {items, customer, payment} = body
+    if(items || customer || payment){ return true }
     return false
 }
 
@@ -50,6 +50,8 @@ module.exports = {
 
             // Update users payment details
             await User.updatePaymentDetails(payment, user);
+            // Update the users billing address
+            await User.updateBillingDetails(customer, user)
 
             // Add order to user's order history
             await User.addOrderToUser(order, user)
