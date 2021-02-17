@@ -3,7 +3,7 @@
   <ul class="productList">
     <li
     v-for="(product, index) in allProducts"
-    :key="index"
+    :key="product._id"
     :style="`animation: zoomIn ${index - (index * 0.9)}s`"
     >
     <Product 
